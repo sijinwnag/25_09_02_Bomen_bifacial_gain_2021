@@ -1,0 +1,306 @@
+2025-09-04 15:23:45,669 - INFO - Project root: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021
+2025-09-04 15:23:45,669 - INFO - PVsyst directory: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\param optimisation
+2025-09-04 15:23:45,670 - INFO - Starting batch evaluation of PVsyst files
+2025-09-04 15:23:45,670 - ERROR - Required electrical data file not found: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_site_pow_5min.pkl
+2025-09-04 15:23:45,670 - ERROR - Could not load measured electrical data. Aborting batch evaluation.
+2025-09-04 15:24:45,582 - INFO - Project root: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021
+2025-09-04 15:24:45,582 - INFO - PVsyst directory: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\param optimisation
+2025-09-04 15:24:45,583 - INFO - Starting batch evaluation of PVsyst files
+2025-09-04 15:24:45,583 - INFO - Loading measured electrical data from: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_site_pow_5min.pkl
+2025-09-04 15:24:45,595 - INFO - Raw data shape: (385920, 2)
+2025-09-04 15:24:45,596 - INFO - Columns: ['Timestamp', 'Power']
+2025-09-04 15:24:45,607 - INFO - Converted Power from W to MW. Range: -0.528 to 102.863 MW
+2025-09-04 15:24:45,624 - INFO - Set Timestamp as index. Date range: 2020-06-01 00:00:00 to 2024-01-31 23:55:00
+2025-09-04 15:24:45,625 - INFO - Successfully loaded 385920 measured data points
+2025-09-04 15:24:45,631 - INFO - Loaded 233 maintenance-free days
+2025-09-04 15:24:45,633 - INFO - Found 20 PVsyst CSV files to process
+2025-09-04 15:24:45,633 - INFO - Processing file 1/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_17_Hay.CSV
+2025-09-04 15:24:45,633 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_17_Hay.CSV
+2025-09-04 15:24:45,827 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_17_Hay.CSV
+2025-09-04 15:24:45,827 - INFO - Processing measured electrical data...
+2025-09-04 15:24:45,833 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:45,857 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:45,858 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:45,858 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:45,860 - INFO - Simulation daily energy range: 0.00 to 1192.13 MWh/day
+2025-09-04 15:24:45,865 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:45,868 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:45,869 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:45,875 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:45,878 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_17_Hay.CSV: RMSE=16.958, MBE=-4.220563e-14, CRMSE=16.958, Scale=0.998236
+2025-09-04 15:24:45,880 - INFO - Processing file 2/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_18_Hay.CSV
+2025-09-04 15:24:45,881 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_18_Hay.CSV
+2025-09-04 15:24:46,053 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_18_Hay.CSV
+2025-09-04 15:24:46,054 - INFO - Processing measured electrical data...
+2025-09-04 15:24:46,059 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:46,076 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:46,077 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:46,077 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:46,081 - INFO - Simulation daily energy range: 0.00 to 1202.81 MWh/day
+2025-09-04 15:24:46,084 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:46,086 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:46,086 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:46,095 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:46,098 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_18_Hay.CSV: RMSE=17.649, MBE=8.831467e-14, CRMSE=17.649, Scale=0.991640
+2025-09-04 15:24:46,101 - INFO - Processing file 3/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U16.CSV
+2025-09-04 15:24:46,101 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U16.CSV
+2025-09-04 15:24:46,307 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U16.CSV
+2025-09-04 15:24:46,307 - INFO - Processing measured electrical data...
+2025-09-04 15:24:46,312 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:46,323 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:46,323 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:46,323 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:46,326 - INFO - Simulation daily energy range: 0.00 to 1187.54 MWh/day
+2025-09-04 15:24:46,329 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:46,330 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:46,331 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:46,336 - INFO - Converged! Found factor with MBE below tolerance after 50 iterations.
+2025-09-04 15:24:46,338 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U16.CSV: RMSE=16.280, MBE=6.928554e-14, CRMSE=16.280, Scale=0.990414
+2025-09-04 15:24:46,340 - INFO - Processing file 4/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U17.CSV
+2025-09-04 15:24:46,340 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U17.CSV
+2025-09-04 15:24:46,540 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U17.CSV
+2025-09-04 15:24:46,540 - INFO - Processing measured electrical data...
+2025-09-04 15:24:46,546 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:46,557 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:46,558 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:46,558 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:46,560 - INFO - Simulation daily energy range: 0.00 to 1200.25 MWh/day
+2025-09-04 15:24:46,563 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:46,565 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:46,565 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:46,573 - INFO - Reached numerical precision limit after 51 iterations.
+2025-09-04 15:24:46,575 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U17.CSV: RMSE=16.764, MBE=-1.522330e-13, CRMSE=16.764, Scale=0.982652
+2025-09-04 15:24:46,577 - INFO - Processing file 5/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U18.CSV
+2025-09-04 15:24:46,578 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U18.CSV
+2025-09-04 15:24:46,755 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U18.CSV
+2025-09-04 15:24:46,756 - INFO - Processing measured electrical data...
+2025-09-04 15:24:46,760 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:46,777 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:46,777 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:46,777 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:46,781 - INFO - Simulation daily energy range: 0.00 to 1210.73 MWh/day
+2025-09-04 15:24:46,784 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:46,786 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:46,786 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:46,796 - INFO - Converged! Found factor with MBE below tolerance after 50 iterations.
+2025-09-04 15:24:46,799 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U18.CSV: RMSE=17.232, MBE=8.977845e-14, CRMSE=17.232, Scale=0.976097
+2025-09-04 15:24:46,801 - INFO - Processing file 6/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U19.CSV
+2025-09-04 15:24:46,801 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U19.CSV
+2025-09-04 15:24:46,991 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U19.CSV
+2025-09-04 15:24:46,991 - INFO - Processing measured electrical data...
+2025-09-04 15:24:46,996 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:47,010 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:47,011 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:47,011 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:47,014 - INFO - Simulation daily energy range: 0.00 to 1219.62 MWh/day
+2025-09-04 15:24:47,015 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:47,016 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:47,016 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:47,020 - INFO - Reached numerical precision limit after 51 iterations.
+2025-09-04 15:24:47,021 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U19.CSV: RMSE=17.671, MBE=1.095395e-13, CRMSE=17.671, Scale=0.970444
+2025-09-04 15:24:47,023 - INFO - Processing file 7/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U20.CSV
+2025-09-04 15:24:47,023 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U20.CSV
+2025-09-04 15:24:47,182 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U20.CSV
+2025-09-04 15:24:47,183 - INFO - Processing measured electrical data...
+2025-09-04 15:24:47,186 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:47,203 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:47,204 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:47,204 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:47,208 - INFO - Simulation daily energy range: 0.00 to 1227.28 MWh/day
+2025-09-04 15:24:47,210 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:47,213 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:47,213 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:47,222 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:47,224 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U20.CSV: RMSE=18.079, MBE=-6.343042e-15, CRMSE=18.079, Scale=0.965492
+2025-09-04 15:24:47,226 - INFO - Processing file 8/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U21.CSV
+2025-09-04 15:24:47,226 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U21.CSV
+2025-09-04 15:24:47,412 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U21.CSV
+2025-09-04 15:24:47,413 - INFO - Processing measured electrical data...
+2025-09-04 15:24:47,419 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:47,436 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:47,437 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:47,437 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:47,441 - INFO - Simulation daily energy range: 0.00 to 1233.96 MWh/day
+2025-09-04 15:24:47,444 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:47,446 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:47,446 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:47,455 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:47,458 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U21.CSV: RMSE=18.452, MBE=-4.586508e-14, CRMSE=18.452, Scale=0.961118
+2025-09-04 15:24:47,460 - INFO - Processing file 9/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U22.CSV
+2025-09-04 15:24:47,460 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U22.CSV
+2025-09-04 15:24:47,647 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U22.CSV
+2025-09-04 15:24:47,647 - INFO - Processing measured electrical data...
+2025-09-04 15:24:47,653 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:47,670 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:47,671 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:47,671 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:47,674 - INFO - Simulation daily energy range: 0.00 to 1239.85 MWh/day
+2025-09-04 15:24:47,677 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:47,679 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:47,679 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:47,687 - INFO - Converged! Found factor with MBE below tolerance after 50 iterations.
+2025-09-04 15:24:47,690 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U22.CSV: RMSE=18.791, MBE=1.512572e-14, CRMSE=18.791, Scale=0.957228
+2025-09-04 15:24:47,692 - INFO - Processing file 10/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U23.CSV
+2025-09-04 15:24:47,692 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U23.CSV
+2025-09-04 15:24:47,885 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U23.CSV
+2025-09-04 15:24:47,886 - INFO - Processing measured electrical data...
+2025-09-04 15:24:47,891 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:47,907 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:47,908 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:47,908 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:47,911 - INFO - Simulation daily energy range: 0.00 to 1245.16 MWh/day
+2025-09-04 15:24:47,914 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:47,917 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:47,917 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:47,924 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-09-04 15:24:47,927 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U23.CSV: RMSE=19.098, MBE=-9.099826e-14, CRMSE=19.098, Scale=0.953748
+2025-09-04 15:24:47,929 - INFO - Processing file 11/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U24.CSV
+2025-09-04 15:24:47,929 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U24.CSV
+2025-09-04 15:24:48,121 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U24.CSV
+2025-09-04 15:24:48,121 - INFO - Processing measured electrical data...
+2025-09-04 15:24:48,127 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:48,143 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:48,144 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:48,145 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:48,149 - INFO - Simulation daily energy range: 0.00 to 1249.90 MWh/day
+2025-09-04 15:24:48,151 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:48,152 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:48,153 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:48,160 - INFO - Reached numerical precision limit after 51 iterations.
+2025-09-04 15:24:48,162 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U24.CSV: RMSE=19.376, MBE=-1.471098e-13, CRMSE=19.376, Scale=0.950615
+2025-09-04 15:24:48,164 - INFO - Processing file 12/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U25.CSV
+2025-09-04 15:24:48,165 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U25.CSV
+2025-09-04 15:24:48,350 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U25.CSV
+2025-09-04 15:24:48,350 - INFO - Processing measured electrical data...
+2025-09-04 15:24:48,354 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:48,369 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:48,369 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:48,369 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:48,372 - INFO - Simulation daily energy range: 0.00 to 1254.19 MWh/day
+2025-09-04 15:24:48,373 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:48,374 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:48,375 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:48,381 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:48,383 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U25.CSV: RMSE=19.626, MBE=-9.026637e-15, CRMSE=19.626, Scale=0.947782
+2025-09-04 15:24:48,384 - INFO - Processing file 13/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U26.CSV
+2025-09-04 15:24:48,385 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U26.CSV
+2025-09-04 15:24:48,527 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U26.CSV
+2025-09-04 15:24:48,528 - INFO - Processing measured electrical data...
+2025-09-04 15:24:48,531 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:48,543 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:48,544 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:48,544 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:48,547 - INFO - Simulation daily energy range: 0.00 to 1258.02 MWh/day
+2025-09-04 15:24:48,550 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:48,551 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:48,552 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:48,557 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:48,559 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U26.CSV: RMSE=19.850, MBE=1.805327e-14, CRMSE=19.850, Scale=0.945210
+2025-09-04 15:24:48,560 - INFO - Processing file 14/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U27.CSV
+2025-09-04 15:24:48,560 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U27.CSV
+2025-09-04 15:24:48,725 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U27.CSV
+2025-09-04 15:24:48,725 - INFO - Processing measured electrical data...
+2025-09-04 15:24:48,729 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:48,738 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:48,739 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:48,739 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:48,742 - INFO - Simulation daily energy range: 0.00 to 1261.45 MWh/day
+2025-09-04 15:24:48,745 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:48,746 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:48,746 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:48,752 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:48,754 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U27.CSV: RMSE=20.052, MBE=-3.903411e-15, CRMSE=20.052, Scale=0.942864
+2025-09-04 15:24:48,756 - INFO - Processing file 15/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U28.CSV
+2025-09-04 15:24:48,756 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U28.CSV
+2025-09-04 15:24:48,914 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U28.CSV
+2025-09-04 15:24:48,914 - INFO - Processing measured electrical data...
+2025-09-04 15:24:48,920 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:48,929 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:48,930 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:48,930 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:48,932 - INFO - Simulation daily energy range: 0.00 to 1264.46 MWh/day
+2025-09-04 15:24:48,933 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:48,934 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:48,934 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:48,938 - INFO - Converged! Found factor with MBE below tolerance after 50 iterations.
+2025-09-04 15:24:48,939 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U28.CSV: RMSE=20.233, MBE=6.977347e-14, CRMSE=20.233, Scale=0.940716
+2025-09-04 15:24:48,940 - INFO - Processing file 16/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U30.CSV
+2025-09-04 15:24:48,940 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U30.CSV
+2025-09-04 15:24:49,132 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U30.CSV
+2025-09-04 15:24:49,133 - INFO - Processing measured electrical data...
+2025-09-04 15:24:49,138 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:49,155 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:49,155 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:49,155 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:49,159 - INFO - Simulation daily energy range: 0.00 to 1269.50 MWh/day
+2025-09-04 15:24:49,161 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:49,163 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:49,164 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:49,172 - INFO - Reached numerical precision limit after 51 iterations.
+2025-09-04 15:24:49,174 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_1_U30.CSV: RMSE=20.543, MBE=-1.558925e-13, CRMSE=20.543, Scale=0.936926
+2025-09-04 15:24:49,176 - INFO - Processing file 17/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15.CSV
+2025-09-04 15:24:49,176 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15.CSV
+2025-09-04 15:24:49,380 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15.CSV
+2025-09-04 15:24:49,381 - INFO - Processing measured electrical data...
+2025-09-04 15:24:49,387 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:49,404 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:49,405 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:49,405 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:49,408 - INFO - Simulation daily energy range: 0.00 to 1171.21 MWh/day
+2025-09-04 15:24:49,411 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:49,413 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:49,414 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:49,423 - INFO - Reached numerical precision limit after 51 iterations.
+2025-09-04 15:24:49,426 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15.CSV: RMSE=15.901, MBE=1.114912e-13, CRMSE=15.901, Scale=0.999943
+2025-09-04 15:24:49,428 - INFO - Processing file 18/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15_Hay.CSV
+2025-09-04 15:24:49,428 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15_Hay.CSV
+2025-09-04 15:24:49,582 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15_Hay.CSV
+2025-09-04 15:24:49,583 - INFO - Processing measured electrical data...
+2025-09-04 15:24:49,588 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:49,601 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:49,602 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:49,602 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:49,604 - INFO - Simulation daily energy range: 0.00 to 1163.42 MWh/day
+2025-09-04 15:24:49,606 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:49,607 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:49,607 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:49,612 - INFO - Converged! Found factor with MBE below tolerance after 51 iterations.
+2025-09-04 15:24:49,615 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U15_Hay.CSV: RMSE=15.351, MBE=-7.026139e-14, CRMSE=15.351, Scale=1.015523
+2025-09-04 15:24:49,618 - INFO - Processing file 19/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U16_Hay.CSV
+2025-09-04 15:24:49,618 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U16_Hay.CSV
+2025-09-04 15:24:49,793 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U16_Hay.CSV
+2025-09-04 15:24:49,793 - INFO - Processing measured electrical data...
+2025-09-04 15:24:49,797 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:49,806 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:49,807 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:49,807 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:49,811 - INFO - Simulation daily energy range: 0.00 to 1179.39 MWh/day
+2025-09-04 15:24:49,814 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:49,816 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:49,816 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:49,825 - INFO - Converged! Found factor with MBE below tolerance after 49 iterations.
+2025-09-04 15:24:49,828 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U16_Hay.CSV: RMSE=16.179, MBE=-8.245955e-14, CRMSE=16.179, Scale=1.006021
+2025-09-04 15:24:49,830 - INFO - Processing file 20/20: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U29.CSV
+2025-09-04 15:24:49,830 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U29.CSV
+2025-09-04 15:24:50,000 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U29.CSV
+2025-09-04 15:24:50,001 - INFO - Processing measured electrical data...
+2025-09-04 15:24:50,004 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-04 15:24:50,019 - INFO - Resampled to daily totals: 1340 days
+2025-09-04 15:24:50,019 - INFO - Daily energy range: 0.00 to 1162.41 MWh/day
+2025-09-04 15:24:50,019 - INFO - Processing PVsyst simulation data...
+2025-09-04 15:24:50,023 - INFO - Simulation daily energy range: 0.00 to 1267.13 MWh/day
+2025-09-04 15:24:50,025 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-04 15:24:50,027 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-04 15:24:50,027 - INFO - Keeping zero values in dataset
+2025-09-04 15:24:50,036 - INFO - Reached numerical precision limit after 51 iterations.
+2025-09-04 15:24:50,038 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VCG_HourlyRes_U29.CSV: RMSE=20.396, MBE=1.131989e-13, CRMSE=20.396, Scale=0.938742
+2025-09-04 15:24:50,050 - INFO - Results saved to: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\pvsyst_batch_evaluation_results.csv
+2025-09-04 15:24:50,051 - INFO - 
+==================================================
+2025-09-04 15:24:50,051 - INFO - BATCH EVALUATION SUMMARY
+2025-09-04 15:24:50,051 - INFO - ==================================================
+2025-09-04 15:24:50,052 - INFO - Files processed successfully: 20
+2025-09-04 15:24:50,052 - INFO - Average RMSE: 18.224 ± 1.647
+2025-09-04 15:24:50,053 - INFO - Average CRMSE: 18.224 ± 1.647
+2025-09-04 15:24:50,054 - INFO - Average scaling factor: 0.968571 ± 0.024900
+2025-09-04 15:24:50,055 - INFO - Average data points per file: 233.0
