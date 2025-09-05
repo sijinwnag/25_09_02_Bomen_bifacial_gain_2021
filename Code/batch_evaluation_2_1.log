@@ -1,0 +1,226 @@
+2025-09-05 17:43:08,942 - INFO - Project root: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021
+2025-09-05 17:43:08,944 - INFO - Selected inverter: 2-1
+2025-09-05 17:43:08,945 - INFO - PVsyst directory: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1
+2025-09-05 17:43:08,945 - INFO - Starting batch evaluation of PVsyst files
+2025-09-05 17:43:08,946 - INFO - Loading measured electrical data from: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_inv_pow_5min.pkl
+2025-09-05 17:43:09,076 - INFO - Raw data shape: (385920, 45)
+2025-09-05 17:43:09,077 - INFO - Available inverters: ['1-1', '1-2', '10-1', '10-2', '11-1', '11-2', '12-1', '12-2', '13-1', '13-2', '14-1', '14-2', '15-1', '15-2', '16-1', '16-2', '17-1', '17-2', '18-1', '18-2', '19-1', '19-2', '2-1', '2-2', '20-1', '20-2', '21-1', '21-2', '22-1', '22-2', '3-1', '3-2', '4-1', '4-2', '5-1', '5-2', '6-1', '6-2', '7-1', '7-2', '8-1', '8-2', '9-1', '9-2']
+2025-09-05 17:43:09,118 - INFO - Set Timestamp as index. Date range: 2020-06-01 00:00:00 to 2024-01-31 23:55:00
+2025-09-05 17:43:09,136 - INFO - Filtered to inverter 2-1. Power range: -0.014 to 2.733 MW
+2025-09-05 17:43:09,137 - INFO - Successfully loaded 385920 measured data points for inverter 2-1
+2025-09-05 17:43:09,171 - INFO - Loaded 233 maintenance-free days
+2025-09-05 17:43:09,174 - INFO - Found 1 PVsyst CSV files to process
+2025-09-05 17:43:09,175 - INFO - Processing file 1/1: 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV
+2025-09-05 17:43:09,175 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV
+2025-09-05 17:43:09,544 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV
+2025-09-05 17:43:09,545 - INFO - Processing measured electrical data...
+2025-09-05 17:43:09,550 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:43:09,601 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:43:09,614 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:43:09,615 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:43:09,621 - INFO - Simulation daily energy range: 0.00 to 25.30 MWh/day
+2025-09-05 17:43:09,643 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:43:09,653 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:43:09,657 - INFO - Keeping zero values in dataset
+2025-09-05 17:43:09,687 - INFO - Converged! Found factor with MBE below tolerance after 45 iterations.
+2025-09-05 17:43:09,700 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV: RMSE=0.716, MBE=-8.127023e-15, CRMSE=0.716, Scale=0.954777
+2025-09-05 17:43:09,713 - INFO - Results saved to: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\pvsyst_batch_evaluation_results_2_1.csv
+2025-09-05 17:43:09,714 - INFO - 
+==================================================
+2025-09-05 17:43:09,714 - INFO - BATCH EVALUATION SUMMARY
+2025-09-05 17:43:09,714 - INFO - ==================================================
+2025-09-05 17:43:09,715 - INFO - Files processed successfully: 1
+2025-09-05 17:43:09,716 - INFO - Average RMSE: 0.716 ± nan
+2025-09-05 17:43:09,717 - INFO - Average CRMSE: 0.716 ± nan
+2025-09-05 17:43:09,718 - INFO - Average scaling factor: 0.954777 ± nan
+2025-09-05 17:43:09,718 - INFO - Average data points per file: 233.0
+2025-09-05 17:44:17,913 - INFO - Project root: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021
+2025-09-05 17:44:17,915 - INFO - Selected inverter: 2-1
+2025-09-05 17:44:17,915 - INFO - PVsyst directory: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1
+2025-09-05 17:44:17,916 - INFO - Starting batch evaluation of PVsyst files
+2025-09-05 17:44:17,917 - INFO - Loading measured electrical data from: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_inv_pow_5min.pkl
+2025-09-05 17:44:18,054 - INFO - Raw data shape: (385920, 45)
+2025-09-05 17:44:18,054 - INFO - Available inverters: ['1-1', '1-2', '10-1', '10-2', '11-1', '11-2', '12-1', '12-2', '13-1', '13-2', '14-1', '14-2', '15-1', '15-2', '16-1', '16-2', '17-1', '17-2', '18-1', '18-2', '19-1', '19-2', '2-1', '2-2', '20-1', '20-2', '21-1', '21-2', '22-1', '22-2', '3-1', '3-2', '4-1', '4-2', '5-1', '5-2', '6-1', '6-2', '7-1', '7-2', '8-1', '8-2', '9-1', '9-2']
+2025-09-05 17:44:18,078 - INFO - Set Timestamp as index. Date range: 2020-06-01 00:00:00 to 2024-01-31 23:55:00
+2025-09-05 17:44:18,095 - INFO - Filtered to inverter 2-1. Power range: -0.014 to 2.733 MW
+2025-09-05 17:44:18,096 - INFO - Successfully loaded 385920 measured data points for inverter 2-1
+2025-09-05 17:44:18,120 - INFO - Loaded 233 maintenance-free days
+2025-09-05 17:44:18,122 - INFO - Found 12 PVsyst CSV files to process
+2025-09-05 17:44:18,123 - INFO - Processing file 1/12: 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV
+2025-09-05 17:44:18,123 - INFO - Loading PVsyst file: 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV
+2025-09-05 17:44:18,442 - INFO - Successfully loaded 8736 data points from 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV
+2025-09-05 17:44:18,443 - INFO - Processing measured electrical data...
+2025-09-05 17:44:18,448 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:18,485 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:18,486 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:18,487 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:18,492 - INFO - Simulation daily energy range: 0.00 to 25.30 MWh/day
+2025-09-05 17:44:18,497 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:18,501 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:18,501 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:18,514 - INFO - Converged! Found factor with MBE below tolerance after 45 iterations.
+2025-09-05 17:44:18,518 - INFO - Results for 25_08_25_Bowen Solar Farm 2021_VC1_HourlyRes_2-1.CSV: RMSE=0.716, MBE=-8.127023e-15, CRMSE=0.716, Scale=0.954777
+2025-09-05 17:44:18,520 - INFO - Processing file 2/12: inv 2-1 Perez Uc14Uv0.csv
+2025-09-05 17:44:18,521 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv0.csv
+2025-09-05 17:44:18,839 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv0.csv
+2025-09-05 17:44:18,840 - INFO - Processing measured electrical data...
+2025-09-05 17:44:18,846 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:18,870 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:18,871 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:18,871 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:18,877 - INFO - Simulation daily energy range: 0.00 to 22.18 MWh/day
+2025-09-05 17:44:18,881 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:18,884 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:18,885 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:18,898 - INFO - Converged! Found factor with MBE below tolerance after 43 iterations.
+2025-09-05 17:44:18,903 - INFO - Results for inv 2-1 Perez Uc14Uv0.csv: RMSE=0.734, MBE=-5.207851e-14, CRMSE=0.734, Scale=1.041782
+2025-09-05 17:44:18,906 - INFO - Processing file 3/12: inv 2-1 Perez Uc14Uv1.csv
+2025-09-05 17:44:18,907 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv1.csv
+2025-09-05 17:44:19,223 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv1.csv
+2025-09-05 17:44:19,224 - INFO - Processing measured electrical data...
+2025-09-05 17:44:19,229 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:19,252 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:19,253 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:19,253 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:19,258 - INFO - Simulation daily energy range: 0.00 to 23.96 MWh/day
+2025-09-05 17:44:19,262 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:19,265 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:19,265 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:19,278 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-09-05 17:44:19,282 - INFO - Results for inv 2-1 Perez Uc14Uv1.csv: RMSE=0.727, MBE=4.620815e-14, CRMSE=0.727, Scale=1.002942
+2025-09-05 17:44:19,284 - INFO - Processing file 4/12: inv 2-1 Perez Uc14Uv10.csv
+2025-09-05 17:44:19,284 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv10.csv
+2025-09-05 17:44:19,614 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv10.csv
+2025-09-05 17:44:19,615 - INFO - Processing measured electrical data...
+2025-09-05 17:44:19,620 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:19,643 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:19,644 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:19,645 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:19,649 - INFO - Simulation daily energy range: 0.00 to 26.78 MWh/day
+2025-09-05 17:44:19,653 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:19,656 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:19,656 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:19,670 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-09-05 17:44:19,673 - INFO - Results for inv 2-1 Perez Uc14Uv10.csv: RMSE=0.772, MBE=-9.582416e-14, CRMSE=0.772, Scale=0.931907
+2025-09-05 17:44:19,675 - INFO - Processing file 5/12: inv 2-1 Perez Uc14Uv2.csv
+2025-09-05 17:44:19,676 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv2.csv
+2025-09-05 17:44:20,011 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv2.csv
+2025-09-05 17:44:20,012 - INFO - Processing measured electrical data...
+2025-09-05 17:44:20,018 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:20,041 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:20,042 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:20,043 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:20,048 - INFO - Simulation daily energy range: 0.00 to 24.87 MWh/day
+2025-09-05 17:44:20,052 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:20,055 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:20,055 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:20,069 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-09-05 17:44:20,073 - INFO - Results for inv 2-1 Perez Uc14Uv2.csv: RMSE=0.741, MBE=6.939609e-14, CRMSE=0.741, Scale=0.982546
+2025-09-05 17:44:20,075 - INFO - Processing file 6/12: inv 2-1 Perez Uc14Uv3.csv
+2025-09-05 17:44:20,076 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv3.csv
+2025-09-05 17:44:20,400 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv3.csv
+2025-09-05 17:44:20,401 - INFO - Processing measured electrical data...
+2025-09-05 17:44:20,406 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:20,428 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:20,429 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:20,430 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:20,435 - INFO - Simulation daily energy range: 0.00 to 25.43 MWh/day
+2025-09-05 17:44:20,438 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:20,441 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:20,442 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:20,455 - INFO - Converged! Found factor with MBE below tolerance after 45 iterations.
+2025-09-05 17:44:20,459 - INFO - Results for inv 2-1 Perez Uc14Uv3.csv: RMSE=0.750, MBE=4.368466e-15, CRMSE=0.750, Scale=0.969163
+2025-09-05 17:44:20,461 - INFO - Processing file 7/12: inv 2-1 Perez Uc14Uv4.csv
+2025-09-05 17:44:20,462 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv4.csv
+2025-09-05 17:44:20,791 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv4.csv
+2025-09-05 17:44:20,792 - INFO - Processing measured electrical data...
+2025-09-05 17:44:20,798 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:20,822 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:20,823 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:20,824 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:20,828 - INFO - Simulation daily energy range: 0.00 to 25.81 MWh/day
+2025-09-05 17:44:20,833 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:20,836 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:20,836 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:20,851 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-09-05 17:44:20,855 - INFO - Results for inv 2-1 Perez Uc14Uv4.csv: RMSE=0.757, MBE=1.143577e-17, CRMSE=0.757, Scale=0.959566
+2025-09-05 17:44:20,856 - INFO - Processing file 8/12: inv 2-1 Perez Uc14Uv5.csv
+2025-09-05 17:44:20,857 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv5.csv
+2025-09-05 17:44:21,180 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv5.csv
+2025-09-05 17:44:21,181 - INFO - Processing measured electrical data...
+2025-09-05 17:44:21,187 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:21,211 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:21,212 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:21,213 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:21,219 - INFO - Simulation daily energy range: 0.00 to 26.09 MWh/day
+2025-09-05 17:44:21,222 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:21,225 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:21,225 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:21,238 - INFO - Converged! Found factor with MBE below tolerance after 42 iterations.
+2025-09-05 17:44:21,241 - INFO - Results for inv 2-1 Perez Uc14Uv5.csv: RMSE=0.761, MBE=6.672774e-14, CRMSE=0.761, Scale=0.952278
+2025-09-05 17:44:21,243 - INFO - Processing file 9/12: inv 2-1 Perez Uc14Uv6.csv
+2025-09-05 17:44:21,243 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv6.csv
+2025-09-05 17:44:21,539 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv6.csv
+2025-09-05 17:44:21,540 - INFO - Processing measured electrical data...
+2025-09-05 17:44:21,544 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:21,566 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:21,567 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:21,568 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:21,573 - INFO - Simulation daily energy range: 0.00 to 26.29 MWh/day
+2025-09-05 17:44:21,577 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:21,579 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:21,579 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:21,592 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-09-05 17:44:21,597 - INFO - Results for inv 2-1 Perez Uc14Uv6.csv: RMSE=0.765, MBE=6.309116e-14, CRMSE=0.765, Scale=0.946531
+2025-09-05 17:44:21,599 - INFO - Processing file 10/12: inv 2-1 Perez Uc14Uv7.csv
+2025-09-05 17:44:21,600 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv7.csv
+2025-09-05 17:44:21,929 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv7.csv
+2025-09-05 17:44:21,929 - INFO - Processing measured electrical data...
+2025-09-05 17:44:21,934 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:21,958 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:21,959 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:21,960 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:21,965 - INFO - Simulation daily energy range: 0.00 to 26.46 MWh/day
+2025-09-05 17:44:21,969 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:21,972 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:21,972 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:21,985 - INFO - Converged! Found factor with MBE below tolerance after 43 iterations.
+2025-09-05 17:44:21,990 - INFO - Results for inv 2-1 Perez Uc14Uv7.csv: RMSE=0.767, MBE=-2.828448e-15, CRMSE=0.767, Scale=0.941866
+2025-09-05 17:44:21,992 - INFO - Processing file 11/12: inv 2-1 Perez Uc14Uv8.csv
+2025-09-05 17:44:21,992 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv8.csv
+2025-09-05 17:44:22,298 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv8.csv
+2025-09-05 17:44:22,298 - INFO - Processing measured electrical data...
+2025-09-05 17:44:22,303 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:22,327 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:22,328 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:22,329 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:22,334 - INFO - Simulation daily energy range: 0.00 to 26.59 MWh/day
+2025-09-05 17:44:22,338 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:22,342 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:22,343 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:22,358 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-09-05 17:44:22,361 - INFO - Results for inv 2-1 Perez Uc14Uv8.csv: RMSE=0.769, MBE=-2.790329e-14, CRMSE=0.769, Scale=0.937990
+2025-09-05 17:44:22,363 - INFO - Processing file 12/12: inv 2-1 Perez Uc14Uv9.csv
+2025-09-05 17:44:22,364 - INFO - Loading PVsyst file: inv 2-1 Perez Uc14Uv9.csv
+2025-09-05 17:44:22,658 - INFO - Successfully loaded 8736 data points from inv 2-1 Perez Uc14Uv9.csv
+2025-09-05 17:44:22,658 - INFO - Processing measured electrical data...
+2025-09-05 17:44:22,663 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-09-05 17:44:22,685 - INFO - Resampled to daily totals: 1340 days
+2025-09-05 17:44:22,686 - INFO - Daily energy range: 0.00 to 24.73 MWh/day
+2025-09-05 17:44:22,686 - INFO - Processing PVsyst simulation data...
+2025-09-05 17:44:22,691 - INFO - Simulation daily energy range: 0.00 to 26.69 MWh/day
+2025-09-05 17:44:22,694 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-09-05 17:44:22,697 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-09-05 17:44:22,698 - INFO - Keeping zero values in dataset
+2025-09-05 17:44:22,711 - INFO - Converged! Found factor with MBE below tolerance after 43 iterations.
+2025-09-05 17:44:22,715 - INFO - Results for inv 2-1 Perez Uc14Uv9.csv: RMSE=0.770, MBE=7.152695e-14, CRMSE=0.770, Scale=0.934716
+2025-09-05 17:44:22,727 - INFO - Results saved to: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\pvsyst_batch_evaluation_results_2_1.csv
+2025-09-05 17:44:22,728 - INFO - 
+==================================================
+2025-09-05 17:44:22,728 - INFO - BATCH EVALUATION SUMMARY
+2025-09-05 17:44:22,729 - INFO - ==================================================
+2025-09-05 17:44:22,729 - INFO - Files processed successfully: 12
+2025-09-05 17:44:22,730 - INFO - Average RMSE: 0.752 ± 0.019
+2025-09-05 17:44:22,731 - INFO - Average CRMSE: 0.752 ± 0.019
+2025-09-05 17:44:22,731 - INFO - Average scaling factor: 0.963005 ± 0.032371
+2025-09-05 17:44:22,732 - INFO - Average data points per file: 233.0
