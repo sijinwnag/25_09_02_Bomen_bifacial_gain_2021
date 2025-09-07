@@ -1,0 +1,4 @@
+2025-09-07 17:00:41,237 - INFO - Model type detected from folder path: Perez
+2025-09-07 17:00:41,239 - INFO - Model type detected from filenames: Perez
+2025-09-07 17:00:41,240 - INFO - Multiple models detected: {'Perez': 2, 'Hay': 1}. Using most common: Perez
+2025-09-07 17:14:48,585 - INFO - Model type detected from folder path: Perez
