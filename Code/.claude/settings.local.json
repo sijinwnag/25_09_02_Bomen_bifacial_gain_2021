@@ -3,7 +3,10 @@
     "allow": [
       "Read(C:\\Users\\z5183876\\.claude/**)",
       "Read(C:\\Users\\z5183876/**)",
-      "Read(C:\\Users\\z5183876\\OneDrive - UNSW\\Documents\\GitHub\\25_09_02_Bomen_bifacial_gain_2021/**)"
+      "Read(C:\\Users\\z5183876\\OneDrive - UNSW\\Documents\\GitHub\\25_09_02_Bomen_bifacial_gain_2021/**)",
+      "Read(//c/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/**)",
+      "Bash(python:*)",
+      "Bash(del inverter_clipping_analysis.py)"
     ],
     "deny": [],
     "ask": []
