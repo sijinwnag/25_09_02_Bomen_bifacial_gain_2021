@@ -21,8 +21,10 @@ import numpy as np
 import os
 import glob
 import logging
+import re
 from pathlib import Path
 from sklearn.metrics import mean_squared_error
+from collections import Counter
 import warnings
 
 warnings.filterwarnings('ignore')
@@ -40,28 +42,306 @@ logging.basicConfig(
 class PVsystBatchEvaluator:
     """Batch processor for PVsyst simulation files evaluation"""
     
-    def __init__(self, project_root=None):
-        """Initialize the batch evaluator with project paths"""
+    def __init__(self, project_root=None, optimization_folder=None, apply_clipping=None, clipping_threshold=None):
+        """Initialize the batch evaluator with project paths and interactive configuration"""
         if project_root is None:
             # Auto-detect project root
             current_dir = Path(__file__).parent
             project_root = current_dir.parent
-        
+
         self.project_root = Path(project_root)
         self.data_dir = self.project_root / "Data"
         self.results_dir = self.project_root / "Results"
-        self.pvsyst_dir = self.data_dir / "PVsyst" / "param optimisation"
-        
+
+        # Select optimization folder if not provided
+        if optimization_folder is None:
+            self.optimization_folder = self.select_optimization_folder()
+        else:
+            self.optimization_folder = optimization_folder
+
+        # Configure power clipping if not provided
+        if apply_clipping is None or clipping_threshold is None:
+            self.apply_clipping, self.clipping_threshold = self.configure_power_clipping()
+        else:
+            self.apply_clipping = apply_clipping
+            self.clipping_threshold = clipping_threshold
+
+        # Set PVsyst directory based on selected optimization folder
+        if self.optimization_folder:
+            self.pvsyst_dir = Path(self.optimization_folder)
+        else:
+            # Fallback to default structure if no optimization folder specified
+            self.pvsyst_dir = self.data_dir / "PVsyst" / "param optimisation"
+
         # Ensure results directory exists
         self.results_dir.mkdir(exist_ok=True)
-        
+
         # Configuration
         self.target_mbe_tolerance = 1e-13
         self.max_iterations = 100
-        
+
         logging.info(f"Project root: {self.project_root}")
+        logging.info(f"Selected optimization folder: {self.optimization_folder}")
         logging.info(f"PVsyst directory: {self.pvsyst_dir}")
-        
+        logging.info(f"Power clipping enabled: {self.apply_clipping}")
+        if self.apply_clipping:
+            logging.info(f"Clipping threshold: {self.clipping_threshold} MW")
+
+    def validate_optimization_folder(self, folder_path):
+        """Validate optimization folder exists and contains CSV files"""
+        folder_path = Path(folder_path)
+
+        if not folder_path.exists():
+            logging.error(f"Optimization folder does not exist: {folder_path}")
+            return False
+
+        if not folder_path.is_dir():
+            logging.error(f"Path is not a directory: {folder_path}")
+            return False
+
+        # Check for CSV files
+        csv_files = list(folder_path.glob("*.CSV")) + list(folder_path.glob("*.csv"))
+        if not csv_files:
+            logging.error(f"No CSV files found in optimization folder: {folder_path}")
+            return False
+
+        logging.info(f"Found {len(csv_files)} CSV files in optimization folder: {folder_path}")
+        return True
+
+    def select_optimization_folder(self):
+        """Prompt user to select optimization folder for whole-site analysis"""
+        print(f"\n{'='*60}")
+        print("OPTIMIZATION FOLDER SELECTION - WHOLE SITE ANALYSIS")
+        print(f"{'='*60}")
+
+        # Check for available optimization subfolders in default location
+        default_site_dir = self.data_dir / "PVsyst" / "param optimisation"
+        available_subfolders = []
+
+        if default_site_dir.exists():
+            subfolders = [d for d in default_site_dir.iterdir() if d.is_dir()]
+            if subfolders:
+                print(f"\nAvailable optimization folders for whole-site analysis:")
+                for i, subfolder in enumerate(subfolders, 1):
+                    csv_count = len(list(subfolder.glob("*.CSV")) + list(subfolder.glob("*.csv")))
+                    print(f"  {i}. {subfolder.name} ({csv_count} CSV files)")
+                    available_subfolders.append(subfolder)
+
+                print(f"  {len(subfolders) + 1}. Use default folder: {default_site_dir}")
+                print(f"  {len(subfolders) + 2}. Custom folder (enter full path)")
+            else:
+                print(f"\nDefault site optimization folder: {default_site_dir}")
+                print("  1. Use default folder")
+                print("  2. Custom folder (enter full path)")
+        else:
+            print(f"\nDefault optimization folder not found: {default_site_dir}")
+            print("Please specify a custom folder path.")
+
+        # Get user selection for optimization folder
+        selected_folder = None
+        while True:
+            try:
+                if available_subfolders:
+                    choice = input(f"\nSelect optimization folder (1-{len(available_subfolders) + 2}) or enter full path: ").strip()
+
+                    # Check if it's a number selection
+                    try:
+                        choice_num = int(choice)
+                        if 1 <= choice_num <= len(available_subfolders):
+                            selected_folder = str(available_subfolders[choice_num - 1])
+                            break
+                        elif choice_num == len(available_subfolders) + 1:
+                            # Use default folder
+                            if self.validate_optimization_folder(default_site_dir):
+                                selected_folder = str(default_site_dir)
+                                break
+                            else:
+                                print("Default folder validation failed. Please try again.")
+                                continue
+                        elif choice_num == len(available_subfolders) + 2:
+                            # User wants to enter custom path
+                            custom_path = input("Enter full path to optimization folder: ").strip()
+                            custom_path = custom_path.strip('"\'')
+                            if self.validate_optimization_folder(custom_path):
+                                selected_folder = custom_path
+                                break
+                            else:
+                                print("Please try again with a valid folder path.")
+                                continue
+                        else:
+                            print(f"Invalid selection. Please choose 1-{len(available_subfolders) + 2} or enter a full path.")
+                            continue
+                    except ValueError:
+                        # Not a number, treat as custom path
+                        choice = choice.strip('"\'')
+                        if self.validate_optimization_folder(choice):
+                            selected_folder = choice
+                            break
+                        else:
+                            print("Please try again with a valid folder path.")
+                            continue
+                else:
+                    # No subfolders found, ask for custom path or use default
+                    if default_site_dir.exists():
+                        choice = input(f"Enter optimization folder path or press Enter for default ({default_site_dir}): ").strip()
+                        if not choice:
+                            # Use default
+                            if self.validate_optimization_folder(default_site_dir):
+                                selected_folder = str(default_site_dir)
+                                break
+                            else:
+                                print("Default folder validation failed. Please enter a custom path.")
+                                continue
+                        else:
+                            # Custom path
+                            choice = choice.strip('"\'')
+                            if self.validate_optimization_folder(choice):
+                                selected_folder = choice
+                                break
+                            else:
+                                print("Please try again with a valid folder path.")
+                                continue
+                    else:
+                        # No default folder exists
+                        custom_path = input("Enter full path to optimization folder: ").strip()
+                        custom_path = custom_path.strip('"\'')
+                        if self.validate_optimization_folder(custom_path):
+                            selected_folder = custom_path
+                            break
+                        else:
+                            print("Please try again with a valid folder path.")
+                            continue
+
+            except KeyboardInterrupt:
+                print("\nOperation cancelled by user.")
+                raise SystemExit(1)
+
+        print(f"Selected optimization folder: {selected_folder}")
+        return selected_folder
+
+    def configure_power_clipping(self):
+        """Configure power clipping settings for whole-site analysis"""
+        print(f"\n{'='*60}")
+        print("POWER CLIPPING CONFIGURATION - WHOLE SITE")
+        print(f"{'='*60}")
+        print("Power clipping limits simulation power values to prevent unrealistic peaks.")
+        print("This is applied to raw power data before daily energy conversion.")
+        print("For whole-site analysis, consider the total site capacity.")
+
+        # Ask user if they want to apply clipping
+        while True:
+            try:
+                clipping_choice = input("\nApply power clipping to simulation data? (y/n): ").strip().lower()
+
+                if clipping_choice in ['y', 'yes']:
+                    apply_clipping = True
+                    break
+                elif clipping_choice in ['n', 'no']:
+                    apply_clipping = False
+                    clipping_threshold = None
+                    print("Power clipping disabled.")
+                    return apply_clipping, clipping_threshold
+                else:
+                    print("Please enter 'y' for yes or 'n' for no.")
+
+            except KeyboardInterrupt:
+                print("\nOperation cancelled by user.")
+                raise SystemExit(1)
+
+        # If clipping is enabled, ask for threshold
+        while True:
+            try:
+                threshold_input = input("Enter clipping threshold in MW (default 100.0 MW for whole site): ").strip()
+
+                if not threshold_input:
+                    # Use default for whole site
+                    clipping_threshold = 100.0
+                    break
+                else:
+                    # Validate user input
+                    clipping_threshold = float(threshold_input)
+                    if clipping_threshold <= 0:
+                        print("Clipping threshold must be a positive number. Please try again.")
+                        continue
+                    break
+
+            except ValueError:
+                print("Please enter a valid number for the clipping threshold.")
+                continue
+            except KeyboardInterrupt:
+                print("\nOperation cancelled by user.")
+                raise SystemExit(1)
+
+        print(f"Power clipping enabled with threshold: {clipping_threshold} MW")
+        return apply_clipping, clipping_threshold
+
+    def extract_parameters_from_filename(self, filename):
+        """Extract Uc, Uv values and model name from PVsyst filename for whole-site analysis"""
+        try:
+            # Pattern: "Bomen solar farm 2021 {Uc} {Uv} {model_type} model.csv"
+            # Example: "Bomen solar farm 2021 11 0.0 Perez model.csv"
+            # Allow for optional Uv parameter
+            pattern = r"Bomen solar farm 2021 (\d+(?:\.\d+)?) (?:(\d+(?:\.\d+)?) )?(\w+) model\.csv"
+
+            match = re.search(pattern, filename, re.IGNORECASE)
+            if match:
+                uc_str, uv_str, model_name = match.groups()
+
+                # Convert to appropriate numeric types
+                uc_value = float(uc_str) if '.' in uc_str else int(uc_str)
+
+                # Handle optional Uv parameter
+                if uv_str is not None:
+                    uv_value = float(uv_str) if '.' in uv_str else int(uv_str)
+                else:
+                    uv_value = 0.0
+                    logging.info(f"No Uv parameter found in {filename}, using default value: 0.0")
+
+                logging.debug(f"Extracted from {filename}: Uc={uc_value}, Uv={uv_value}, Model={model_name}")
+                return uc_value, uv_value, model_name
+            else:
+                logging.warning(f"Could not extract parameters from filename: {filename}")
+                # Return defaults for whole-site analysis when pattern doesn't match
+                logging.info(f"Using default values for {filename}: Uc=None, Uv=0.0, Model=Unknown")
+                return None, 0.0, "Unknown"
+
+        except Exception as e:
+            logging.error(f"Error extracting parameters from filename {filename}: {e}")
+            return None, 0.0, "Unknown"
+
+    def detect_transpositional_model(self, results):
+        """Detect transpositional model type from folder path or results for whole-site analysis"""
+        try:
+            # First try to extract from folder path (more reliable)
+            if hasattr(self, 'optimization_folder') and self.optimization_folder:
+                folder_name = Path(self.optimization_folder).name.lower()
+                if folder_name in ['perez', 'hay', 'isotropic']:
+                    model_name = folder_name.capitalize()
+                    logging.info(f"Model type detected from folder path: {model_name}")
+                    return model_name
+
+            # Fallback: analyze results to determine most common model
+            model_names = [r.get('model_name') for r in results if r and r.get('model_name') and r.get('model_name') != 'Unknown']
+            if model_names:
+                # Use most common model type
+                model_counts = Counter(model_names)
+                most_common_model = model_counts.most_common(1)[0][0]
+
+                # Log information about model distribution
+                if len(model_counts) > 1:
+                    logging.info(f"Multiple models detected: {dict(model_counts)}. Using most common: {most_common_model}")
+                else:
+                    logging.info(f"Model type detected from filenames: {most_common_model}")
+
+                return most_common_model
+            else:
+                logging.warning("No model type could be detected from folder path or filenames")
+                return "Unknown"
+
+        except Exception as e:
+            logging.error(f"Error detecting transpositional model: {e}")
+            return "Unknown"
+
     def load_maintenance_free_days(self):
         """Load maintenance-free days from text file"""
         maintenance_file = self.results_dir / "remaining_dates_2021.txt"
@@ -171,12 +451,22 @@ class PVsystBatchEvaluator:
                 
             if pd.api.types.is_object_dtype(df['EArray']):
                 df['EArray'] = pd.to_numeric(
-                    df['EArray'].str.replace(',', '.'), 
+                    df['EArray'].str.replace(',', '.'),
                     errors='coerce'
                 )
-            
+
+            # Apply clipping to raw power values BEFORE energy conversion
+            if self.apply_clipping:
+                original_max = df['EArray'].max()
+                clipped_count = (df['EArray'] > self.clipping_threshold).sum()
+                df['EArray'] = df['EArray'].clip(upper=self.clipping_threshold)
+                logging.info(f"Applied {self.clipping_threshold} MW clipping to {file_path.name}: {clipped_count} values clipped")
+                logging.info(f"Maximum power reduced from {original_max:.2f} MW to {df['EArray'].max():.2f} MW")
+            else:
+                logging.info(f"No clipping applied to {file_path.name} (clipping disabled)")
+
             df.set_index('timestamp', inplace=True)
-            
+
             logging.info(f"Successfully loaded {len(df)} data points from {file_path.name}")
             return df
             
@@ -329,11 +619,18 @@ class PVsystBatchEvaluator:
             
             # Calculate evaluation metrics
             rmse, mbe, crmse = self.calculate_evaluation_metrics(metrics_df, optimal_factor)
-            
-            logging.info(f"Results for {file_path.name}: RMSE={rmse:.3f}, MBE={mbe:.6e}, CRMSE={crmse:.3f}, Scale={optimal_factor:.6f}")
-            
+
+            # Extract parameters from filename
+            uc_value, uv_value, model_name = self.extract_parameters_from_filename(file_path.name)
+
+            logging.info(f"Results for {file_path.name}: Site=whole_site, Model={model_name}, Uc={uc_value}, Uv={uv_value}, RMSE={rmse:.3f}, MBE={mbe:.6e}, CRMSE={crmse:.3f}, Scale={optimal_factor:.6f}")
+
             return {
                 'file directory': str(file_path),
+                'inverter_id': 'whole_site',
+                'model_name': model_name,
+                'Uc': uc_value,
+                'Uv': uv_value,
                 'RMSE': rmse,
                 'MBE': mbe,
                 'CRMSE': crmse,
@@ -385,46 +682,60 @@ class PVsystBatchEvaluator:
         
         # Create results DataFrame
         results_df = pd.DataFrame(results)
-        
-        # Save results to CSV
-        output_file = self.results_dir / "pvsyst_batch_evaluation_results.csv"
-        results_df[['file directory', 'RMSE', 'MBE', 'CRMSE', 'The optimised scale factor']].to_csv(
+
+        # Detect transpositional model type for filename
+        model_type = self.detect_transpositional_model(results)
+
+        # Save results to CSV with model-specific filename
+        output_file = self.results_dir / f"pvsyst_batch_evaluation_results_whole_site_{model_type}.csv"
+        results_df[['file directory', 'inverter_id', 'model_name', 'Uc', 'Uv', 'RMSE', 'MBE', 'CRMSE', 'The optimised scale factor']].to_csv(
             output_file, index=False
         )
-        
+
         logging.info(f"Results saved to: {output_file}")
-        
+        logging.info(f"Transpositional model type: {model_type}")
+
         # Print summary statistics
         logging.info("\n" + "="*50)
-        logging.info("BATCH EVALUATION SUMMARY")
+        logging.info("BATCH EVALUATION SUMMARY - WHOLE SITE")
         logging.info("="*50)
         logging.info(f"Files processed successfully: {len(results)}")
+        logging.info(f"Transpositional model: {model_type}")
         logging.info(f"Average RMSE: {results_df['RMSE'].mean():.3f} ± {results_df['RMSE'].std():.3f}")
         logging.info(f"Average CRMSE: {results_df['CRMSE'].mean():.3f} ± {results_df['CRMSE'].std():.3f}")
         logging.info(f"Average scaling factor: {results_df['The optimised scale factor'].mean():.6f} ± {results_df['The optimised scale factor'].std():.6f}")
         logging.info(f"Average data points per file: {results_df['data_points'].mean():.1f}")
-        
-        return results_df
+
+        # Log parameter distribution if available
+        if 'Uc' in results_df.columns and results_df['Uc'].notna().any():
+            uc_values = results_df['Uc'].dropna()
+            logging.info(f"Uc parameter range: {uc_values.min()} to {uc_values.max()}")
+        if 'Uv' in results_df.columns and results_df['Uv'].notna().any():
+            uv_values = results_df['Uv'].dropna()
+            logging.info(f"Uv parameter range: {uv_values.min()} to {uv_values.max()}")
+
+        return results_df, str(output_file)
 
 def main():
     """Main function to run the batch evaluation"""
-    
-    print("PVsyst Batch Evaluation Tool")
-    print("="*40)
-    
+
+    print("PVsyst Batch Evaluation Tool - Whole Site Analysis")
+    print("="*60)
+
     try:
-        # Initialize evaluator
+        # Initialize evaluator (will prompt for folder and clipping configuration)
         evaluator = PVsystBatchEvaluator()
-        
+
         # Run batch evaluation
-        results = evaluator.run_batch_evaluation()
-        
-        if results is not None:
+        evaluation_result = evaluator.run_batch_evaluation()
+
+        if evaluation_result is not None:
+            results_df, actual_filename = evaluation_result
             print(f"\nBatch evaluation completed successfully!")
-            print(f"Results saved to: {evaluator.results_dir}/pvsyst_batch_evaluation_results.csv")
+            print(f"Results saved to: {actual_filename}")
         else:
             print("\nBatch evaluation failed!")
-            
+
     except Exception as e:
         logging.error(f"Fatal error in main: {e}")
         print(f"\nFatal error: {e}")

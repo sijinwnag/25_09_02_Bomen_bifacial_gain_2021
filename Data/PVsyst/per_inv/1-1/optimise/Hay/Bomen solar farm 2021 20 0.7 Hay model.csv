@@ -1,0 +1,13 @@
+PVSYST 8.0.15
+;File;File date;Description
+Project;25_08_25_Bowen Solar Farm 2021.PRJ;10/09/25 12h10;25_08_25_Bomen PVSyst - 2021 - per inverter;
+Geographical Site;Wagga Wagga;10/09/25 12h10;Wagga Wagga;Australia;Australia;;
+Weather data;Bomen Solar Farm 2021 with wind speed.MET;05/09/25 16h07;Bomen Solar Farm 2021 wind;Custom file;Imported;
+Simulation variant;25_08_25_Bowen Solar Farm 2021.VC3;10/09/25 11h52;24_10_08_Match_measured_inv_1_1Uc20Uv0.7;
+Simulation date;;10/09/25 14h31
+
+Simulation:;Hourly values; from 01/01/21; to 30/12/21 
+
+date;HSol;AzSol;AngInc;AngProf;PlTilt;PlAzim;PhiAng;GlobHor;DiffHor;BeamHor;T_Amb;WindVel;PrecWat;BeamTrp;DifITrp;CircTrp;HBndTrp;AlbTrp;GlobTrp;GincThr;GlobInc;BeamInc;CircInc;DifSInc;Alb_Inc;Bm_Gl;DifA_Gl;DifS_Gl;Alb_Gl;GlobShd;ShdLoss;ShdBLss;ShdCLss;ShdDLss;ShdALss;GlobIAM;IAMLoss;IAMBLss;IAMCLss;IAMDLss;IAMALss;GlobSlg;SlgLoss;SlgBLss;SlgCLss;SlgDLss;SlgALss;GlobEff;BeamEff;CircEff;DiffEff;Alb_Eff;GlobGnd;ReflLss;BkVFLss;DifSBak;BackShd;GlobBak;ReflFrt;ReflBck;BmIncBk;BmSFBak;BIAMFBk;BeamBak;FTransp;FShdGl;FShdBm;FShdCrc;FShdDif;FShdAlb;FIAMGl;FIAMBm;FIAMCrc;FIAMDif;FIAMAlb;FSlgGl;FSlgBm;FSlgCrc;FSlgDif;FSlgAlb;FIAMShd;FEffDif;FEffAlb;EArrRef;EArrNom;DegrLss;GIncLss;TempLss;ModQual;LIDLoss;MismBak;UnavLss;IL_Nigh;Aux_Lss;EUseful;TotInstCost;ModuleCost;InverterCost;BatteryCost;OwnFunds;TotLoan;AvgOpCost_yr;LCOE;NPV;IRR;PaybackPeriod;ROI;MisLoss;OhmLoss;EArrMPP;EArray;TExtON;TArray;TArrWtd;DTArr;DTArrGl;IArray;UArray;ArrayON;InvLoss;IL_Oper;IL_Pmin;IL_Vmin;IL_Pmax;IL_Vmax;IL_Imax;Syst_ON;EOutInv;E_Grid;EDirUse;EffArrR;EffArrC;EffSysR;EffSysC;EffInvB;EffInvR;Yr;Ya;Yf;Lc;Ls;Lcr;Lsr;PR;DiffGnd;PRBifi;OptimizerCost
+    ;°;°;°;°;°;°;°;W/m²;W/m²;W/m²;°C;m/s;m;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;ratio;ratio;ratio;ratio;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;W/m²;ratio;ratio;W/m²;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;ratio;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;MW;°C;°C;°C;°C;°C;A;V;Hour;MW;MW;MW;MW;MW;MW;MW;Hour;MW;MW;MW;%;%;%;%;%;%;kWh/m²/day;kWh/kWp/day;kWh/kWp/day;kWh/kWp/day;kWh/kWp/day;ratio;ratio;ratio;W/m²;ratio;ratio
+

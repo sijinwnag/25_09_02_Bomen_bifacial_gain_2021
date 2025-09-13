@@ -48,7 +48,7 @@ logging.basicConfig(
 class PVsystBatchEvaluator:
     """Batch processor for PVsyst simulation files evaluation for individual inverters"""
     
-    def __init__(self, project_root=None, inverter=None, optimization_folder=None):
+    def __init__(self, project_root=None, inverter=None, optimization_folder=None, apply_clipping=None, clipping_threshold=None):
         """Initialize the batch evaluator with project paths, inverter selection, and optimization folder"""
         if project_root is None:
             # Auto-detect project root
@@ -65,6 +65,13 @@ class PVsystBatchEvaluator:
         else:
             self.inverter = inverter
             self.optimization_folder = optimization_folder
+        
+        # Configure power clipping if not provided
+        if apply_clipping is None or clipping_threshold is None:
+            self.apply_clipping, self.clipping_threshold = self.configure_power_clipping()
+        else:
+            self.apply_clipping = apply_clipping
+            self.clipping_threshold = clipping_threshold
         
         # Set PVsyst directory based on selected optimization folder
         if self.optimization_folder:
@@ -87,6 +94,9 @@ class PVsystBatchEvaluator:
         logging.info(f"Selected inverter: {self.inverter}")
         logging.info(f"Optimization folder: {self.optimization_folder}")
         logging.info(f"PVsyst directory: {self.pvsyst_dir}")
+        logging.info(f"Power clipping enabled: {self.apply_clipping}")
+        if self.apply_clipping:
+            logging.info(f"Clipping threshold: {self.clipping_threshold} MW")
         
     def _setup_logging(self):
         """Setup inverter-specific logging"""
@@ -105,6 +115,61 @@ class PVsystBatchEvaluator:
             ],
             force=True  # Force reconfiguration
         )
+    
+    def configure_power_clipping(self):
+        """Configure power clipping settings through user input"""
+        print(f"\n{'='*60}")
+        print("POWER CLIPPING CONFIGURATION")
+        print(f"{'='*60}")
+        print("Power clipping limits simulation power values to prevent unrealistic peaks.")
+        print("This is applied to raw power data before daily energy conversion.")
+        
+        # Ask user if they want to apply clipping
+        while True:
+            try:
+                clipping_choice = input("\nApply power clipping to simulation data? (y/n): ").strip().lower()
+                
+                if clipping_choice in ['y', 'yes']:
+                    apply_clipping = True
+                    break
+                elif clipping_choice in ['n', 'no']:
+                    apply_clipping = False
+                    clipping_threshold = None
+                    print("Power clipping disabled.")
+                    return apply_clipping, clipping_threshold
+                else:
+                    print("Please enter 'y' for yes or 'n' for no.")
+                    
+            except KeyboardInterrupt:
+                print("\nOperation cancelled by user.")
+                raise SystemExit(1)
+        
+        # If clipping is enabled, ask for threshold
+        while True:
+            try:
+                threshold_input = input("Enter clipping threshold in MW (default 2.392): ").strip()
+                
+                if not threshold_input:
+                    # Use default
+                    clipping_threshold = 2.392
+                    break
+                else:
+                    # Validate user input
+                    clipping_threshold = float(threshold_input)
+                    if clipping_threshold <= 0:
+                        print("Clipping threshold must be a positive number. Please try again.")
+                        continue
+                    break
+                    
+            except ValueError:
+                print("Please enter a valid number for the clipping threshold.")
+                continue
+            except KeyboardInterrupt:
+                print("\nOperation cancelled by user.")
+                raise SystemExit(1)
+        
+        print(f"Power clipping enabled with threshold: {clipping_threshold} MW")
+        return apply_clipping, clipping_threshold
     
     def validate_optimization_folder(self, folder_path):
         """Validate optimization folder exists and contains CSV files"""
@@ -441,6 +506,16 @@ class PVsystBatchEvaluator:
                     df['EArray'].str.replace(',', '.'), 
                     errors='coerce'
                 )
+            
+            # Apply clipping to raw power values BEFORE energy conversion
+            if self.apply_clipping:
+                original_max = df['EArray'].max()
+                clipped_count = (df['EArray'] > self.clipping_threshold).sum()
+                df['EArray'] = df['EArray'].clip(upper=self.clipping_threshold)
+                logging.info(f"Applied {self.clipping_threshold} MW clipping to {file_path.name}: {clipped_count} values clipped")
+                logging.info(f"Maximum power reduced from {original_max:.2f} MW to {df['EArray'].max():.2f} MW")
+            else:
+                logging.info(f"No clipping applied to {file_path.name} (clipping disabled)")
             
             df.set_index('timestamp', inplace=True)
             

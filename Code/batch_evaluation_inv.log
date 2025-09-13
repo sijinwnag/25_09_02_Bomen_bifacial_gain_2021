@@ -4,3 +4,14 @@
 2025-09-07 17:14:48,585 - INFO - Model type detected from folder path: Perez
 2025-09-08 15:23:02,017 - INFO - Found 882 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez
 2025-09-09 13:06:38,422 - INFO - Found 886 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Hayz
+2025-09-10 00:26:55,554 - INFO - Found 886 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Hayz
+2025-09-10 00:32:51,713 - INFO - Found 886 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez
+2025-09-10 12:06:05,819 - INFO - Found 886 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\1-1\optimise\Perez
+2025-09-11 13:47:26,593 - INFO - Found 734 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez_update_f
+2025-09-11 13:51:22,323 - INFO - Found 716 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez_update_f
+2025-09-11 13:54:29,957 - INFO - Found 714 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez_update_f
+2025-09-11 21:43:50,555 - INFO - Found 882 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez_update_f
+2025-09-12 08:58:35,309 - INFO - Found 42 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez_update_f_CP01
+2025-09-12 15:17:40,760 - INFO - Found 42 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\2-1\Optimise\Perez_update_f_CP02
+2025-09-13 15:50:37,697 - ERROR - Error during inverter and folder selection: 'charmap' codec can't encode character '\u2713' in position 2: character maps to <undefined>
+2025-09-13 15:50:37,698 - ERROR - Fatal error in main: 'charmap' codec can't encode character '\u2713' in position 2: character maps to <undefined>
