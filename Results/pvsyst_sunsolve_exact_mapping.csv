@@ -1,0 +1,13 @@
+Parameter_Category,Physical_Parameter,PVsyst_Column,SunSolve_Column,Units_PVsyst,Units_SunSolve,Conversion_Factor,Physical_Meaning
+Meteorological,Global_Horizontal_Irradiance,GlobHor,GHI (W/m2),W/m²,W/m²,1.0,Total solar irradiance on horizontal surface
+Meteorological,Diffuse_Horizontal_Irradiance,DiffHor,DHI (W/m2),W/m²,W/m²,1.0,Scattered solar irradiance on horizontal surface
+Meteorological,Direct_Normal_Irradiance,BeamHor,DNI (W/m2),W/m²,W/m²,1.0,Direct beam solar irradiance perpendicular to sun
+Meteorological,Ambient_Temperature,T_Amb,Ambient temperature (°C),°C,°C,1.0,Air temperature at module location
+Meteorological,Wind_Velocity,WindVel,Wind velocity (m/s),m/s,m/s,1.0,Wind speed for convective cooling calculation
+Solar_Position,Solar_Elevation_Angle,HSol,Solar elevation (degrees),°,degrees,1.0,Sun elevation angle above horizon
+Solar_Position,Solar_Azimuth_Angle,AzSol,Solar azimuth (degrees),°,degrees,1.0,Sun azimuth angle (compass direction)
+Tracking,Module_Tilt_Angle,PlTilt,Module tilt (degrees),°,degrees,1.0,Module tilt angle from horizontal plane
+Tracking,Incident_Angle,AngInc,Incident angle (degrees),°,degrees,1.0,Angle between sun rays and module surface normal
+Electrical,Array_Power_Output,EArray,Power [unit-system] (W),MW,W,1e-6,Total electrical power output from PV array
+Electrical,Module_Voltage_MPP,UArray,Vmp [average] (V),V,V,1.0,Voltage at maximum power point
+Electrical,Module_Current_MPP,IArray,Imp [average] (A),A,A,1.0,Current at maximum power point

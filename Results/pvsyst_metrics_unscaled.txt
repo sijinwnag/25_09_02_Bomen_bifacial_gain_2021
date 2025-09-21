@@ -4,47 +4,47 @@ EVALUATION METRICS (UNSCALED)
 Note: No scaling applied (raw simulation results)
 Filtered data points: 233
 
-MBE   : 26.220 MWh/day
-MAE   : 28.568 MWh/day
-RMSE  : 37.887 MWh/day
-CRMSE : 27.349 MWh/day
-CMAE  : 22.168 MWh/day
-nRMSE : 3.280% (range)
-NMAE  : 2.473% (range)
-MAPE  : 5.974%
+MBE   : 0.117 MWh/day
+MAE   : 0.504 MWh/day
+RMSE  : 0.716 MWh/day
+CRMSE : 0.706 MWh/day
+CMAE  : 0.510 MWh/day
+nRMSE : 2.966% (range)
+NMAE  : 2.089% (range)
+MAPE  : 7.236%
 
 SEASONAL METRICS (UNSCALED)
 ===============
 
 Autumn Metrics:
-MBE  (Mean Bias Error): 24.494 MWh/day
-RMSE (Root Mean Square Error): 30.810 MWh/day
-CRMSE (Centered RMSE): 18.690 MWh/day
-nRMSE (Normalized RMSE): 2.667%
-NMAE (Normalized MAE): 2.308%
-MAPE (Mean Absolute Percentage Error): 5.232%
+MBE  (Mean Bias Error): 0.163 MWh/day
+RMSE (Root Mean Square Error): 0.731 MWh/day
+CRMSE (Centered RMSE): 0.713 MWh/day
+nRMSE (Normalized RMSE): 3.030%
+NMAE (Normalized MAE): 2.315%
+MAPE (Mean Absolute Percentage Error): 6.919%
 
 Spring Metrics:
-MBE  (Mean Bias Error): 42.411 MWh/day
-RMSE (Root Mean Square Error): 53.350 MWh/day
-CRMSE (Centered RMSE): 32.366 MWh/day
-nRMSE (Normalized RMSE): 4.618%
-NMAE (Normalized MAE): 3.935%
-MAPE (Mean Absolute Percentage Error): 7.570%
+MBE  (Mean Bias Error): 0.226 MWh/day
+RMSE (Root Mean Square Error): 0.957 MWh/day
+CRMSE (Centered RMSE): 0.930 MWh/day
+nRMSE (Normalized RMSE): 3.967%
+NMAE (Normalized MAE): 2.889%
+MAPE (Mean Absolute Percentage Error): 7.308%
 
 Summer Metrics:
-MBE  (Mean Bias Error): 34.887 MWh/day
-RMSE (Root Mean Square Error): 48.256 MWh/day
-CRMSE (Centered RMSE): 33.340 MWh/day
-nRMSE (Normalized RMSE): 4.177%
-NMAE (Normalized MAE): 3.024%
-MAPE (Mean Absolute Percentage Error): 6.238%
+MBE  (Mean Bias Error): 0.121 MWh/day
+RMSE (Root Mean Square Error): 0.561 MWh/day
+CRMSE (Centered RMSE): 0.548 MWh/day
+nRMSE (Normalized RMSE): 2.326%
+NMAE (Normalized MAE): 1.422%
+MAPE (Mean Absolute Percentage Error): 3.449%
 
 Winter Metrics:
-MBE  (Mean Bias Error): 12.355 MWh/day
-RMSE (Root Mean Square Error): 20.552 MWh/day
-CRMSE (Centered RMSE): 16.423 MWh/day
-nRMSE (Normalized RMSE): 1.779%
-NMAE (Normalized MAE): 1.404%
-MAPE (Mean Absolute Percentage Error): 5.626%
+MBE  (Mean Bias Error): 0.012 MWh/day
+RMSE (Root Mean Square Error): 0.648 MWh/day
+CRMSE (Centered RMSE): 0.647 MWh/day
+nRMSE (Normalized RMSE): 2.684%
+NMAE (Normalized MAE): 1.952%
+MAPE (Mean Absolute Percentage Error): 9.377%
 
