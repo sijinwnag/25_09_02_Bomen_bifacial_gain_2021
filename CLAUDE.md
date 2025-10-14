@@ -4,12 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This workspace contains **bifacial solar panel gain analysis** for the Bomen Solar Farm using 2021 operational data. The primary focus is on **validating PVsyst simulation models** against measured electrical performance data to assess the benefits of bifacial photovoltaic systems.
+This workspace contains **bifacial solar panel gain analysis** for the Bomen Solar Farm using 2021 operational data. The primary focus is on **validating PVsyst and SunSolve Yield simulation models** against measured electrical performance data to assess the benefits of bifacial photovoltaic systems.
 
 **Core Analysis Workflow:**
-- **Data Integration** - Load measured electrical power data (5-minute intervals) and PVsyst simulation results (hourly)
+- **Data Integration** - Load measured electrical power data (5-minute intervals) and simulation results (hourly from both PVsyst and SunSolve Yield)
 - **Data Processing** - Convert power to energy, resample to daily totals, filter for maintenance-free days
 - **Model Validation** - Compare simulation vs. measured performance using statistical metrics
+- **Comparative Analysis** - Cross-validate PVsyst and SunSolve Yield simulation accuracy
 - **Optimization** - Find optimal scaling factors to minimize bias (MBE ≈ 0)
 - **Performance Assessment** - Calculate RMSE, CRMSE, MAPE, and seasonal performance metrics
 
@@ -46,16 +47,33 @@ python batch_pvsyst_evaluation_inv.py --inverter "2-1"
 # Process weather data from monitoring stations
 python weather_data_processor.py --year 2021 --method robust_median
 
-# Generate maintenance filter (if needed)
-python maintenance_filter.py
+# Generate maintenance-free days filter (excludes maintenance days)
+python maintenance_filter.py --year 2021
+
+# Generate maintenance days list (includes only maintenance days)
+python maintenance_days_filter.py --year 2021
+```
+
+### SunSolve Notebook Generation
+```bash
+# Create SunSolve analysis notebook from PVsyst template
+python create_sunsolve_notebook.py
+# Or use the rebuild script for proper structure preservation
+python rebuild_sunsolve_notebook.py
+
+# Test the generated notebook
+python test_sunsolve_notebook.py
 ```
 
 ### Key Notebook Workflows
 ```bash
 # Main analysis notebooks (execute in order)
-jupyter notebook 25_09_02_Data_visualiser_matching.ipynb          # Site-level analysis
-jupyter notebook 25_09_05_Data_visualiser_matching_inv.ipynb      # Individual inverter analysis
-jupyter notebook 25_09_09_Sunsolve_match_PVsyst.ipynb            # SunSolve vs PVsyst comparison
+jupyter notebook 25_09_02_Data_visualiser_matching.ipynb                # Site-level PVsyst analysis
+jupyter notebook 25_09_05_Data_visualiser_matching_inv.ipynb            # Individual inverter PVsyst analysis
+jupyter notebook 25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb   # Individual inverter SunSolve analysis
+jupyter notebook 25_09_09_Sunsolve_match_PVsyst.ipynb                   # SunSolve vs PVsyst comparison (daily)
+jupyter notebook 25_09_09_Sunsolve_match_PVsyst_hourly.ipynb            # SunSolve vs PVsyst comparison (hourly)
+jupyter notebook 25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb  # Parameter-level comparison
 ```
 
 ### Weather Data Processing Commands
@@ -84,12 +102,23 @@ python weather_data_processor.py --year 2021 --method robust_median --output cus
 5. **Optimization**: Binary search algorithm to find optimal scaling factors
 6. **Validation**: Comprehensive statistical analysis with seasonal breakdown
 
-### Three-Stage Validation Framework
-**Load → Process → Validate**
+### Dual-Simulation Validation Framework
+**PVsyst & SunSolve Yield → Measured Data → Comparative Analysis**
 
-1. **Data Integration**: Robust CSV parsing with multiple datetime format support
+**PVsyst Analysis Pipeline**:
+1. **Data Integration**: Semicolon-delimited CSV with latin-1 encoding, skip metadata rows
 2. **Statistical Optimization**: Binary search algorithm achieving MBE ≤ 1e-13 tolerance
 3. **Performance Metrics**: RMSE, CRMSE, MAPE, nRMSE with seasonal analysis
+
+**SunSolve Yield Analysis Pipeline**:
+1. **Data Integration**: Standard CSV with timestamp construction from Day/Hour/Minute columns
+2. **Power Conversion**: W to MW conversion (÷1e6) from 'Power [unit-system] (W)' column
+3. **Same Validation**: Identical statistical metrics and optimization as PVsyst for fair comparison
+
+**Comparative Analysis**:
+1. **Cross-Validation**: Compare both simulation tools against same measured data
+2. **Model Assessment**: Identify which simulation tool better predicts actual performance
+3. **Parameter Sensitivity**: Hourly vs. daily comparisons to detect temporal resolution effects
 
 ### Class-Based Architecture
 Both Python scripts use object-oriented design:
@@ -133,7 +162,26 @@ Weather Data   → Station merge → 5-min
 
 ### Core Functions & Patterns
 
-**CSV Parsing Pattern** (handles PVsyst format complexity):
+**SunSolve Yield Data Loading Pattern**:
+```python
+# Standard CSV read with timestamp construction
+simulation_results_df = pd.read_csv(sunsolve_file)
+
+# Construct timestamps from separate Day/Hour/Minute columns
+year = 2021
+base_date = pd.Timestamp(f"{year}-01-01")
+simulation_results_df['timestamp'] = simulation_results_df.apply(
+    lambda row: base_date + pd.Timedelta(days=int(row['Day of year'])-1) +
+                pd.Timedelta(hours=int(row['Hour'])) +
+                pd.Timedelta(minutes=int(row['Minute'])),
+    axis=1
+)
+
+# Convert power from W to MW
+simulation_results_df['Power_MW'] = simulation_results_df['Power [unit-system] (W)'] / 1e6
+```
+
+**PVsyst CSV Parsing Pattern** (handles PVsyst format complexity):
 ```python
 # Robust PVsyst CSV loading
 df = pd.read_csv(
@@ -193,11 +241,22 @@ def process_weather_robust_median(station_data):
 
 ## Development Workflow Patterns
 
+### Notebook Template Generation Pattern
+**Automated SunSolve notebook creation** from PVsyst template:
+1. **Template Extraction** - Read PVsyst notebook, extract cells 0-21
+2. **Cell Modification** - Replace data loading (cell 6) with SunSolve-specific code
+3. **Reference Replacement** - Convert all `EArray` → `Power_MW` references
+4. **Label Updates** - Replace "PVsyst" → "SunSolve Yield" in markdown and plots
+5. **Structure Preservation** - Maintain list-of-strings format for notebook cells
+6. **Output Generation** - Save as `25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb`
+
+**Key Pattern**: `create_sunsolve_notebook.py` creates notebook, `rebuild_sunsolve_notebook.py` ensures proper structure, `test_sunsolve_notebook.py` validates functionality.
+
 ### Batch Processing Pattern
-Both scripts follow consistent workflow:
+Both PVsyst and inverter scripts follow consistent workflow:
 1. **Initialize** - Auto-detect project root, set up logging
 2. **Load Data** - Electrical measurements and maintenance filter
-3. **Process Files** - Iterate through PVsyst CSV files
+3. **Process Files** - Iterate through simulation CSV files (PVsyst or SunSolve)
 4. **Optimize** - Find optimal scaling factor for each file
 5. **Export** - Save results to CSV with comprehensive metrics
 
@@ -257,12 +316,22 @@ data_filters = {
 
 ## Development Guidelines
 
-### Working with PVsyst Data
+### Working with Simulation Data
+
+**PVsyst Data**:
 - **Always use semicolon delimiter** for CSV files
 - **Skip first 10 rows + row 11** (metadata and units)
 - **Use latin-1 encoding** to handle special characters
 - **Apply multiple datetime format attempts** for robustness
 - **Validate EArray column exists** before processing
+
+**SunSolve Yield Data**:
+- **Use standard CSV parsing** (no special delimiters or encoding)
+- **Construct timestamps** from 'Day of year', 'Hour', 'Minute' columns
+- **Convert power units** from W to MW (÷1e6)
+- **Sort by timestamp** to ensure chronological order
+- **Remove duplicate timestamps** if present
+- **Validate Power [unit-system] (W) column exists** before processing
 
 ### Statistical Analysis Patterns  
 - **Optimize scaling before metrics** to minimize bias
@@ -289,14 +358,71 @@ data_filters = {
 - **`.venv/`** - Python virtual environment
 
 ### Essential Files
-- **`requirements.txt`** - Python dependencies (comprehensive list with 300+ packages)
-- **`Code/batch_pvsyst_evaluation.py`** - Site-level batch processor
-- **`Code/batch_pvsyst_evaluation_inv.py`** - Individual inverter processor
-- **`Code/weather_data_processor.py`** - Multi-station weather data processing with quality control
-- **`Code/maintenance_filter.py`** - Data filtering utilities
-- **`Code/25_09_02_Data_visualiser_matching.ipynb`** - Interactive site analysis
-- **`Code/25_09_05_Data_visualiser_matching_inv.ipynb`** - Interactive inverter analysis
-- **`Code/25_09_09_Sunsolve_match_PVsyst.ipynb`** - SunSolve vs PVsyst comparison analysis
-- **`Code/README_weather_processor.md`** - Detailed weather processing documentation
 
-This framework enables systematic **bifacial solar panel performance validation** through rigorous statistical comparison of PVsyst simulations against measured data, providing quantitative assessment of model accuracy and bifacial gain benefits.
+**Python Scripts**:
+- **`requirements.txt`** - Python dependencies (comprehensive list with 300+ packages)
+- **`Code/batch_pvsyst_evaluation.py`** - Site-level PVsyst batch processor
+- **`Code/batch_pvsyst_evaluation_inv.py`** - Individual inverter PVsyst processor
+- **`Code/weather_data_processor.py`** - Multi-station weather data processing with quality control
+- **`Code/maintenance_filter.py`** - Maintenance-free days filter generator
+- **`Code/maintenance_days_filter.py`** - Maintenance days list generator
+- **`Code/create_sunsolve_notebook.py`** - SunSolve notebook generator (initial version)
+- **`Code/rebuild_sunsolve_notebook.py`** - SunSolve notebook generator (structure-preserving version)
+- **`Code/test_sunsolve_notebook.py`** - Notebook validation script
+
+**Analysis Notebooks**:
+- **`Code/25_09_02_Data_visualiser_matching.ipynb`** - Site-level PVsyst analysis
+- **`Code/25_09_05_Data_visualiser_matching_inv.ipynb`** - Individual inverter PVsyst analysis (template)
+- **`Code/25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb`** - Individual inverter SunSolve analysis (auto-generated)
+- **`Code/25_09_09_Sunsolve_match_PVsyst.ipynb`** - SunSolve vs PVsyst daily comparison
+- **`Code/25_09_09_Sunsolve_match_PVsyst_hourly.ipynb`** - SunSolve vs PVsyst hourly comparison
+- **`Code/25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb`** - Parameter-level comparison
+
+**Documentation**:
+- **`Code/README_weather_processor.md`** - Detailed weather processing documentation
+- **`Code/SUNSOLVE_NOTEBOOK_VALIDATION_REPORT.md`** - SunSolve notebook testing results
+
+## Common Development Tasks
+
+### Working with PVsyst Analysis
+1. **Site-level analysis**: Run `batch_pvsyst_evaluation.py` to process all PVsyst simulations
+2. **Inverter-level analysis**: Run `batch_pvsyst_evaluation_inv.py` with specific inverter ID
+3. **Interactive exploration**: Use `25_09_05_Data_visualiser_matching_inv.ipynb` for detailed visualization
+4. **Results review**: Check `Results/pvsyst_batch_evaluation_results*.csv` and log files
+
+### Working with SunSolve Yield Analysis
+1. **Generate notebook**: Run `rebuild_sunsolve_notebook.py` to create analysis notebook from template
+2. **Configure data source**: Edit cell 6 in generated notebook to point to SunSolve CSV file
+3. **Execute analysis**: Open `25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb` and run all cells
+4. **Validate results**: Run `test_sunsolve_notebook.py` to verify notebook structure and execution
+
+### Comparative Analysis Workflow
+1. **Prepare data**: Ensure both PVsyst and SunSolve simulations exist for same inverter
+2. **Run individual analyses**: Execute both PVsyst and SunSolve notebooks separately
+3. **Compare results**: Use `25_09_09_Sunsolve_match_PVsyst*.ipynb` notebooks for cross-validation
+4. **Assess accuracy**: Review MBE, RMSE, nRMSE metrics to determine which tool is more accurate
+
+### Maintenance Data Filtering
+1. **Generate maintenance-free days**: Run `maintenance_filter.py --year 2021` to create exclusion list
+2. **Generate maintenance days**: Run `maintenance_days_filter.py --year 2021` to create inclusion list
+3. **Apply filters**: Both filters automatically used by analysis notebooks and batch scripts
+4. **Verify coverage**: Check `Results/remaining_dates_2021.txt` and `Results/maintenance_days_2021.txt`
+
+### Troubleshooting
+
+**Common Issues**:
+1. **PVsyst CSV parsing fails**: Verify semicolon delimiter, latin-1 encoding, and skiprows=[0-9, 11]
+2. **SunSolve timestamp errors**: Check 'Day of year', 'Hour', 'Minute' columns exist
+3. **Missing maintenance filter**: Generate with `maintenance_filter.py --year 2021`
+4. **Notebook generation fails**: Use `rebuild_sunsolve_notebook.py` instead of `create_sunsolve_notebook.py`
+5. **Optimization doesn't converge**: Check measured data exists for overlapping dates
+6. **High MBE/RMSE values**: Indicates simulation parameters may need calibration
+
+**Data Quality Checks**:
+- Verify timestamp alignment between measured and simulation data
+- Check for duplicate timestamps and remove if present
+- Ensure power/energy values are in expected ranges (MW/MWh)
+- Validate seasonal patterns match expected solar generation curves
+- Confirm maintenance days are properly filtered from analysis
+
+This framework enables systematic **bifacial solar panel performance validation** through rigorous statistical comparison of both PVsyst and SunSolve Yield simulations against measured data, providing quantitative assessment of model accuracy, comparative tool evaluation, and bifacial gain benefits.

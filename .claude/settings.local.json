@@ -5,7 +5,18 @@
       "Bash(dir:*)",
       "WebFetch(domain:www.pvsyst.com)",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__get-library-docs",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -m pip install:*)",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -m ipykernel install --user --name=bomen-bifacial-2021 --display-name=\"Bomen Bifacial Analysis (Python 3.13)\")",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\":*)",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -c \"import ipykernel; print(f''ipykernel version: {ipykernel.__version__}'')\")",
+      "mcp__ide__getDiagnostics",
+      "Bash(jupyter kernelspec list)",
+      "Read(//c/Users/z5183876/AppData/Roaming/jupyter/kernels/bomen-bifacial-2021/**)",
+      "Read(//c/Users/z5183876/AppData/Roaming/jupyter/kernels/.venv/**)",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -c \"import sys; import ipykernel; print(f''Python: {sys.version}''); print(f''ipykernel: {ipykernel.__version__}''); print(''Kernel ready!'')\")",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -m pip show:*)",
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -c \"from ipykernel.kernelapp import IPKernelApp; print(''IPKernelApp can be imported''); print(''Kernel is functional'')\")"
     ],
     "deny": [],
     "ask": []

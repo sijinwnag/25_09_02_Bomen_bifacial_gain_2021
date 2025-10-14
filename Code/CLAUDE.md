@@ -34,11 +34,20 @@ cd Code
 # Launch Jupyter notebook for interactive analysis
 jupyter notebook
 
-# Run batch evaluation on multiple PVsyst files
+# Run batch evaluation on multiple PVsyst files (site-level)
 python batch_pvsyst_evaluation.py
 
-# Run batch evaluation for individual inverters
+# Run batch evaluation for individual inverters (interactive selection)
+python batch_pvsyst_evaluation_inv.py
+
+# Or specify inverter directly
 python batch_pvsyst_evaluation_inv.py --inverter "2-1"
+
+# Process weather data from monitoring stations
+python weather_data_processor.py --year 2021 --method robust_median
+
+# Generate maintenance filter (if needed)
+python maintenance_filter.py
 ```
 
 ### Key Notebook Workflows
@@ -46,6 +55,21 @@ python batch_pvsyst_evaluation_inv.py --inverter "2-1"
 # Main analysis notebooks (execute in order)
 jupyter notebook 25_09_02_Data_visualiser_matching.ipynb          # Site-level analysis
 jupyter notebook 25_09_05_Data_visualiser_matching_inv.ipynb      # Individual inverter analysis
+jupyter notebook 25_09_09_Sunsolve_match_PVsyst.ipynb            # SunSolve vs PVsyst comparison
+```
+
+### Weather Data Processing Commands
+```bash
+# Process weather data from three monitoring stations
+python weather_data_processor.py --year 2021 --method robust_median    # MAD-based outlier detection (recommended)
+python weather_data_processor.py --year 2021 --method average          # Simple averaging across stations
+python weather_data_processor.py --year 2021 --method CP01             # Individual station processing
+
+# Interactive mode for guided processing
+python weather_data_processor.py --interactive
+
+# Custom output location
+python weather_data_processor.py --year 2021 --method robust_median --output custom_weather.csv
 ```
 
 ## High-Level Architecture
@@ -91,8 +115,11 @@ Raw Data Sources → Processing → Analysis → Results Export
      ↓                ↓           ↓            ↓
 PVsyst CSV     → Date parsing → Energy      Results/
 (semicolon;)     Latin-1        conversion    *.csv
-Electrical     → Timestamp    → Daily        *.xlsx  
-Pickle (.pkl)    indexing       totals       *.txt
+SunSolve CSV   → Date parsing → Energy      *.xlsx
+Electrical     → Timestamp    → Daily        *.log
+Pickle (.pkl)    indexing       totals
+Weather Data   → Station merge → 5-min
+(3 stations)     Quality control  resolution
 ```
 
 ### Key File Locations
@@ -100,6 +127,8 @@ Pickle (.pkl)    indexing       totals       *.txt
 - **Individual Data**: `Data/full_inv_pow_5min.pkl` (per-inverter measurements)
 - **PVsyst Files**: `Data/PVsyst/param optimisation/*.CSV` (simulation results)
 - **Per-Inverter**: `Data/PVsyst/per_inv/{inverter}/*.CSV` (individual simulations)
+- **SunSolve Data**: `Data/SunSolve Yield/Per inverter/{inverter}/` (SunSolve simulation results)
+- **Weather Data**: 5-minute resolution from 3 monitoring stations (CP01, CP02, CP03)
 - **Maintenance Filter**: `Results/remaining_dates_2021.txt` (maintenance-free dates)
 
 ### Core Functions & Patterns
@@ -144,6 +173,24 @@ def find_optimal_scaling_factor(min_factor=0.5, max_factor=2.0, max_iterations=1
             return mid_factor, mbe, iterations
 ```
 
+**Weather Data Processing Pattern**:
+```python
+# Multi-station robust processing with MAD outlier detection
+def process_weather_robust_median(station_data):
+    # Calculate median across three stations for each timestamp
+    median_values = station_data.median(axis=1)
+
+    # Apply MAD-based outlier detection (1.5× threshold)
+    mad_values = (station_data.sub(median_values, axis=0)).abs().median(axis=1)
+    threshold = 1.5 * mad_values
+
+    # Remove outliers and average remaining valid measurements
+    filtered_data = station_data.where(
+        (station_data.sub(median_values, axis=0)).abs().le(threshold, axis=0)
+    )
+    return filtered_data.mean(axis=1)
+```
+
 ## Development Workflow Patterns
 
 ### Batch Processing Pattern
@@ -165,7 +212,7 @@ Both scripts follow consistent workflow:
 Results/
 ├── pvsyst_batch_evaluation_results.csv          # Site-level results
 ├── pvsyst_batch_evaluation_results_{inverter}.csv  # Per-inverter results
-├── pvsyst_metrics.txt                           # Detailed statistical analysis
+├── *.xlsx                                       # Excel format results
 ├── remaining_dates_2021.txt                     # Maintenance-free days filter
 └── *.log                                        # Execution logs
 ```
@@ -263,11 +310,14 @@ data_filters = {
 - **`.venv/`** - Python virtual environment
 
 ### Essential Files
-- **`requirements.txt`** - Python dependencies
+- **`requirements.txt`** - Python dependencies (comprehensive list with 300+ packages)
 - **`batch_pvsyst_evaluation.py`** - Site-level batch processor
-- **`batch_pvsyst_evaluation_inv.py`** - Individual inverter processor  
+- **`batch_pvsyst_evaluation_inv.py`** - Individual inverter processor
+- **`weather_data_processor.py`** - Multi-station weather data processing with quality control
 - **`maintenance_filter.py`** - Data filtering utilities
 - **`25_09_02_Data_visualiser_matching.ipynb`** - Interactive site analysis
 - **`25_09_05_Data_visualiser_matching_inv.ipynb`** - Interactive inverter analysis
+- **`25_09_09_Sunsolve_match_PVsyst.ipynb`** - SunSolve vs PVsyst comparison analysis
+- **`README_weather_processor.md`** - Detailed weather processing documentation
 
 This framework enables systematic **bifacial solar panel performance validation** through rigorous statistical comparison of PVsyst simulations against measured data, providing quantitative assessment of model accuracy and bifacial gain benefits.
