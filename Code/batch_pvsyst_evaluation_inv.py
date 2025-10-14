@@ -144,33 +144,95 @@ class PVsystBatchEvaluator:
                 print("\nOperation cancelled by user.")
                 raise SystemExit(1)
         
-        # If clipping is enabled, ask for threshold
+        # If clipping is enabled, ask for method (automatic or manual)
+        clipping_threshold = None
         while True:
             try:
-                threshold_input = input("Enter clipping threshold in MW (default 2.392): ").strip()
-                
-                if not threshold_input:
-                    # Use default
-                    clipping_threshold = 2.392
-                    break
-                else:
-                    # Validate user input
-                    clipping_threshold = float(threshold_input)
-                    if clipping_threshold <= 0:
-                        print("Clipping threshold must be a positive number. Please try again.")
-                        continue
-                    break
-                    
+                method_choice = input("\nChoose clipping threshold method:\n  1. Automatic (lookup from CSV)\n  2. Manual (enter value)\nEnter choice (1/2): ").strip()
+
+                if method_choice == '1':
+                    # Automatic lookup
+                    print("Attempting automatic lookup from inverter clipping analysis...")
+                    clipping_threshold = self.lookup_clipping_limit_from_csv()
+
+                    if clipping_threshold is not None:
+                        # Successful lookup
+                        print(f"✓ Found clipping limit: {clipping_threshold} MW")
+                        break
+                    else:
+                        # Lookup failed, fall back to manual
+                        print("⚠ Automatic lookup failed. Falling back to manual input.")
+                        method_choice = '2'  # Force manual input
+
+                if method_choice == '2':
+                    # Manual input (original code)
+                    threshold_input = input("Enter clipping threshold in MW (default 2.392): ").strip()
+
+                    if not threshold_input:
+                        clipping_threshold = 2.392
+                        break
+                    else:
+                        clipping_threshold = float(threshold_input)
+                        if clipping_threshold <= 0:
+                            print("Clipping threshold must be a positive number. Please try again.")
+                            continue
+                        break
+
+                if method_choice not in ['1', '2']:
+                    print("Please enter '1' for automatic or '2' for manual.")
+                    continue
+
             except ValueError:
                 print("Please enter a valid number for the clipping threshold.")
                 continue
             except KeyboardInterrupt:
                 print("\nOperation cancelled by user.")
                 raise SystemExit(1)
-        
+
         print(f"Power clipping enabled with threshold: {clipping_threshold} MW")
         return apply_clipping, clipping_threshold
-    
+
+    def lookup_clipping_limit_from_csv(self):
+        """Lookup clipping limit for selected inverter from CSV file"""
+        try:
+            # Construct CSV inverter name format (e.g., "2-1" -> "INV_2-1")
+            csv_inverter_name = f"INV_{self.inverter}"
+            csv_file = self.results_dir / "inverter_clipping_analysis_2021.csv"
+
+            # Check if CSV exists
+            if not csv_file.exists():
+                logging.warning(f"Clipping analysis CSV not found: {csv_file}")
+                return None
+
+            # Read CSV
+            df = pd.read_csv(csv_file)
+
+            # Find matching inverter
+            matching_row = df[df['inverter_name'] == csv_inverter_name]
+
+            if matching_row.empty:
+                logging.warning(f"Inverter {csv_inverter_name} not found in clipping analysis CSV")
+                return None
+
+            # Extract clipping limit
+            clipping_limit = matching_row['clipping_limit'].values[0]
+
+            # Intelligent unit conversion: if value > 100, assume kW; else assume MW
+            if clipping_limit > 100:
+                # Assume kW, convert to MW
+                clipping_threshold = clipping_limit / 1000.0
+                logging.info(f"Converted clipping limit from {clipping_limit} kW to {clipping_threshold} MW")
+            else:
+                # Already in MW
+                clipping_threshold = clipping_limit
+                logging.info(f"Using clipping limit: {clipping_threshold} MW")
+
+            return clipping_threshold
+
+        except Exception as e:
+            logging.error(f"Error looking up clipping limit from CSV: {e}")
+            return None
+
     def validate_optimization_folder(self, folder_path):
         """Validate optimization folder exists and contains CSV files"""
         folder_path = Path(folder_path)

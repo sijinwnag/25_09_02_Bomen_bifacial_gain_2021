@@ -22,3 +22,9 @@
 2025-09-17 10:46:24,394 - INFO - Found 42 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\1-2\Perez
 2025-09-17 11:45:05,848 - INFO - Found 42 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\1-2\Hay
 2025-09-25 12:33:27,409 - INFO - Found 42 CSV files in optimization folder: C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\3-1\Hay
+2025-10-14 22:08:22,429 - INFO - Converted clipping limit from 2407.0 kW to 2.407 MW
+2025-10-14 22:08:50,004 - INFO - Converted clipping limit from 2407.0 kW to 2.407 MW
+2025-10-14 22:16:30,509 - INFO - Converted clipping limit from 2408.0 kW to 2.408 MW
+2025-10-14 22:16:47,663 - INFO - Converted clipping limit from 2408.0 kW to 2.408 MW
+2025-10-14 22:18:04,178 - INFO - Converted clipping limit from 2390.0 kW to 2.39 MW
+2025-10-14 22:18:34,840 - INFO - Converted clipping limit from 2390.0 kW to 2.39 MW
