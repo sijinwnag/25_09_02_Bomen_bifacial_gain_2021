@@ -16,7 +16,8 @@
       "Read(//c/Users/z5183876/AppData/Roaming/jupyter/kernels/.venv/**)",
       "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -c \"import sys; import ipykernel; print(f''Python: {sys.version}''); print(f''ipykernel: {ipykernel.__version__}''); print(''Kernel ready!'')\")",
       "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -m pip show:*)",
-      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -c \"from ipykernel.kernelapp import IPKernelApp; print(''IPKernelApp can be imported''); print(''Kernel is functional'')\")"
+      "Bash(\"c:/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_09_02_Bomen_bifacial_gain_2021/.venv/Scripts/python.exe\" -c \"from ipykernel.kernelapp import IPKernelApp; print(''IPKernelApp can be imported''); print(''Kernel is functional'')\")",
+      "Read(//c/Users/z5183876/OneDrive - UNSW/Documents/GitHub/25_07_23_Bomen_analysis/**)"
     ],
     "deny": [],
     "ask": []
