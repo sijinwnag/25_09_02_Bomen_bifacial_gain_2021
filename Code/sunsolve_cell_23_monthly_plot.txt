@@ -1,0 +1,145 @@
+# Add this parameter at the beginning of your cell
+selected_month = 12 # 1 for January, None for all months
+month_names = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 
+               6: 'June', 7: 'July', 8: 'August', 9: 'September', 
+               10: 'October', 11: 'November', 12: 'December'}
+
+# Filter metrics_df to only include 2021 data
+filtered_2021_metrics = metrics_df[metrics_df.index.year == 2021].copy()
+
+# Apply month filtering if selected_month is specified
+if selected_month is not None:
+    month_filtered_metrics = filtered_2021_metrics[filtered_2021_metrics.index.month == selected_month].copy()
+    month_label = f" ({month_names[selected_month]} only)"
+    
+    # Calculate month-specific optimal scaling factor
+    print(f"\n=== MONTH-SPECIFIC OPTIMIZATION FOR {month_names[selected_month].upper()} ===")
+    
+    def calculate_month_mbe(scale_factor):
+        """Calculate MBE for the selected month"""
+        scaled_data = month_filtered_metrics['Simulated'] * scale_factor
+        return np.mean(scaled_data - month_filtered_metrics['Actual'])
+    
+    def find_month_optimal_scaling(min_factor=0.5, max_factor=2e10, max_iterations=100):
+        """Find optimal scaling factor for the selected month"""
+        print(f"Optimizing scaling factor for {month_names[selected_month]}...")
+        print(f"Data points available: {len(month_filtered_metrics)}")
+        
+        iterations = 0
+        best_factor = None
+        best_mbe = float('inf')
+        
+        while iterations < max_iterations:
+            iterations += 1
+            mid_factor = (min_factor + max_factor) / 2
+            mbe = calculate_month_mbe(mid_factor)
+            
+            if abs(mbe) < abs(best_mbe):
+                best_factor = mid_factor
+                best_mbe = mbe
+            
+            if iterations % 10 == 0 or iterations < 10:
+                print(f"Iteration {iterations}: Factor = {mid_factor:.10f}, MBE = {mbe:.10e}")
+            
+            if abs(mbe) < target_mbe_tolerance:
+                print(f"✓ Converged! Month-specific MBE below tolerance.")
+                return mid_factor, mbe, iterations
+            
+            if mbe > 0:
+                max_factor = mid_factor
+            else:
+                min_factor = mid_factor
+            
+            if max_factor - min_factor < 1e-15:
+                print(f"! Reached numerical precision limit.")
+                return best_factor, best_mbe, iterations
+        
+        return best_factor, best_mbe, iterations
+    
+    # Find month-specific optimal scaling
+    month_optimal_factor, month_final_mbe, month_iterations = find_month_optimal_scaling()
+    
+    print(f"\n=== {month_names[selected_month].upper()} OPTIMIZATION RESULTS ===")
+    print(f"Month-specific optimal factor: {month_optimal_factor:.10f}")
+    print(f"Annual optimal factor: {optimal_factor:.10f}")
+    print(f"Difference: {((month_optimal_factor / optimal_factor) - 1) * 100:+.2f}%")
+    print(f"Final MBE: {month_final_mbe:.12e} MWh/day")
+    print(f"Iterations: {month_iterations}")
+    
+    # Apply month-specific scaling
+    month_filtered_metrics['Simulated_display'] = month_filtered_metrics['Simulated'] * month_optimal_factor
+    filtered_2021_metrics = month_filtered_metrics
+    
+else:
+    month_label = ""
+    # Use annual optimal scaling for all months
+    filtered_2021_metrics['Simulated_display'] = filtered_2021_metrics['Simulated'] * optimal_factor
+    print(f"\n=== USING ANNUAL OPTIMAL SCALING ===")
+    print(f"Annual optimal factor: {optimal_factor:.10f}")
+
+print(f"\n=== FILTERED 2021{month_label} DATA FOR PLOTTING ===")
+print(f"Total days in filtered 2021{month_label} data: {len(filtered_2021_metrics)}")
+
+if len(filtered_2021_metrics) > 0:
+    # Create a two-panel figure
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_figsize, sharex=True,
+                                  gridspec_kw={'height_ratios':[1,1]})
+    
+    # Plot the scaled simulation data
+    ax1.plot(filtered_2021_metrics.index, filtered_2021_metrics['Simulated_display'], 
+             label='SunSolve yield', color='#0072BF')
+    
+    # Plot the actual data
+    ax1.plot(filtered_2021_metrics.index, filtered_2021_metrics['Actual'], 
+             label='Measured', color='orange')
+    
+    # Add labels and formatting for top panel
+    ax1.set_ylabel('Energy (MWh/day)', fontsize=axis_label_size-4)
+    ax1.legend(fontsize=text_size, loc='upper center', ncol=2)
+    ax1.tick_params(labelsize=axis_num_size)
+    
+    # Calculate residuals
+    residuals = filtered_2021_metrics['Simulated_display'] - filtered_2021_metrics['Actual']
+    
+    # Plot residuals in bottom panel
+    ax2.plot(residuals.index, residuals, color='black', label='Difference')
+    ax2.axhline(0, color='k', linestyle='--')
+    ax2.set_ylabel('Difference (MWh/day)', fontsize=axis_label_size-4)
+    ax2.tick_params(labelsize=axis_num_size)
+    
+    # Add title with scaling info
+    if selected_month is not None:
+        title = f'2021{month_label} - Optimized Scaling (Factor: {month_optimal_factor:.6f})'
+    else:
+        title = f'2021 Full Year - Annual Optimal Scaling (Factor: {optimal_factor:.6f})'
+    fig.suptitle(title, fontsize=title_size)
+    
+    # Format and show
+    plt.gcf().autofmt_xdate()
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    plt.show()
+    
+    # Calculate error metrics
+    mbe = residuals.mean()
+    mae = np.mean(np.abs(residuals))
+    rmse = np.sqrt(np.mean(residuals**2))
+    crmse = np.sqrt(np.mean((residuals - mbe)**2))
+    cmae = np.mean(np.abs(residuals - mbe))
+    
+    meas_range = filtered_2021_metrics['Actual'].max() - filtered_2021_metrics['Actual'].min()
+    nrmse = rmse / meas_range * 100
+    nmae = mae / meas_range * 100
+    mape = np.mean(np.abs(residuals / filtered_2021_metrics['Actual'])) * 100
+    
+    print(f"\nEvaluation Metrics for 2021{month_label}:")
+    print(f"MBE   : {mbe:.3f} MWh/day")
+    print(f"MAE   : {mae:.3f} MWh/day")
+    print(f"RMSE  : {rmse:.5f} MWh/day")
+    print(f"CRMSE : {crmse:.5f} MWh/day")
+    print(f"CMAE  : {cmae:.3f} MWh/day")
+    print(f"nRMSE : {nrmse:.3f}% (range)")
+    print(f"NMAE  : {nmae:.3f}% (range)")
+    print(f"MAPE  : {mape:.3f}%")
+    
+else:
+    print(f"\nERROR: No filtered data points from 2021{month_label} remain after filtering.")

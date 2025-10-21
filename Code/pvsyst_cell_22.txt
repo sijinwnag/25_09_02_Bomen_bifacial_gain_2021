@@ -1,0 +1,280 @@
+# Define options at the beginning
+apply_clipping = True  # Set to False to disable clipping
+clipping_threshold = 2.392  # MW - power clipping threshold
+target_mbe_tolerance = 1e-13  # Target absolute MBE to achieve
+
+# Path to the maintenance file - adjust this path as needed
+maintenance_free_days_file = r"C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\remaining_dates_2021.txt"
+
+# First check if EArray needs conversion (avoid error if already numeric)
+if pd.api.types.is_object_dtype(simulation_results_df['EArray']):
+    simulation_results_df['EArray'] = pd.to_numeric(
+        simulation_results_df['EArray'].str.replace(',', '.'), 
+        errors='coerce'
+    )
+    print("Converted EArray column from string to numeric")
+else:
+    print("EArray column is already numeric type:", simulation_results_df['EArray'].dtype)
+
+# Now set the index and sort
+if 'timestamp' in simulation_results_df.columns:
+    simulation_results_df.set_index('timestamp', inplace=True)
+    simulation_results_df.sort_index(inplace=True)
+    print("Set timestamp as index")
+
+# Convert Power (MW) to Energy (MWh) for measured 5-minute data
+df['Energy_MWh'] = df[inverter] * (5/60)  # 5 minutes = 5/60 hours
+
+# Resample the actual power data to hourly averages to match simulation resolution
+hourly_actual_power = df[inverter].resample('H').mean()
+print(f"Resampled actual power from {len(df)} 5-minute intervals to {len(hourly_actual_power)} hourly averages")
+
+# ----------------------------------------------------------------------------
+# Create metrics_df with HOURLY data for optimization, then convert to DAILY
+# ----------------------------------------------------------------------------
+print("\n=== DATA FILTERING AND PREPARATION FOR OPTIMIZATION ===")
+print("Step 1: Creating filtered dataframe for metrics")
+hourly_metrics_df = pd.DataFrame()
+hourly_metrics_df['Actual'] = hourly_actual_power
+hourly_metrics_df['Simulated'] = simulation_results_df['EArray']  # Unscaled, unclipped
+
+# Filter to include only timestamps where both actual and simulated power exist
+initial_rows = len(hourly_metrics_df)
+hourly_metrics_df = hourly_metrics_df.dropna()
+print(f"After filtering for matching timestamps: {len(hourly_metrics_df)} data points (removed {initial_rows - len(hourly_metrics_df)} NaN values)")
+
+# Load the maintenance-free days from the text file
+print("\nStep 2: Loading and applying maintenance-free days filter")
+try:
+    with open(maintenance_free_days_file, 'r') as f:
+        maintenance_free_days = [line.strip() for line in f.readlines() if line.strip()]
+    
+    print(f"Loaded {len(maintenance_free_days)} maintenance-free days")
+    
+    # Convert maintenance-free days to datetime for filtering
+    maintenance_free_dates = pd.to_datetime(maintenance_free_days)
+    
+    # Add date column to hourly metrics for filtering
+    hourly_metrics_df['date'] = hourly_metrics_df.index.date
+    
+    # Filter the metrics dataframe to only include maintenance-free days
+    initial_rows = len(hourly_metrics_df)
+    hourly_metrics_df = hourly_metrics_df[hourly_metrics_df['date'].isin([date.date() for date in maintenance_free_dates])]
+    
+    print(f"After filtering for maintenance-free days: {len(hourly_metrics_df)} hourly points (removed {initial_rows - len(hourly_metrics_df)} points)")
+    
+except Exception as e:
+    print(f"Error loading maintenance-free days: {e}")
+    print("Continuing with only the non-NaN data points")
+    # Add date column even if maintenance file failed to load
+    hourly_metrics_df['date'] = hourly_metrics_df.index.date
+
+# Print filtered hourly data statistics
+if len(hourly_metrics_df) > 0:
+    print(f"\nFiltered hourly data date range: {hourly_metrics_df.index.min()} to {hourly_metrics_df.index.max()}")
+    print(f"Number of unique days in filtered hourly data: {len(hourly_metrics_df['date'].unique())}")
+else:
+    print("\nWarning: No hourly data points remain after filtering!")
+    print("Please check your maintenance-free days file and data availability.")
+
+# ----------------------------------------------------------------------------
+# OPTIMIZATION: Find scaling factor to minimize MBE before clipping
+# ----------------------------------------------------------------------------
+print("\n=== OPTIMIZATION OF SCALING FACTOR ===")
+
+# Aggregate hourly power to daily energy for optimization
+def hourly_to_daily_for_opt(hourly_power, min_hours=12):
+    """Convert hourly power to daily energy, requiring minimum valid hours per day."""
+    # Count valid hours per day
+    valid_hours_per_day = hourly_power.resample('D').count()
+    
+    # Sum the daily energy
+    daily_sum = hourly_power.resample('D').sum()
+    
+    # Only keep days with at least min_hours valid hours
+    valid_days = valid_hours_per_day >= min_hours
+    daily_sum_filtered = daily_sum.where(valid_days)
+    
+    return daily_sum_filtered
+
+# Create daily actual energy for optimization
+daily_actual_for_opt = hourly_to_daily_for_opt(hourly_metrics_df['Actual'])
+
+# Function to calculate MBE for a given scale factor
+def calculate_mbe(scale_factor):
+    """Calculate Mean Bias Error for given scale factor."""
+    # Scale the simulated data 
+    scaled_sim = hourly_metrics_df['Simulated'] * scale_factor
+    
+    # Apply clipping if enabled
+    if apply_clipping:
+        scaled_sim = scaled_sim.clip(upper=clipping_threshold)
+    
+    # Convert to daily energy
+    daily_sim = hourly_to_daily_for_opt(scaled_sim)
+    
+    # Filter to include only days where both actual and simulated exist
+    common_idx = daily_actual_for_opt.dropna().index.intersection(daily_sim.dropna().index)
+    
+    if len(common_idx) == 0:
+        return float('inf')
+    
+    # Calculate MBE on daily values
+    return np.mean(daily_sim[common_idx] - daily_actual_for_opt[common_idx])
+
+# Binary search to find optimal scaling factor
+def find_optimal_scaling_factor(min_factor=0.5, max_factor=1.5, max_iterations=100):
+    print("\nStarting binary search for optimal scaling factor...")
+    print(f"Initial search range: [{min_factor:.8f}, {max_factor:.8f}]")
+    
+    iterations = 0
+    best_factor = None
+    best_mbe = float('inf')
+    
+    while iterations < max_iterations:
+        iterations += 1
+        mid_factor = (min_factor + max_factor) / 2
+        
+        # Calculate MBE for the current factor
+        mbe = calculate_mbe(mid_factor)
+        
+        # Track the best factor found
+        if abs(mbe) < abs(best_mbe):
+            best_factor = mid_factor
+            best_mbe = mbe
+        
+        print(f"Iteration {iterations}: Factor = {mid_factor:.10f}, MBE = {mbe:.10e}")
+        
+        # Check if we've reached the target precision
+        if abs(mbe) < target_mbe_tolerance:
+            print(f"✓ Converged! Found factor with MBE below tolerance.")
+            return mid_factor, mbe, iterations
+        
+        # Adjust search range based on MBE sign
+        if mbe > 0:  # MBE is positive, need to decrease factor
+            max_factor = mid_factor
+        else:  # MBE is negative, need to increase factor
+            min_factor = mid_factor
+        
+        # Check if search range is too small (reached numerical precision limit)
+        if max_factor - min_factor < 1e-15:
+            print(f"! Reached numerical precision limit after {iterations} iterations.")
+            print(f"  Best MBE achieved: {best_mbe:.12e}")
+            return best_factor, best_mbe, iterations
+    
+    print(f"! Reached maximum iterations ({max_iterations}).")
+    print(f"  Best MBE achieved: {best_mbe:.12e}")
+    return best_factor, best_mbe, iterations
+
+# Find optimal scaling factor before clipping
+if len(hourly_metrics_df) > 0:
+    optimal_factor, final_mbe, iterations = find_optimal_scaling_factor()
+    print(f"\n=== OPTIMIZATION RESULTS ===")
+    print(f"Optimal scaling factor: {optimal_factor:.10f}")
+    print(f"Final MBE: {final_mbe:.12e} MWh/day")
+    print(f"Found in {iterations} iterations")
+else:
+    print("\nERROR: No data points remain after filtering. Cannot optimize.")
+    optimal_factor = 1.0
+    final_mbe = float('nan')
+
+# ----------------------------------------------------------------------------
+# Convert hourly data to daily energy values with optimal scaling
+# ----------------------------------------------------------------------------
+print("\n=== CONVERTING HOURLY TO DAILY ENERGY WITH OPTIMAL SCALING ===")
+
+def hourly_to_daily_with_scaling(hourly_power, scale_factor=1.0):
+    """Scale, clip hourly power, and aggregate to daily energy with proper handling of missing values."""
+    # Scale the data
+    scaled_power = hourly_power * scale_factor
+    
+    # Apply clipping if enabled
+    if apply_clipping and clipping_threshold is not None:
+        scaled_power = scaled_power.clip(upper=clipping_threshold)
+    
+    # Count valid hours per day
+    valid_hours_per_day = scaled_power.resample('D').count()
+    
+    # Sum the daily energy
+    daily_sum = scaled_power.resample('D').sum()
+    
+    # Only keep days with at least 12 valid hours (adjust threshold as needed)
+    # For other days, set to NaN (will not be connected in plot)
+    valid_days = valid_hours_per_day >= 12
+    daily_sum_filtered = daily_sum.where(valid_days)
+    
+    return daily_sum_filtered
+
+# Create daily metrics dataframe from the filtered hourly data with optimal scaling
+daily_actual = hourly_metrics_df['Actual'].resample('D').sum()
+daily_metrics_df = pd.DataFrame()
+daily_metrics_df['Actual'] = daily_actual
+daily_metrics_df['Simulated_display'] = hourly_to_daily_with_scaling(hourly_metrics_df['Simulated'], optimal_factor)
+daily_metrics_df['date'] = daily_metrics_df.index.date
+
+print(f"Converted {len(hourly_metrics_df)} hourly points to {len(daily_metrics_df)} daily points")
+print(f"Daily data date range: {daily_metrics_df.index.min()} to {daily_metrics_df.index.max()}")
+
+# Calculate error metrics with optimal scaling (filtered daily data)
+daily_metrics_clean = daily_metrics_df.dropna()
+
+rmse = np.sqrt(mean_squared_error(daily_metrics_clean['Actual'], daily_metrics_clean['Simulated_display']))
+actual_centered = daily_metrics_clean['Actual'] - daily_metrics_clean['Actual'].mean()
+simulated_centered = daily_metrics_clean['Simulated_display'] - daily_metrics_clean['Simulated_display'].mean()
+crmse = np.sqrt(np.mean((actual_centered - simulated_centered)**2))
+mbe = np.mean(daily_metrics_clean['Simulated_display'] - daily_metrics_clean['Actual'])
+
+print("\n=== ERROR METRICS (DAILY ENERGY, MAINTENANCE-FILTERED DATA, OPTIMALLY SCALED) ===")
+print(f"RMSE: {rmse:.4f} MWh/day")
+print(f"CRMSE: {crmse:.4f} MWh/day")
+print(f"MBE: {mbe:.12e} MWh/day")
+nrmse = rmse / (daily_metrics_clean['Actual'].max() - daily_metrics_clean['Actual'].min())
+print(f"nRMSE: {nrmse:.4%} of actual range")
+
+# ----------------------------------------------------------------------------
+# VISUALIZATION: Optimally scaled daily energy with maintenance filtering
+# ----------------------------------------------------------------------------
+plt.figure(figsize=long_hoz_figsize)
+
+# Calculate unfiltered daily sums for context (apply optimal scaling)
+unfiltered_daily_simulated = hourly_to_daily_with_scaling(simulation_results_df['EArray'], optimal_factor)
+unfiltered_daily_actual = df['Energy_MWh'].resample('D').sum()
+
+# Filter to 2021 data
+year_2021_simulated = unfiltered_daily_simulated[unfiltered_daily_simulated.index.year == 2021]
+year_2021_actual = unfiltered_daily_actual[unfiltered_daily_actual.index.year == 2021]
+
+# Highlight the maintenance-filtered data points with lines only (no markers)
+earray_label = f'Simulated (Scale: {optimal_factor:.6f}, Maintenance-Free Days'
+if apply_clipping:
+    earray_label += f', clipped at {clipping_threshold} MW'
+earray_label += ')'
+
+# Use '-' instead of '-o' to create lines without markers
+plt.plot(daily_metrics_clean.index, daily_metrics_clean['Simulated_display'],
+         '-', color='#ff7f0e', label=earray_label)
+plt.plot(daily_metrics_clean.index, daily_metrics_clean['Actual'],
+         '-', color='#1f77b4', label='Actual (Maintenance-Free Days)')
+
+# Labels and title
+plt.xlabel('Date', fontsize=axis_label_size)
+plt.ylabel('Energy (MWh/day)', fontsize=axis_label_size)
+plt.title(
+    f'Optimally Scaled Simulation vs Actual Daily Energy (2021, Maintenance-Filtered)\n'
+    f'Scale: {optimal_factor:.6f}, RMSE: {rmse:.3f} MWh/day, CRMSE: {crmse:.3f} MWh/day, MBE: {mbe:.2e} MWh/day',
+    fontsize=title_size
+)
+
+# Note about metrics
+plt.figtext(0.5, 0.01,
+            'Metrics calculated on maintenance-free days only',
+            ha='center', fontsize=10, style='italic')
+
+# Legend and formatting
+plt.legend(fontsize=text_size)
+plt.grid(True, alpha=0.3)
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
+plt.gcf().autofmt_xdate()
+plt.tight_layout()
+plt.show()
