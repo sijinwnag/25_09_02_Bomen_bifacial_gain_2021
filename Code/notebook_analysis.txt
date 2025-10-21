@@ -1,0 +1,257 @@
+
+================================================================================
+ANALYZING: PVsyst Notebook
+================================================================================
+
+Total cells: 29
+
+--- SECTION HEADERS ---
+Cell 0: # 1. Imports and definiiton
+Cell 2: # 2. Electrical data visualisation
+Cell 4: # 3. Simulation results visualisation
+Cell 5: ## 3.1. Data loading
+Cell 7: ## 3.2. Visualisation
+Cell 8: ### 3.2.1. Hourly raw data
+Cell 11: ### 3.2.2. Hourly filtered & scaled
+Cell 14: ### 3.2.3. Daily filtered & scaled
+Cell 15: #### 3.2.3.1. Plot the data before filtering
+Cell 16: ## ⚠️ IMPORTANT METHODOLOGY UPDATE
+Cell 16: #### What Changed:
+Cell 16: #### Why This Matters:
+Cell 16: #### Implementation Details:
+Cell 16: #### Mathematical Impact:
+Cell 18: #### 3.2.3.2. Plot the data after filtering
+Cell 21: ### 3.2.4. Daily filtered without sclaing
+Cell 23: # 4. Param optimisation
+Cell 24: ## 4.1. Uc and Uv color map
+Cell 25: ### 4.1.1. Hay model
+Cell 27: ### 4.1.2. Perez model
+
+--- CELLS WITH PLOTTING (plt.) ---
+
+Cell 3:
+
+df = pd.read_pickle(data_file)
+
+# print the head
+print(df.head())...
+
+Cell 9:
+# %matplotlib ipympl
+# Define clipping options at the beginning
+apply_clipping = False  # Set to False to disable clipping
+clipping_threshold = 100  # Clipping threshold in MW
+...
+
+Cell 10:
+def plot_four_days(dates, time_shifts=None):
+    """
+    Create a 2x2 subplot grid showing actual vs simulated power for 4 specific days
+    
+    Parameters:...
+
+Cell 12:
+# Define options at the beginning
+apply_clipping = True  # Set to False to disable clipping
+clipping_threshold = 2.392 # MW - power clipping threshold 
+target_mbe_tolerance = 1e-13  # Target absolute ...
+
+Cell 13:
+def plot_four_days_scaled(dates, time_shifts=None):
+    """
+    Create a 2x2 subplot grid showing actual vs optimally scaled simulated power for 4 specific days
+    
+    Parameters:...
+
+Cell 17:
+# Define options at the beginningapply_clipping = True  # Set to False to disable clippingclipping_threshold = 2.392 # MW - power clipping thresholdtarget_mbe_tolerance = 1e-13  # Target absolute MBE ...
+
+Cell 19:
+# Create a two-panel figure showing optimized results for filtered 2021 data
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_figsize, sharex=True,
+                              gridspec_kw={'hei...
+
+Cell 20:
+# Add this parameter at the beginning of your cell
+selected_month = 1  # 1 for January, None for all months
+month_names = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 
+             ...
+
+Cell 22:
+# %matplotlib inline
+
+# Create a two-panel figure showing filtered 2021 data WITHOUT scaling
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_figsize, sharex=True,
+                              g...
+
+Cell 26:
+UcUv_sweep_results = rf"C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\pvsyst_batch_evaluation_results_{power_station_num}_{inverter_num}_Hay.csv"
+# UcUv_...
+
+Cell 28:
+# define the sweeping results for visualising - automatically constructed from inverter ID
+# UcUv_sweep_results = rf"C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_202...
+
+--- SECTION: 4. Param optimisation ---
+Found at Cell 23
+Source: # 4. Param optimisation
+
+--- CELLS 18 AND ABOVE ---
+
+Cell 18 (markdown):
+#### 3.2.3.2. Plot the data after filtering
+
+Cell 19 (code):
+# Create a two-panel figure showing optimized results for filtered 2021 data
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_figsize, sharex=Tru...
+
+Cell 20 (code):
+# Add this parameter at the beginning of your cell
+selected_month = 1  # 1 for January, None for all months
+month_names = {1: 'January', 2: 'February'...
+
+Cell 21 (markdown):
+### 3.2.4. Daily filtered without sclaing
+
+Cell 22 (code):
+# %matplotlib inline
+
+# Create a two-panel figure showing filtered 2021 data WITHOUT scaling
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_fig...
+
+Cell 23 (markdown):
+# 4. Param optimisation
+
+Cell 24 (markdown):
+## 4.1. Uc and Uv color map
+
+================================================================================
+ANALYZING: SunSolve Notebook
+================================================================================
+
+Total cells: 27
+
+--- SECTION HEADERS ---
+Cell 0: # 1. Imports and definiiton
+Cell 2: # 2. Electrical data visualisation
+Cell 4: # 3. Simulation results visualisation
+Cell 5: ## 3.1. Data loading
+Cell 7: ## 3.2. Visualisation
+Cell 8: ### 3.2.1. Hourly raw data
+Cell 11: ### 3.2.2. Hourly filtered & scaled
+Cell 12: #### SCALE-THEN-CLIP WORKFLOW
+Cell 12: #### What Changed:
+Cell 12: #### Why This Matters:
+Cell 12: #### Implementation Details:
+Cell 12: #### Expected Impact:
+Cell 12: #### References:
+Cell 15: ### 3.2.3. Daily filtered & scaled
+Cell 16: #### 3.2.3.1. Plot the data before filtering
+Cell 18: #### 3.2.3.2. Plot the data after filtering
+Cell 19: ##### Yearly
+Cell 21: ##### Montly optimised yeraly
+Cell 23: ##### Monthly
+Cell 25: # 4. Residual vs parameter analyser
+
+--- CELLS WITH PLOTTING (plt.) ---
+
+Cell 3:
+# Load the data from the pickle file
+data_file = r"C:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_inv_pow_5min.pkl"
+df = pd.read_pickle(data_file)
+
+# pr...
+
+Cell 9:
+# %matplotlib ipympl
+# Define clipping options at the beginning
+apply_clipping = False  # Set to False to disable clipping
+clipping_threshold = 100  # Clipping threshold in MW
+...
+
+Cell 10:
+def plot_four_days(dates, time_shifts=None):
+    """
+    Create a 2x2 subplot grid showing actual vs simulated power for 4 specific days
+    
+    Parameters:...
+
+Cell 13:
+# Define options at the beginning
+apply_clipping = True  # Set to False to disable clipping
+clipping_threshold = 2.392  # MW - power clipping threshold
+target_mbe_tolerance = 1e-13  # Target absolute ...
+
+Cell 14:
+def plot_four_days_scaled(dates, time_shifts=None):
+    """
+    Create a 2x2 subplot grid showing actual vs optimally scaled simulated power for 4 specific days
+    
+    Parameters:...
+
+Cell 17:
+# Define options at the beginning
+apply_clipping = True  # Set to False to disable clipping
+clipping_threshold = 2.392  # MW - power clipping threshold
+target_mbe_tolerance = 1e-13  # Target absolute ...
+
+Cell 20:
+# Create a two-panel figure showing optimized results for filtered 2021 data
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_figsize, sharex=True,
+                              gridspec_kw={'hei...
+
+Cell 22:
+"""
+Calculate month-specific optimal scaling factors and evaluation metrics for 2021 data.
+Each month is optimized independently to minimize MBE.
+"""
+...
+
+Cell 24:
+# Add this parameter at the beginning of your cell
+selected_month = 12 # 1 for January, None for all months
+month_names = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 
+             ...
+
+Cell 26:
+# 5. Residual vs SunSolve parameter (hourly)
+
+# 1) Show all available SunSolve columns
+print("SunSolve columns:")
+print(list(simulation_results_df.columns))...
+
+--- SECTION: 4. Param optimisation ---
+
+--- CELLS 18 AND ABOVE ---
+
+Cell 18 (markdown):
+#### 3.2.3.2. Plot the data after filtering
+
+Cell 19 (markdown):
+##### Yearly
+
+Cell 20 (code):
+# Create a two-panel figure showing optimized results for filtered 2021 data
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=long_hoz_figsize, sharex=Tru...
+
+Cell 21 (markdown):
+##### Montly optimised yeraly
+
+Cell 22 (code):
+"""
+Calculate month-specific optimal scaling factors and evaluation metrics for 2021 data.
+Each month is optimized independently to minimize MBE.
+"""
+...
+
+Cell 23 (markdown):
+##### Monthly
+
+Cell 24 (code):
+# Add this parameter at the beginning of your cell
+selected_month = 12 # 1 for January, None for all months
+month_names = {1: 'January', 2: 'February'...
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================

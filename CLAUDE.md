@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This workspace contains **bifacial solar panel gain analysis** for the Bomen Solar Farm using 2021 operational data. The primary focus is on **validating PVsyst and SunSolve Yield simulation models** against measured electrical performance data to assess the benefits of bifacial photovoltaic systems.
+This workspace contains **bifacial solar panel gain analysis** for the Bomen Solar Farm using 2021 operational data. The primary focus is on **validating PVsyst and SunSolve Yield simulation models** against measured electrical performance data to assess the benefits of bifacial photovoltaic systems with advanced power clipping optimization.
 
 **Core Analysis Workflow:**
 - **Data Integration** - Load measured electrical power data (5-minute intervals) and simulation results (hourly from both PVsyst and SunSolve Yield)
 - **Data Processing** - Convert power to energy, resample to daily totals, filter for maintenance-free days
 - **Model Validation** - Compare simulation vs. measured performance using statistical metrics
 - **Comparative Analysis** - Cross-validate PVsyst and SunSolve Yield simulation accuracy
-- **Optimization** - Find optimal scaling factors to minimize bias (MBE ≈ 0)
-- **Performance Assessment** - Calculate RMSE, CRMSE, MAPE, and seasonal performance metrics
+- **Scale-Then-Clip Optimization** - Find optimal scaling factors before applying inverter clipping limits
+- **Performance Assessment** - Calculate RMSE, CRMSE, MAPE, nRMSE with seasonal and monthly breakdowns
 
 ## Essential Development Commands
 
@@ -44,6 +44,9 @@ python batch_pvsyst_evaluation_inv.py
 # Or specify inverter directly
 python batch_pvsyst_evaluation_inv.py --inverter "2-1"
 
+# Run scale-then-clip optimization (recommended for inverter-level analysis)
+python batch_pvsyst_evaluation_scaled_clip.py
+
 # Process weather data from monitoring stations
 python weather_data_processor.py --year 2021 --method robust_median
 
@@ -74,6 +77,7 @@ jupyter notebook 25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb   # Indivi
 jupyter notebook 25_09_09_Sunsolve_match_PVsyst.ipynb                   # SunSolve vs PVsyst comparison (daily)
 jupyter notebook 25_09_09_Sunsolve_match_PVsyst_hourly.ipynb            # SunSolve vs PVsyst comparison (hourly)
 jupyter notebook 25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb  # Parameter-level comparison
+jupyter notebook 25_10_17_Sunsolve_monthly_match_visualiser.ipynb       # Monthly temporal analysis
 ```
 
 ### Weather Data Processing Commands
@@ -92,16 +96,6 @@ python weather_data_processor.py --year 2021 --method robust_median --output cus
 
 ## High-Level Architecture
 
-### Data Processing Pipeline
-**PVsyst Simulation → Measured Data → Validation → Metrics**
-
-1. **Data Loading**: CSV parsing with robust datetime handling and encoding detection
-2. **Data Alignment**: Temporal synchronization between simulation (hourly) and measurements (5-minute)
-3. **Energy Conversion**: Power-to-energy transformation with proper time weighting
-4. **Filtering**: Maintenance-free days filter to exclude operational disruptions
-5. **Optimization**: Binary search algorithm to find optimal scaling factors
-6. **Validation**: Comprehensive statistical analysis with seasonal breakdown
-
 ### Dual-Simulation Validation Framework
 **PVsyst & SunSolve Yield → Measured Data → Comparative Analysis**
 
@@ -119,24 +113,47 @@ python weather_data_processor.py --year 2021 --method robust_median --output cus
 1. **Cross-Validation**: Compare both simulation tools against same measured data
 2. **Model Assessment**: Identify which simulation tool better predicts actual performance
 3. **Parameter Sensitivity**: Hourly vs. daily comparisons to detect temporal resolution effects
+4. **Monthly Patterns**: Temporal visualization for seasonal performance variations
+
+### Scale-Then-Clip Optimization Architecture
+**Critical Pattern**: The `batch_pvsyst_evaluation_scaled_clip.py` implements a two-stage optimization:
+
+1. **Stage 1 - Scale Optimization**: Find optimal scaling factor to minimize MBE before clipping
+2. **Stage 2 - Clipping Application**: Apply inverter power limit (e.g., 3.8 MW) to scaled data
+3. **Validation**: Verify final scaled-and-clipped results achieve target MBE ≤ 1e-13
+
+This approach ensures physically realistic inverter behavior while maintaining statistical accuracy.
+
+### Interactive Configuration System
+All batch scripts support interactive configuration:
+- **Optimization Folder Selection**: Auto-detect available PVsyst simulation directories
+- **Inverter Selection**: Choose from available per-inverter simulation folders
+- **Clipping Configuration**: Enable/disable power clipping with custom thresholds
+- **Validation**: Folder existence and CSV file availability checks
 
 ### Class-Based Architecture
-Both Python scripts use object-oriented design:
+All Python scripts use object-oriented design:
 ```python
 class PVsystBatchEvaluator:
-    def __init__(self, project_root=None, inverter=None)
+    def __init__(self, project_root=None, optimization_folder=None, apply_clipping=None)
     def run_batch_evaluation()
     def process_single_file()
     def find_optimal_scaling_factor()
+
+class PVsystScaledClipBatchEvaluator:
+    def __init__(self, project_root=None, inverter=None, apply_clipping=None)
+    def scale_then_clip_workflow()
+    def find_optimal_scaling_factor_with_clipping()
 ```
 
 ## Critical Data Architecture
 
 ### Physical System Configuration
-- **Location**: Bomen Solar Farm (-35.0708°, 147.3842°), NSW, Australia  
+- **Location**: Bomen Solar Farm (-35.0708°, 147.3842°), NSW, Australia
 - **Analysis Period**: 2021 full year with maintenance filtering
 - **Data Resolution**: 5-minute measurements, hourly simulations
 - **System Type**: Bifacial photovoltaic with single-axis tracking
+- **Inverter Power Limit**: Typically 3.8 MW per inverter (configurable)
 
 ### Data Sources & Formats
 ```
@@ -152,13 +169,17 @@ Weather Data   → Station merge → 5-min
 ```
 
 ### Key File Locations
-- **Electrical Data**: `Data/full_site_pow_5min.pkl` (5-minute power measurements)
-- **Individual Data**: `Data/full_inv_pow_5min.pkl` (per-inverter measurements)
-- **PVsyst Files**: `Data/PVsyst/param optimisation/*.CSV` (simulation results)
-- **Per-Inverter**: `Data/PVsyst/per_inv/{inverter}/*.CSV` (individual simulations)
-- **SunSolve Data**: `Data/SunSolve Yield/Per inverter/{inverter}/` (SunSolve simulation results)
+- **Electrical Data**: `Data/full_site_pow_5min.pkl` (5-minute power measurements, site-level)
+- **Individual Data**: `Data/full_inv_pow_5min.pkl` (per-inverter measurements, 43 inverters)
+- **PVsyst Whole Site**: `Data/PVsyst/Whole_site/` (site-level simulation files)
+- **PVsyst Per-Inverter**: `Data/PVsyst/per_inv/{inverter}/` (individual inverter simulations)
+- **SunSolve Whole Site**: `Data/SunSolve Yield/Whole site/` (site-level SunSolve results)
+- **SunSolve Per-Inverter**: `Data/SunSolve Yield/Per inverter/{inverter}/` (per-inverter SunSolve results)
 - **Weather Data**: 5-minute resolution from 3 monitoring stations (CP01, CP02, CP03)
-- **Maintenance Filter**: `Results/remaining_dates_2021.txt` (maintenance-free dates)
+- **Maintenance Filters**:
+  - `Results/maintenance_free_days_{year}.txt` (excludes maintenance days)
+  - `Results/maintenance_days_{year}.txt` (includes only maintenance days)
+  - `Results/remaining_dates_2021.txt` (legacy maintenance-free filter)
 
 ### Core Functions & Patterns
 
@@ -199,6 +220,25 @@ if df['timestamp'].isna().any():
     df['timestamp'] = pd.to_datetime(df[date_col], dayfirst=True, errors='coerce')
 ```
 
+**Scale-Then-Clip Optimization Pattern**:
+```python
+def scale_then_clip_workflow(simulated, measured, clipping_threshold):
+    # Stage 1: Find optimal scaling factor
+    optimal_scale = find_optimal_scaling_factor(simulated, measured)
+
+    # Stage 2: Apply scaling
+    scaled_simulation = simulated * optimal_scale
+
+    # Stage 3: Apply power clipping
+    clipped_simulation = scaled_simulation.clip(upper=clipping_threshold)
+
+    # Stage 4: Verify MBE ≈ 0
+    mbe = (clipped_simulation - measured).mean()
+    assert abs(mbe) < 1e-13
+
+    return clipped_simulation, optimal_scale
+```
+
 **Energy Conversion Pattern**:
 ```python
 # 5-minute power to energy conversion
@@ -210,7 +250,7 @@ simulation_df['EArray_MWh'] = simulation_df['EArray'] * 1.0  # 1 hour
 daily_simulated = simulation_df['EArray_MWh'].resample('D').sum()
 ```
 
-**Optimization Algorithm**:
+**Binary Search Optimization Algorithm**:
 ```python
 def find_optimal_scaling_factor(min_factor=0.5, max_factor=2.0, max_iterations=100):
     # Binary search to achieve MBE ≤ 1e-13
@@ -252,28 +292,44 @@ def process_weather_robust_median(station_data):
 
 **Key Pattern**: `create_sunsolve_notebook.py` creates notebook, `rebuild_sunsolve_notebook.py` ensures proper structure, `test_sunsolve_notebook.py` validates functionality.
 
+### Interactive Configuration Workflow
+Scripts detect available data and prompt for configuration:
+1. **Auto-detect project structure** - Find Data/, Results/, PVsyst directories
+2. **Scan for optimization folders** - List available simulation parameter sets
+3. **Display available inverters** - Show per-inverter simulation directories
+4. **Configure clipping** - Enable/disable with custom threshold selection
+5. **Validate selections** - Check folder existence and CSV availability
+6. **Execute analysis** - Process with user-confirmed configuration
+
 ### Batch Processing Pattern
-Both PVsyst and inverter scripts follow consistent workflow:
+All batch scripts follow consistent workflow:
 1. **Initialize** - Auto-detect project root, set up logging
 2. **Load Data** - Electrical measurements and maintenance filter
 3. **Process Files** - Iterate through simulation CSV files (PVsyst or SunSolve)
-4. **Optimize** - Find optimal scaling factor for each file
+4. **Optimize** - Find optimal scaling factor for each file (with optional clipping)
 5. **Export** - Save results to CSV with comprehensive metrics
 
 ### Error Handling Strategy
 - **Robust CSV parsing** with multiple encoding attempts
-- **Flexible datetime parsing** with format fallbacks  
+- **Flexible datetime parsing** with format fallbacks
 - **Comprehensive logging** with progress tracking
 - **Graceful degradation** when files fail to process
+- **Validation checks** before optimization (data quality, timestamp alignment)
 
 ### Results Export Structure
 ```
 Results/
-├── pvsyst_batch_evaluation_results.csv          # Site-level results
-├── pvsyst_batch_evaluation_results_{inverter}.csv  # Per-inverter results
-├── *.xlsx                                       # Excel format results
-├── remaining_dates_2021.txt                     # Maintenance-free days filter
-└── *.log                                        # Execution logs
+├── pvsyst_batch_evaluation_results.csv                    # Site-level results
+├── pvsyst_batch_evaluation_results_{inverter}.csv          # Per-inverter results (standard)
+├── pvsyst_batch_evaluation_results_{inverter}_scaled_clip.csv  # Scale-then-clip results
+├── pvsyst_metrics.txt                                     # Aggregated PVsyst metrics
+├── pvsyst_metrics_unscaled.txt                            # Unscaled baseline metrics
+├── sunsolve_yield_metrics_unscaled.txt                    # SunSolve baseline metrics
+├── *.xlsx                                                 # Excel format results
+├── maintenance_free_days_{year}.txt                       # Maintenance-free days filter
+├── maintenance_days_{year}.txt                            # Maintenance days list
+├── remaining_dates_2021.txt                               # Legacy filter
+└── *.log                                                  # Execution logs
 ```
 
 ## Key Analysis Parameters
@@ -290,10 +346,20 @@ performance_targets = {
 # Expected results format
 evaluation_metrics = {
     'RMSE': 'Root Mean Square Error (MWh/day)',
-    'MBE': 'Mean Bias Error (≈0 after optimization)', 
+    'MBE': 'Mean Bias Error (≈0 after optimization)',
     'CRMSE': 'Centralized Root Mean Square Error',
     'MAPE': 'Mean Absolute Percentage Error (%)',
     'nRMSE': 'Normalized RMSE (% of measurement range)'
+}
+```
+
+### Inverter Clipping Configuration
+```python
+# Power clipping parameters (configurable per analysis)
+clipping_config = {
+    'apply_clipping': True,         # Enable/disable clipping
+    'clipping_threshold': 3.8,      # MW (typical inverter limit)
+    'workflow': 'scale_then_clip',  # Apply scaling before clipping
 }
 ```
 
@@ -301,7 +367,7 @@ evaluation_metrics = {
 ```python
 # Maintenance-free filtering (critical for accuracy)
 maintenance_filter = {
-    'file': 'Results/remaining_dates_2021.txt',
+    'file': 'Results/maintenance_free_days_2021.txt',
     'format': 'One date per line (YYYY-MM-DD)',
     'purpose': 'Exclude days with maintenance/outages'
 }
@@ -309,7 +375,7 @@ maintenance_filter = {
 # Data quality filters
 data_filters = {
     'remove_zero_values': False,    # Keep zero generation (nighttime)
-    'match_timestamps': True,       # Only overlapping dates  
+    'match_timestamps': True,       # Only overlapping dates
     'dropna_values': True          # Remove missing measurements
 }
 ```
@@ -324,6 +390,7 @@ data_filters = {
 - **Use latin-1 encoding** to handle special characters
 - **Apply multiple datetime format attempts** for robustness
 - **Validate EArray column exists** before processing
+- **Consider clipping** for inverter-level analysis
 
 **SunSolve Yield Data**:
 - **Use standard CSV parsing** (no special delimiters or encoding)
@@ -333,36 +400,50 @@ data_filters = {
 - **Remove duplicate timestamps** if present
 - **Validate Power [unit-system] (W) column exists** before processing
 
-### Statistical Analysis Patterns  
+### Scale-Then-Clip Workflow Guidelines
+- **Use for inverter-level analysis** where power limits apply
+- **Always scale first, clip second** to preserve physical behavior
+- **Verify final MBE ≈ 0** after both operations
+- **Document clipping threshold** used for each analysis
+- **Compare clipped vs. unclipped metrics** to assess impact
+
+### Statistical Analysis Patterns
 - **Optimize scaling before metrics** to minimize bias
 - **Calculate both scaled and unscaled metrics** for comparison
 - **Include seasonal breakdown** (Summer/Autumn/Winter/Spring)
+- **Add monthly analysis** for temporal pattern detection
 - **Use maintenance-free days filter** for operational accuracy
 - **Validate convergence** of optimization algorithm
+- **Cross-validate** PVsyst and SunSolve results
 
 ### Error Prevention
 - **Check file existence** before processing
 - **Validate data shapes** after resampling
-- **Monitor optimization convergence** 
+- **Monitor optimization convergence**
 - **Log all processing steps** for debugging
 - **Handle missing columns gracefully**
+- **Verify timestamp alignment** between datasets
 
 ## Project Structure
 
 ### Main Directories
 - **`Code/`** - Analysis scripts and Jupyter notebooks
-- **`Data/`** - Electrical measurements and PVsyst simulation files
-  - **`Data/PVsyst/param optimisation/`** - Site-level simulation files
-  - **`Data/PVsyst/per_inv/{inverter}/`** - Individual inverter simulations
+- **`Data/`** - Electrical measurements and simulation files
+  - **`Data/PVsyst/Whole_site/`** - Site-level PVsyst simulations
+  - **`Data/PVsyst/per_inv/{inverter}/`** - Individual inverter PVsyst simulations
+  - **`Data/SunSolve Yield/Whole site/`** - Site-level SunSolve simulations
+  - **`Data/SunSolve Yield/Per inverter/{inverter}/`** - Individual inverter SunSolve simulations
 - **`Results/`** - Analysis outputs, metrics, and plots
+- **`Documentation/`** - Project workflow documentation
 - **`.venv/`** - Python virtual environment
 
 ### Essential Files
 
 **Python Scripts**:
-- **`requirements.txt`** - Python dependencies (comprehensive list with 300+ packages)
+- **`requirements.txt`** - Python dependencies (comprehensive list with 370+ packages)
 - **`Code/batch_pvsyst_evaluation.py`** - Site-level PVsyst batch processor
 - **`Code/batch_pvsyst_evaluation_inv.py`** - Individual inverter PVsyst processor
+- **`Code/batch_pvsyst_evaluation_scaled_clip.py`** - Scale-then-clip optimization processor
 - **`Code/weather_data_processor.py`** - Multi-station weather data processing with quality control
 - **`Code/maintenance_filter.py`** - Maintenance-free days filter generator
 - **`Code/maintenance_days_filter.py`** - Maintenance days list generator
@@ -377,18 +458,21 @@ data_filters = {
 - **`Code/25_09_09_Sunsolve_match_PVsyst.ipynb`** - SunSolve vs PVsyst daily comparison
 - **`Code/25_09_09_Sunsolve_match_PVsyst_hourly.ipynb`** - SunSolve vs PVsyst hourly comparison
 - **`Code/25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb`** - Parameter-level comparison
+- **`Code/25_10_17_Sunsolve_monthly_match_visualiser.ipynb`** - Monthly temporal visualization
 
 **Documentation**:
 - **`Code/README_weather_processor.md`** - Detailed weather processing documentation
 - **`Code/SUNSOLVE_NOTEBOOK_VALIDATION_REPORT.md`** - SunSolve notebook testing results
+- **`Documentation/README.md`** - Basic workflow overview
 
 ## Common Development Tasks
 
 ### Working with PVsyst Analysis
 1. **Site-level analysis**: Run `batch_pvsyst_evaluation.py` to process all PVsyst simulations
 2. **Inverter-level analysis**: Run `batch_pvsyst_evaluation_inv.py` with specific inverter ID
-3. **Interactive exploration**: Use `25_09_05_Data_visualiser_matching_inv.ipynb` for detailed visualization
-4. **Results review**: Check `Results/pvsyst_batch_evaluation_results*.csv` and log files
+3. **Scale-then-clip analysis**: Run `batch_pvsyst_evaluation_scaled_clip.py` for physical inverter limits
+4. **Interactive exploration**: Use `25_09_05_Data_visualiser_matching_inv.ipynb` for detailed visualization
+5. **Results review**: Check `Results/pvsyst_batch_evaluation_results*.csv` and log files
 
 ### Working with SunSolve Yield Analysis
 1. **Generate notebook**: Run `rebuild_sunsolve_notebook.py` to create analysis notebook from template
@@ -399,14 +483,25 @@ data_filters = {
 ### Comparative Analysis Workflow
 1. **Prepare data**: Ensure both PVsyst and SunSolve simulations exist for same inverter
 2. **Run individual analyses**: Execute both PVsyst and SunSolve notebooks separately
-3. **Compare results**: Use `25_09_09_Sunsolve_match_PVsyst*.ipynb` notebooks for cross-validation
-4. **Assess accuracy**: Review MBE, RMSE, nRMSE metrics to determine which tool is more accurate
+3. **Compare daily results**: Use `25_09_09_Sunsolve_match_PVsyst.ipynb` for daily-level cross-validation
+4. **Compare hourly results**: Use `25_09_09_Sunsolve_match_PVsyst_hourly.ipynb` for temporal resolution analysis
+5. **Parameter-level comparison**: Use `25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb`
+6. **Monthly visualization**: Use `25_10_17_Sunsolve_monthly_match_visualiser.ipynb` for seasonal patterns
+7. **Assess accuracy**: Review MBE, RMSE, nRMSE metrics to determine which tool is more accurate
 
 ### Maintenance Data Filtering
 1. **Generate maintenance-free days**: Run `maintenance_filter.py --year 2021` to create exclusion list
 2. **Generate maintenance days**: Run `maintenance_days_filter.py --year 2021` to create inclusion list
 3. **Apply filters**: Both filters automatically used by analysis notebooks and batch scripts
-4. **Verify coverage**: Check `Results/remaining_dates_2021.txt` and `Results/maintenance_days_2021.txt`
+4. **Verify coverage**: Check `Results/maintenance_free_days_2021.txt` and `Results/maintenance_days_2021.txt`
+
+### Scale-Then-Clip Optimization Workflow
+1. **Select inverter**: Choose target inverter (e.g., "2-1", "17-2")
+2. **Configure clipping**: Set threshold (typically 3.8 MW per inverter)
+3. **Run optimization**: Execute `batch_pvsyst_evaluation_scaled_clip.py`
+4. **Review results**: Check scaled-and-clipped metrics vs. baseline
+5. **Validate convergence**: Verify MBE ≤ 1e-13 in output logs
+6. **Compare workflows**: Assess difference between scale-only vs. scale-then-clip
 
 ### Troubleshooting
 
@@ -417,6 +512,8 @@ data_filters = {
 4. **Notebook generation fails**: Use `rebuild_sunsolve_notebook.py` instead of `create_sunsolve_notebook.py`
 5. **Optimization doesn't converge**: Check measured data exists for overlapping dates
 6. **High MBE/RMSE values**: Indicates simulation parameters may need calibration
+7. **Clipping threshold errors**: Verify threshold matches inverter specifications
+8. **Interactive prompts fail**: Use command-line arguments to bypass interactive mode
 
 **Data Quality Checks**:
 - Verify timestamp alignment between measured and simulation data
@@ -424,5 +521,6 @@ data_filters = {
 - Ensure power/energy values are in expected ranges (MW/MWh)
 - Validate seasonal patterns match expected solar generation curves
 - Confirm maintenance days are properly filtered from analysis
+- Verify clipping is applied only to inverter-level analysis (not site-level)
 
-This framework enables systematic **bifacial solar panel performance validation** through rigorous statistical comparison of both PVsyst and SunSolve Yield simulations against measured data, providing quantitative assessment of model accuracy, comparative tool evaluation, and bifacial gain benefits.
+This framework enables systematic **bifacial solar panel performance validation** through rigorous statistical comparison of both PVsyst and SunSolve Yield simulations against measured data, providing quantitative assessment of model accuracy, comparative tool evaluation, scale-then-clip optimization, and bifacial gain benefits.

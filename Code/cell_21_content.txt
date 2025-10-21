@@ -1,0 +1,240 @@
+"""
+Calculate month-specific optimal scaling factors and evaluation metrics for 2021 data.
+Each month is optimized independently to minimize MBE.
+"""
+
+month_names = {
+    1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 
+    6: 'June', 7: 'July', 8: 'August', 9: 'September', 
+    10: 'October', 11: 'November', 12: 'December'
+}
+
+# Filter metrics_df to only include 2021 data
+filtered_2021_metrics = metrics_df[metrics_df.index.year == 2021].copy()
+
+print("=== MONTH-BY-MONTH OPTIMIZATION ===\n")
+
+# Dictionary to store month-specific results
+month_results = {}
+
+def calculate_monthly_mbe(month_data, scale_factor):
+    """Calculate MBE for a specific month's data."""
+    scaled_data = month_data['Simulated'] * scale_factor
+    return np.mean(scaled_data - month_data['Actual'])
+
+def find_monthly_optimal_scaling(month_data, month_num, min_factor=0.5, max_factor=2e10, max_iterations=100):
+    """
+    Find optimal scaling factor for a specific month using binary search.
+    
+    Parameters
+    ----------
+    month_data : pd.DataFrame
+        DataFrame containing 'Simulated' and 'Actual' columns for the month
+    month_num : int
+        Month number (1-12)
+    min_factor : float
+        Minimum scaling factor to search
+    max_factor : float
+        Maximum scaling factor to search
+    max_iterations : int
+        Maximum number of binary search iterations
+    
+    Returns
+    -------
+    tuple
+        (optimal_factor, final_mbe, iterations)
+    """
+    iterations = 0
+    best_factor = None
+    best_mbe = float('inf')
+    
+    while iterations < max_iterations:
+        iterations += 1
+        mid_factor = (min_factor + max_factor) / 2
+        mbe = calculate_monthly_mbe(month_data, mid_factor)
+        
+        if abs(mbe) < abs(best_mbe):
+            best_factor = mid_factor
+            best_mbe = mbe
+        
+        if abs(mbe) < target_mbe_tolerance:
+            return mid_factor, mbe, iterations
+        
+        # Adjust search bounds based on MBE sign
+        if mbe > 0:
+            max_factor = mid_factor
+        else:
+            min_factor = mid_factor
+        
+        if max_factor - min_factor < 1e-15:
+            return best_factor, best_mbe, iterations
+    
+    return best_factor, best_mbe, iterations
+
+# Optimize each month individually
+for month_num in range(1, 13):
+    month_data = filtered_2021_metrics[filtered_2021_metrics.index.month == month_num].copy()
+    
+    if len(month_data) < 1:
+        print(f"{month_names[month_num]}: No data available")
+        continue
+    
+    print(f"\n{month_names[month_num]} ({len(month_data)} days)")
+    print("-" * 50)
+    
+    # Find optimal scaling factor for this month
+    optimal_factor_month, final_mbe_month, iterations_month = find_monthly_optimal_scaling(
+        month_data, month_num
+    )
+    
+    # Apply optimal scaling
+    month_data['Simulated_display'] = month_data['Simulated'] * optimal_factor_month
+    
+    # Calculate residuals
+    residuals = month_data['Simulated_display'] - month_data['Actual']
+    
+    # Calculate evaluation metrics
+    mbe = residuals.mean()
+    mae = np.mean(np.abs(residuals))
+    rmse = np.sqrt(np.mean(residuals**2))
+    crmse = np.sqrt(np.mean((residuals - mbe)**2))
+    
+    meas_range = month_data['Actual'].max() - month_data['Actual'].min()
+    nrmse = (rmse / meas_range * 100) if meas_range > 0 else 0
+    nmae = (mae / meas_range * 100) if meas_range > 0 else 0
+    
+    # Avoid division by zero in MAPE
+    non_zero_actual = month_data['Actual'] != 0
+    if non_zero_actual.sum() > 0:
+        mape = np.mean(np.abs(residuals[non_zero_actual] / month_data['Actual'][non_zero_actual])) * 100
+    else:
+        mape = 0
+    
+    # Store results
+    month_results[month_num] = {
+        'name': month_names[month_num],
+        'days': len(month_data),
+        'optimal_factor': optimal_factor_month,
+        'iterations': iterations_month,
+        'mbe': mbe,
+        'mae': mae,
+        'rmse': rmse,
+        'crmse': crmse,
+        'nrmse': nrmse,
+        'nmae': nmae,
+        'mape': mape,
+        'data': month_data
+    }
+    
+    print(f"Optimal Factor: {optimal_factor_month:.6f}")
+    print(f"vs Annual Factor: {optimal_factor:.6f} ({((optimal_factor_month / optimal_factor) - 1) * 100:+.2f}%)")
+    print(f"MBE: {mbe:.2e} MWh/day")
+    print(f"RMSE: {rmse:.3f} MWh/day")
+    print(f"nRMSE: {nrmse:.2f}%")
+    print(f"MAPE: {mape:.2f}%")
+
+# Create summary visualization
+print("\n" + "=" * 80)
+print("MONTHLY OPTIMIZATION SUMMARY")
+print("=" * 80)
+
+# Create a comprehensive figure with month-optimized data
+fig = plt.figure(figsize=(16, 10))
+gs = fig.add_gridspec(3, 2, hspace=0.3, wspace=0.3)
+
+# Reconstruct full year with month-optimized scaling
+optimized_full_year = []
+for month_num in range(1, 13):
+    if month_num in month_results:
+        optimized_full_year.append(month_results[month_num]['data'])
+
+if optimized_full_year:
+    optimized_2021_data = pd.concat(optimized_full_year).sort_index()
+    
+    # Top panel: Time series comparison
+    ax1 = fig.add_subplot(gs[0, :])
+    ax1.plot(optimized_2021_data.index, optimized_2021_data['Simulated_display'], 
+             label='SunSolve (Month-optimized)', color='#0072BF', linewidth=1.5)
+    ax1.plot(optimized_2021_data.index, optimized_2021_data['Actual'], 
+             label='Measured', color='orange', linewidth=1.5, alpha=0.8)
+    ax1.set_ylabel('Energy (MWh/day)', fontsize=axis_label_size-2)
+    ax1.legend(fontsize=text_size, loc='upper right')
+    ax1.grid(True, alpha=0.3)
+    ax1.set_title('2021 Data with Month-Specific Optimal Scaling Factors', fontsize=title_size-2)
+    
+    # Middle panel: Residuals
+    ax2 = fig.add_subplot(gs[1, :])
+    residuals_full = optimized_2021_data['Simulated_display'] - optimized_2021_data['Actual']
+    ax2.plot(optimized_2021_data.index, residuals_full, color='black', linewidth=1.0)
+    ax2.axhline(0, color='red', linestyle='--', alpha=0.7)
+    ax2.set_ylabel('Difference (MWh/day)', fontsize=axis_label_size-2)
+    ax2.set_xlabel('Date', fontsize=axis_label_size-2)
+    ax2.grid(True, alpha=0.3)
+    
+    # Bottom left: Scaling factors by month
+    ax3 = fig.add_subplot(gs[2, 0])
+    months = list(month_results.keys())
+    factors = [month_results[m]['optimal_factor'] for m in months]
+    ax3.bar(months, factors, color='steelblue', alpha=0.7)
+    ax3.axhline(optimal_factor, color='red', linestyle='--', label=f'Annual: {optimal_factor:.4f}')
+    ax3.set_xlabel('Month', fontsize=axis_label_size-2)
+    ax3.set_ylabel('Optimal Scaling Factor', fontsize=axis_label_size-2)
+    ax3.set_title('Month-Specific Scaling Factors', fontsize=text_size)
+    ax3.legend(fontsize=text_size-2)
+    ax3.set_xticks(months)
+    ax3.grid(True, alpha=0.3, axis='y')
+    
+    # Bottom right: RMSE by month
+    ax4 = fig.add_subplot(gs[2, 1])
+    rmse_values = [month_results[m]['rmse'] for m in months]
+    ax4.bar(months, rmse_values, color='coral', alpha=0.7)
+    ax4.set_xlabel('Month', fontsize=axis_label_size-2)
+    ax4.set_ylabel('RMSE (MWh/day)', fontsize=axis_label_size-2)
+    ax4.set_title('RMSE by Month', fontsize=text_size)
+    ax4.set_xticks(months)
+    ax4.grid(True, alpha=0.3, axis='y')
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # Print comprehensive summary table
+    print("\n" + "=" * 120)
+    print(f"{'Month':<12} {'Days':<6} {'Factor':<10} {'vs Annual':<12} {'RMSE':<10} {'nRMSE':<10} {'MAPE':<10}")
+    print("=" * 120)
+    
+    for month_num in sorted(month_results.keys()):
+        result = month_results[month_num]
+        factor_diff = ((result['optimal_factor'] / optimal_factor) - 1) * 100
+        print(f"{result['name']:<12} {result['days']:<6} {result['optimal_factor']:<10.6f} "
+              f"{factor_diff:>+10.2f}% {result['rmse']:<10.3f} {result['nrmse']:<10.2f}% {result['mape']:<10.2f}%")
+    
+    # Overall statistics for month-optimized approach
+    overall_mbe = residuals_full.mean()
+    overall_mae = np.abs(residuals_full).mean()
+    overall_rmse = np.sqrt((residuals_full**2).mean())
+    overall_crmse = np.sqrt(((residuals_full - overall_mbe)**2).mean())
+    
+    print("\n" + "=" * 120)
+    print("OVERALL STATISTICS (Month-Optimized Approach)")
+    print("=" * 120)
+    print(f"Total days: {len(optimized_2021_data)}")
+    print(f"MBE   : {overall_mbe:.3f} MWh/day")
+    print(f"MAE   : {overall_mae:.3f} MWh/day")
+    print(f"RMSE  : {overall_rmse:.3f} MWh/day")
+    print(f"CRMSE : {overall_crmse:.3f} MWh/day")
+    
+    # Comparison with annual approach
+    print("\n" + "=" * 120)
+    print("COMPARISON: Month-Optimized vs Annual Single Factor")
+    print("=" * 120)
+    
+    # Calculate metrics for annual single factor approach
+    annual_scaled = filtered_2021_metrics['Simulated'] * optimal_factor
+    annual_residuals = annual_scaled - filtered_2021_metrics['Actual']
+    annual_rmse = np.sqrt((annual_residuals**2).mean())
+    
+    print(f"RMSE Improvement: {annual_rmse:.3f} → {overall_rmse:.3f} MWh/day ({((overall_rmse - annual_rmse) / annual_rmse * 100):+.2f}%)")
+    print(f"MAE Improvement: {np.abs(annual_residuals).mean():.3f} → {overall_mae:.3f} MWh/day")
+
+else:
+    print("ERROR: No monthly data available for optimization")
