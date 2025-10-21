@@ -1,1 +1,4 @@
 *.pkl
+*.zip
+# Ignore raw IP2-PV1 data folder
+Data/IP2-PV1/
