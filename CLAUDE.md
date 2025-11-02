@@ -77,7 +77,7 @@ jupyter notebook 25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb   # Indivi
 jupyter notebook 25_09_09_Sunsolve_match_PVsyst.ipynb                   # SunSolve vs PVsyst comparison (daily)
 jupyter notebook 25_09_09_Sunsolve_match_PVsyst_hourly.ipynb            # SunSolve vs PVsyst comparison (hourly)
 jupyter notebook 25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb  # Parameter-level comparison
-jupyter notebook 25_10_17_Sunsolve_monthly_match_visualiser.ipynb       # Monthly temporal analysis
+jupyter notebook 25_10_17_Sunsolve_monthly_match_visualiser.ipynb       # Monthly temporal analysis (12 independent optimizations)
 ```
 
 ### Weather Data Processing Commands
@@ -261,6 +261,32 @@ def find_optimal_scaling_factor(min_factor=0.5, max_factor=2.0, max_iterations=1
             return mid_factor, mbe, iterations
 ```
 
+**Monthly Optimization Pattern** (SunSolve-specific temporal analysis):
+```python
+# Monthly-specific optimization for seasonal performance analysis
+def optimize_all_months(metrics_df, year=2021):
+    monthly_factors = {}
+    monthly_metrics = {}
+
+    for month in range(1, 13):
+        # Filter data for specific month
+        month_data = metrics_df[
+            (metrics_df.index.year == year) &
+            (metrics_df.index.month == month)
+        ]
+
+        # Find optimal scaling factor for this month
+        optimal_factor, mbe, iterations = find_optimal_scaling_factor(
+            month_data['Simulated'],
+            month_data['Actual']
+        )
+
+        monthly_factors[month] = optimal_factor
+        monthly_metrics[month] = calculate_metrics(month_data, optimal_factor)
+
+    return monthly_factors, monthly_metrics
+```
+
 **Weather Data Processing Pattern**:
 ```python
 # Multi-station robust processing with MAD outlier detection
@@ -291,6 +317,26 @@ def process_weather_robust_median(station_data):
 6. **Output Generation** - Save as `25_10_08_Data_visualiser_matching_inv_SunSolve.ipynb`
 
 **Key Pattern**: `create_sunsolve_notebook.py` creates notebook, `rebuild_sunsolve_notebook.py` ensures proper structure, `test_sunsolve_notebook.py` validates functionality.
+
+### Monthly Temporal Analysis Pattern
+**Advanced seasonal performance assessment** in SunSolve notebooks:
+
+**Cell 21 - Full Monthly Optimization:**
+1. **Independent Monthly Optimization** - Optimize each of 12 months separately
+2. **Seasonal Pattern Detection** - Identify month-specific simulation accuracy variations
+3. **Comparative Analysis** - Compare monthly scaling factors vs. annual factor
+4. **4-Panel Visualization**:
+   - Time series with month-optimized scaling
+   - Residuals over time
+   - Bar chart of monthly scaling factors
+   - Bar chart of monthly RMSE values
+
+**Cell 23 - Interactive Month Selection:**
+1. **User-Selectable Analysis Period** - Choose specific month or full year
+2. **Dynamic Scaling Application** - Apply month-specific or annual optimal factor
+3. **2-Panel Focused Visualization** - Time series and residuals for selected period
+
+**Key Pattern**: This capability exists **only in SunSolve notebooks** (25_10_17_Sunsolve_monthly_match_visualiser.ipynb) and provides seasonal granularity beyond the annual optimization used in both PVsyst and SunSolve workflows.
 
 ### Interactive Configuration Workflow
 Scripts detect available data and prompt for configuration:
@@ -416,6 +462,13 @@ data_filters = {
 - **Validate convergence** of optimization algorithm
 - **Cross-validate** PVsyst and SunSolve results
 
+### Monthly vs Annual Optimization
+- **Annual optimization** (standard): Single scaling factor optimized across full year
+- **Monthly optimization** (SunSolve notebooks only): 12 independent scaling factors for each month
+- **Use case for monthly**: Detect seasonal variations in simulation accuracy (e.g., summer vs. winter performance)
+- **Methodology consistency**: Both approaches use identical binary search and metric calculations
+- **Note**: Monthly optimization is a **temporal decomposition feature**, not a methodology difference
+
 ### Error Prevention
 - **Check file existence** before processing
 - **Validate data shapes** after resampling
@@ -487,7 +540,8 @@ data_filters = {
 4. **Compare hourly results**: Use `25_09_09_Sunsolve_match_PVsyst_hourly.ipynb` for temporal resolution analysis
 5. **Parameter-level comparison**: Use `25_09_19_PVsyst_SunSolve_Parameter_hourly_Comparison.ipynb`
 6. **Monthly visualization**: Use `25_10_17_Sunsolve_monthly_match_visualiser.ipynb` for seasonal patterns
-7. **Assess accuracy**: Review MBE, RMSE, nRMSE metrics to determine which tool is more accurate
+7. **Monthly temporal analysis**: Use `25_10_17_Sunsolve_monthly_match_visualiser.ipynb` for 12 independent monthly optimizations to detect seasonal accuracy variations
+8. **Assess accuracy**: Review MBE, RMSE, nRMSE metrics to determine which tool is more accurate
 
 ### Maintenance Data Filtering
 1. **Generate maintenance-free days**: Run `maintenance_filter.py --year 2021` to create exclusion list
