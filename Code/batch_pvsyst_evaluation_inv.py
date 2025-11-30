@@ -810,11 +810,18 @@ class PVsystBatchEvaluator:
         logging.info(f"Results saved to: {output_file}")
         logging.info(f"Transpositional model type: {model_type}")
         
+        # Find optimal parameters (Uc, Uv) with minimum RMSE
+        min_rmse_idx = results_df['RMSE'].idxmin()
+        optimal_uc = results_df.loc[min_rmse_idx, 'Uc']
+        optimal_uv = results_df.loc[min_rmse_idx, 'Uv']
+        min_rmse = results_df.loc[min_rmse_idx, 'RMSE']
+        
         # Print summary statistics
         logging.info("\n" + "="*50)
         logging.info("BATCH EVALUATION SUMMARY")
         logging.info("="*50)
         logging.info(f"Files processed successfully: {len(results)}")
+        logging.info(f"Optimized parameters: Uc={optimal_uc}, Uv={optimal_uv} with minimum RMSE={min_rmse:.3f}")
         logging.info(f"Average RMSE: {results_df['RMSE'].mean():.3f} ± {results_df['RMSE'].std():.3f}")
         logging.info(f"Average CRMSE: {results_df['CRMSE'].mean():.3f} ± {results_df['CRMSE'].std():.3f}")
         logging.info(f"Average scaling factor: {results_df['The optimised scale factor'].mean():.6f} ± {results_df['The optimised scale factor'].std():.6f}")
