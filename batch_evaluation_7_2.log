@@ -1,0 +1,728 @@
+2025-11-30 13:17:39,197 - INFO - Project root: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021
+2025-11-30 13:17:39,198 - INFO - Selected inverter: 7-2
+2025-11-30 13:17:39,199 - INFO - Optimization folder: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\7-2\Hay
+2025-11-30 13:17:39,200 - INFO - PVsyst directory: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\7-2\Hay
+2025-11-30 13:17:39,201 - INFO - Power clipping enabled: True
+2025-11-30 13:17:39,202 - INFO - Clipping threshold: 2.413 MW
+2025-11-30 13:17:39,203 - INFO - Starting batch evaluation of PVsyst files
+2025-11-30 13:17:39,204 - INFO - Loading measured electrical data from: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_inv_pow_5min.pkl
+2025-11-30 13:17:39,365 - INFO - Raw data shape: (385920, 45)
+2025-11-30 13:17:39,366 - INFO - Available inverters: ['1-1', '1-2', '10-1', '10-2', '11-1', '11-2', '12-1', '12-2', '13-1', '13-2', '14-1', '14-2', '15-1', '15-2', '16-1', '16-2', '17-1', '17-2', '18-1', '18-2', '19-1', '19-2', '2-1', '2-2', '20-1', '20-2', '21-1', '21-2', '22-1', '22-2', '3-1', '3-2', '4-1', '4-2', '5-1', '5-2', '6-1', '6-2', '7-1', '7-2', '8-1', '8-2', '9-1', '9-2']
+2025-11-30 13:17:39,383 - INFO - Set Timestamp as index. Date range: 2020-06-01 00:00:00 to 2024-01-31 23:55:00
+2025-11-30 13:17:39,398 - INFO - Filtered to inverter 7-2. Power range: -0.013 to 2.763 MW
+2025-11-30 13:17:39,398 - INFO - Successfully loaded 385920 measured data points for inverter 7-2
+2025-11-30 13:17:39,435 - INFO - Loaded 233 maintenance-free days
+2025-11-30 13:17:39,437 - INFO - Found 21 PVsyst CSV files to process
+2025-11-30 13:17:39,437 - INFO - Processing file 1/21: Bomen solar farm 2021 10 0.0 Hay model.csv
+2025-11-30 13:17:39,438 - INFO - Loading PVsyst file: Bomen solar farm 2021 10 0.0 Hay model.csv
+2025-11-30 13:17:39,753 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 10 0.0 Hay model.csv: 804 values clipped
+2025-11-30 13:17:39,754 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:17:39,756 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 10 0.0 Hay model.csv
+2025-11-30 13:17:39,757 - INFO - Processing measured electrical data...
+2025-11-30 13:17:39,763 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:39,799 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:39,800 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:39,800 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:39,807 - INFO - Simulation daily energy range: 0.00 to 28.48 MWh/day
+2025-11-30 13:17:39,812 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:39,816 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:39,816 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:39,836 - INFO - Converged! Found factor with MBE below tolerance after 42 iterations.
+2025-11-30 13:17:39,841 - INFO - Results for Bomen solar farm 2021 10 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=10, Uv=0.0, RMSE=0.982, MBE=-2.443062e-14, CRMSE=0.982, Scale=1.012702
+2025-11-30 13:17:39,844 - INFO - Processing file 2/21: Bomen solar farm 2021 11 0.0 Hay model.csv
+2025-11-30 13:17:39,845 - INFO - Loading PVsyst file: Bomen solar farm 2021 11 0.0 Hay model.csv
+2025-11-30 13:17:40,245 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 11 0.0 Hay model.csv: 56 values clipped
+2025-11-30 13:17:40,246 - INFO - Maximum power reduced from 2.56 MW to 2.41 MW
+2025-11-30 13:17:40,248 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 11 0.0 Hay model.csv
+2025-11-30 13:17:40,248 - INFO - Processing measured electrical data...
+2025-11-30 13:17:40,257 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:40,294 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:40,295 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:40,296 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:40,301 - INFO - Simulation daily energy range: 0.00 to 27.22 MWh/day
+2025-11-30 13:17:40,306 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:40,312 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:40,312 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:40,335 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:40,341 - INFO - Results for Bomen solar farm 2021 11 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=11, Uv=0.0, RMSE=1.138, MBE=-9.439088e-14, CRMSE=1.138, Scale=1.084584
+2025-11-30 13:17:40,346 - INFO - Processing file 3/21: Bomen solar farm 2021 12 0.0 Hay model.csv
+2025-11-30 13:17:40,347 - INFO - Loading PVsyst file: Bomen solar farm 2021 12 0.0 Hay model.csv
+2025-11-30 13:17:40,753 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 12 0.0 Hay model.csv: 287 values clipped
+2025-11-30 13:17:40,754 - INFO - Maximum power reduced from 2.74 MW to 2.41 MW
+2025-11-30 13:17:40,756 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 12 0.0 Hay model.csv
+2025-11-30 13:17:40,757 - INFO - Processing measured electrical data...
+2025-11-30 13:17:40,764 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:40,791 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:40,792 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:40,793 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:40,800 - INFO - Simulation daily energy range: 0.00 to 28.05 MWh/day
+2025-11-30 13:17:40,806 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:40,810 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:40,810 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:40,829 - INFO - Converged! Found factor with MBE below tolerance after 45 iterations.
+2025-11-30 13:17:40,835 - INFO - Results for Bomen solar farm 2021 12 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=12, Uv=0.0, RMSE=0.974, MBE=9.570599e-14, CRMSE=0.974, Scale=1.047051
+2025-11-30 13:17:40,839 - INFO - Processing file 4/21: Bomen solar farm 2021 13 0.0 Hay model.csv
+2025-11-30 13:17:40,840 - INFO - Loading PVsyst file: Bomen solar farm 2021 13 0.0 Hay model.csv
+2025-11-30 13:17:41,220 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 13 0.0 Hay model.csv: 597 values clipped
+2025-11-30 13:17:41,222 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:17:41,224 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 13 0.0 Hay model.csv
+2025-11-30 13:17:41,225 - INFO - Processing measured electrical data...
+2025-11-30 13:17:41,232 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:41,264 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:41,265 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:41,266 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:41,272 - INFO - Simulation daily energy range: 0.00 to 28.31 MWh/day
+2025-11-30 13:17:41,278 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:41,284 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:41,284 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:41,311 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:41,319 - INFO - Results for Bomen solar farm 2021 13 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=13, Uv=0.0, RMSE=0.979, MBE=9.564119e-14, CRMSE=0.979, Scale=1.027782
+2025-11-30 13:17:41,324 - INFO - Processing file 5/21: Bomen solar farm 2021 14 0.0 Hay model.csv
+2025-11-30 13:17:41,325 - INFO - Loading PVsyst file: Bomen solar farm 2021 14 0.0 Hay model.csv
+2025-11-30 13:17:41,647 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 14 0.0 Hay model.csv: 743 values clipped
+2025-11-30 13:17:41,650 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:17:41,652 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 14 0.0 Hay model.csv
+2025-11-30 13:17:41,652 - INFO - Processing measured electrical data...
+2025-11-30 13:17:41,660 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:41,714 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:41,717 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:41,717 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:41,722 - INFO - Simulation daily energy range: 0.00 to 28.40 MWh/day
+2025-11-30 13:17:41,727 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:41,736 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:41,737 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:41,763 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:41,768 - INFO - Results for Bomen solar farm 2021 14 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=14, Uv=0.0, RMSE=0.987, MBE=-5.379388e-14, CRMSE=0.987, Scale=1.018534
+2025-11-30 13:17:41,776 - INFO - Processing file 6/21: Bomen solar farm 2021 15 0.0 Hay model.csv
+2025-11-30 13:17:41,779 - INFO - Loading PVsyst file: Bomen solar farm 2021 15 0.0 Hay model.csv
+2025-11-30 13:17:42,113 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 15 0.0 Hay model.csv: 804 values clipped
+2025-11-30 13:17:42,118 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:17:42,120 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 15 0.0 Hay model.csv
+2025-11-30 13:17:42,121 - INFO - Processing measured electrical data...
+2025-11-30 13:17:42,127 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:42,153 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:42,154 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:42,155 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:42,163 - INFO - Simulation daily energy range: 0.00 to 28.48 MWh/day
+2025-11-30 13:17:42,168 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:42,172 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:42,173 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:42,194 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:42,200 - INFO - Results for Bomen solar farm 2021 15 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=15, Uv=0.0, RMSE=0.982, MBE=-2.310026e-14, CRMSE=0.982, Scale=1.012692
+2025-11-30 13:17:42,215 - INFO - Processing file 7/21: Bomen solar farm 2021 16 0.0 Hay model.csv
+2025-11-30 13:17:42,216 - INFO - Loading PVsyst file: Bomen solar farm 2021 16 0.0 Hay model.csv
+2025-11-30 13:17:42,539 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 16 0.0 Hay model.csv: 834 values clipped
+2025-11-30 13:17:42,540 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:17:42,542 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 16 0.0 Hay model.csv
+2025-11-30 13:17:42,542 - INFO - Processing measured electrical data...
+2025-11-30 13:17:42,549 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:42,575 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:42,576 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:42,577 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:42,583 - INFO - Simulation daily energy range: 0.00 to 28.53 MWh/day
+2025-11-30 13:17:42,589 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:42,592 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:42,593 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:42,605 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:17:42,608 - INFO - Results for Bomen solar farm 2021 16 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=16, Uv=0.0, RMSE=0.976, MBE=-3.397187e-14, CRMSE=0.976, Scale=1.008245
+2025-11-30 13:17:42,611 - INFO - Processing file 8/21: Bomen solar farm 2021 17 0.0 Hay model.csv
+2025-11-30 13:17:42,612 - INFO - Loading PVsyst file: Bomen solar farm 2021 17 0.0 Hay model.csv
+2025-11-30 13:17:42,912 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 17 0.0 Hay model.csv: 871 values clipped
+2025-11-30 13:17:42,913 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:17:42,915 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 17 0.0 Hay model.csv
+2025-11-30 13:17:42,916 - INFO - Processing measured electrical data...
+2025-11-30 13:17:42,923 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:42,947 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:42,948 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:42,948 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:42,954 - INFO - Simulation daily energy range: 0.00 to 28.56 MWh/day
+2025-11-30 13:17:42,959 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:42,964 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:42,965 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:42,983 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:17:42,987 - INFO - Results for Bomen solar farm 2021 17 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=17, Uv=0.0, RMSE=0.971, MBE=1.520196e-14, CRMSE=0.971, Scale=1.004373
+2025-11-30 13:17:42,990 - INFO - Processing file 9/21: Bomen solar farm 2021 18 0.0 Hay model.csv
+2025-11-30 13:17:42,991 - INFO - Loading PVsyst file: Bomen solar farm 2021 18 0.0 Hay model.csv
+2025-11-30 13:17:43,326 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 18 0.0 Hay model.csv: 896 values clipped
+2025-11-30 13:17:43,327 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:43,329 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 18 0.0 Hay model.csv
+2025-11-30 13:17:43,329 - INFO - Processing measured electrical data...
+2025-11-30 13:17:43,337 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:43,362 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:43,363 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:43,364 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:43,369 - INFO - Simulation daily energy range: 0.00 to 28.58 MWh/day
+2025-11-30 13:17:43,374 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:43,379 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:43,380 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:43,399 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:43,404 - INFO - Results for Bomen solar farm 2021 18 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=18, Uv=0.0, RMSE=0.967, MBE=3.555382e-14, CRMSE=0.967, Scale=1.000994
+2025-11-30 13:17:43,408 - INFO - Processing file 10/21: Bomen solar farm 2021 19 0.0 Hay model.csv
+2025-11-30 13:17:43,409 - INFO - Loading PVsyst file: Bomen solar farm 2021 19 0.0 Hay model.csv
+2025-11-30 13:17:43,689 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 19 0.0 Hay model.csv: 910 values clipped
+2025-11-30 13:17:43,690 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:43,691 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 19 0.0 Hay model.csv
+2025-11-30 13:17:43,692 - INFO - Processing measured electrical data...
+2025-11-30 13:17:43,697 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:43,720 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:43,721 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:43,722 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:43,727 - INFO - Simulation daily energy range: 0.00 to 28.60 MWh/day
+2025-11-30 13:17:43,731 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:43,734 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:43,735 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:43,751 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:43,755 - INFO - Results for Bomen solar farm 2021 19 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=19, Uv=0.0, RMSE=0.964, MBE=6.470361e-14, CRMSE=0.964, Scale=0.998231
+2025-11-30 13:17:43,759 - INFO - Processing file 11/21: Bomen solar farm 2021 20 0.0 Hay model.csv
+2025-11-30 13:17:43,759 - INFO - Loading PVsyst file: Bomen solar farm 2021 20 0.0 Hay model.csv
+2025-11-30 13:17:44,063 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 20 0.0 Hay model.csv: 922 values clipped
+2025-11-30 13:17:44,065 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:44,066 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 20 0.0 Hay model.csv
+2025-11-30 13:17:44,067 - INFO - Processing measured electrical data...
+2025-11-30 13:17:44,075 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:44,102 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:44,103 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:44,104 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:44,111 - INFO - Simulation daily energy range: 0.00 to 28.62 MWh/day
+2025-11-30 13:17:44,115 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:44,119 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:44,119 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:44,136 - INFO - Converged! Found factor with MBE below tolerance after 45 iterations.
+2025-11-30 13:17:44,143 - INFO - Results for Bomen solar farm 2021 20 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=20, Uv=0.0, RMSE=0.961, MBE=7.008986e-14, CRMSE=0.961, Scale=0.995702
+2025-11-30 13:17:44,147 - INFO - Processing file 12/21: Bomen solar farm 2021 21 0.0 Hay model.csv
+2025-11-30 13:17:44,148 - INFO - Loading PVsyst file: Bomen solar farm 2021 21 0.0 Hay model.csv
+2025-11-30 13:17:44,535 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 21 0.0 Hay model.csv: 940 values clipped
+2025-11-30 13:17:44,537 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:44,539 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 21 0.0 Hay model.csv
+2025-11-30 13:17:44,539 - INFO - Processing measured electrical data...
+2025-11-30 13:17:44,546 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:44,579 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:44,580 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:44,580 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:44,588 - INFO - Simulation daily energy range: 0.00 to 28.65 MWh/day
+2025-11-30 13:17:44,598 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:44,602 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:44,605 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:44,640 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:17:44,650 - INFO - Results for Bomen solar farm 2021 21 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=21, Uv=0.0, RMSE=0.959, MBE=-2.149925e-15, CRMSE=0.959, Scale=0.993469
+2025-11-30 13:17:44,656 - INFO - Processing file 13/21: Bomen solar farm 2021 22 0.0 Hay model.csv
+2025-11-30 13:17:44,657 - INFO - Loading PVsyst file: Bomen solar farm 2021 22 0.0 Hay model.csv
+2025-11-30 13:17:45,055 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 22 0.0 Hay model.csv: 956 values clipped
+2025-11-30 13:17:45,057 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:45,061 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 22 0.0 Hay model.csv
+2025-11-30 13:17:45,062 - INFO - Processing measured electrical data...
+2025-11-30 13:17:45,074 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:45,127 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:45,129 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:45,130 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:45,140 - INFO - Simulation daily energy range: 0.00 to 28.67 MWh/day
+2025-11-30 13:17:45,147 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:45,152 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:45,155 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:45,198 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-11-30 13:17:45,209 - INFO - Results for Bomen solar farm 2021 22 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=22, Uv=0.0, RMSE=0.958, MBE=9.436800e-14, CRMSE=0.958, Scale=0.991516
+2025-11-30 13:17:45,236 - INFO - Processing file 14/21: Bomen solar farm 2021 23 0.0 Hay model.csv
+2025-11-30 13:17:45,247 - INFO - Loading PVsyst file: Bomen solar farm 2021 23 0.0 Hay model.csv
+2025-11-30 13:17:45,656 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 23 0.0 Hay model.csv: 968 values clipped
+2025-11-30 13:17:45,657 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:45,658 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 23 0.0 Hay model.csv
+2025-11-30 13:17:45,659 - INFO - Processing measured electrical data...
+2025-11-30 13:17:45,666 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:45,691 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:45,693 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:45,694 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:45,700 - INFO - Simulation daily energy range: 0.00 to 28.68 MWh/day
+2025-11-30 13:17:45,706 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:45,711 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:45,711 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:45,734 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:45,740 - INFO - Results for Bomen solar farm 2021 23 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=23, Uv=0.0, RMSE=0.956, MBE=9.658273e-14, CRMSE=0.956, Scale=0.989723
+2025-11-30 13:17:45,745 - INFO - Processing file 15/21: Bomen solar farm 2021 24 0.0 Hay model.csv
+2025-11-30 13:17:45,746 - INFO - Loading PVsyst file: Bomen solar farm 2021 24 0.0 Hay model.csv
+2025-11-30 13:17:46,186 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 24 0.0 Hay model.csv: 982 values clipped
+2025-11-30 13:17:46,187 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:46,189 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 24 0.0 Hay model.csv
+2025-11-30 13:17:46,190 - INFO - Processing measured electrical data...
+2025-11-30 13:17:46,197 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:46,224 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:46,225 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:46,226 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:46,232 - INFO - Simulation daily energy range: 0.00 to 28.69 MWh/day
+2025-11-30 13:17:46,236 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:46,240 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:46,240 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:46,254 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:46,259 - INFO - Results for Bomen solar farm 2021 24 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=24, Uv=0.0, RMSE=0.955, MBE=-7.147359e-14, CRMSE=0.955, Scale=0.988324
+2025-11-30 13:17:46,263 - INFO - Processing file 16/21: Bomen solar farm 2021 25 0.0 Hay model.csv
+2025-11-30 13:17:46,263 - INFO - Loading PVsyst file: Bomen solar farm 2021 25 0.0 Hay model.csv
+2025-11-30 13:17:46,563 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 25 0.0 Hay model.csv: 995 values clipped
+2025-11-30 13:17:46,564 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:46,565 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 25 0.0 Hay model.csv
+2025-11-30 13:17:46,565 - INFO - Processing measured electrical data...
+2025-11-30 13:17:46,571 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:46,591 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:46,592 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:46,593 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:46,599 - INFO - Simulation daily energy range: 0.00 to 28.71 MWh/day
+2025-11-30 13:17:46,603 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:46,608 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:46,608 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:46,622 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:17:46,626 - INFO - Results for Bomen solar farm 2021 25 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=25, Uv=0.0, RMSE=0.954, MBE=-2.390077e-15, CRMSE=0.954, Scale=0.986809
+2025-11-30 13:17:46,629 - INFO - Processing file 17/21: Bomen solar farm 2021 26 0.0 Hay model.csv
+2025-11-30 13:17:46,630 - INFO - Loading PVsyst file: Bomen solar farm 2021 26 0.0 Hay model.csv
+2025-11-30 13:17:46,959 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 26 0.0 Hay model.csv: 1002 values clipped
+2025-11-30 13:17:46,961 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:46,963 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 26 0.0 Hay model.csv
+2025-11-30 13:17:46,963 - INFO - Processing measured electrical data...
+2025-11-30 13:17:46,972 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:47,016 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:47,018 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:47,019 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:47,027 - INFO - Simulation daily energy range: 0.00 to 28.72 MWh/day
+2025-11-30 13:17:47,032 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:47,038 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:47,039 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:47,057 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-11-30 13:17:47,063 - INFO - Results for Bomen solar farm 2021 26 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=26, Uv=0.0, RMSE=0.953, MBE=-5.090444e-14, CRMSE=0.953, Scale=0.985564
+2025-11-30 13:17:47,066 - INFO - Processing file 18/21: Bomen solar farm 2021 27 0.0 Hay model.csv
+2025-11-30 13:17:47,066 - INFO - Loading PVsyst file: Bomen solar farm 2021 27 0.0 Hay model.csv
+2025-11-30 13:17:47,419 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 27 0.0 Hay model.csv: 1013 values clipped
+2025-11-30 13:17:47,421 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:47,423 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 27 0.0 Hay model.csv
+2025-11-30 13:17:47,423 - INFO - Processing measured electrical data...
+2025-11-30 13:17:47,432 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:47,464 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:47,465 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:47,466 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:47,472 - INFO - Simulation daily energy range: 0.00 to 28.73 MWh/day
+2025-11-30 13:17:47,478 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:47,481 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:47,482 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:47,502 - INFO - Converged! Found factor with MBE below tolerance after 41 iterations.
+2025-11-30 13:17:47,511 - INFO - Results for Bomen solar farm 2021 27 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=27, Uv=0.0, RMSE=0.953, MBE=4.005189e-14, CRMSE=0.953, Scale=0.984400
+2025-11-30 13:17:47,515 - INFO - Processing file 19/21: Bomen solar farm 2021 28 0.0 Hay model.csv
+2025-11-30 13:17:47,515 - INFO - Loading PVsyst file: Bomen solar farm 2021 28 0.0 Hay model.csv
+2025-11-30 13:17:47,881 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 28 0.0 Hay model.csv: 1022 values clipped
+2025-11-30 13:17:47,882 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:47,884 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 28 0.0 Hay model.csv
+2025-11-30 13:17:47,885 - INFO - Processing measured electrical data...
+2025-11-30 13:17:47,892 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:47,920 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:47,921 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:47,922 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:47,933 - INFO - Simulation daily energy range: 0.00 to 28.74 MWh/day
+2025-11-30 13:17:47,940 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:47,945 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:47,946 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:47,964 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-11-30 13:17:47,969 - INFO - Results for Bomen solar farm 2021 28 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=28, Uv=0.0, RMSE=0.953, MBE=-9.162723e-14, CRMSE=0.953, Scale=0.983342
+2025-11-30 13:17:47,972 - INFO - Processing file 20/21: Bomen solar farm 2021 29 0.0 Hay model.csv
+2025-11-30 13:17:47,973 - INFO - Loading PVsyst file: Bomen solar farm 2021 29 0.0 Hay model.csv
+2025-11-30 13:17:48,384 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 29 0.0 Hay model.csv: 1033 values clipped
+2025-11-30 13:17:48,385 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:48,388 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 29 0.0 Hay model.csv
+2025-11-30 13:17:48,388 - INFO - Processing measured electrical data...
+2025-11-30 13:17:48,396 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:48,442 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:48,444 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:48,445 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:48,451 - INFO - Simulation daily energy range: 0.00 to 28.75 MWh/day
+2025-11-30 13:17:48,457 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:48,464 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:48,464 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:48,483 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:17:48,490 - INFO - Results for Bomen solar farm 2021 29 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=29, Uv=0.0, RMSE=0.952, MBE=-4.755757e-14, CRMSE=0.952, Scale=0.982436
+2025-11-30 13:17:48,495 - INFO - Processing file 21/21: Bomen solar farm 2021 30 0.0 Hay model.csv
+2025-11-30 13:17:48,496 - INFO - Loading PVsyst file: Bomen solar farm 2021 30 0.0 Hay model.csv
+2025-11-30 13:17:48,796 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 30 0.0 Hay model.csv: 1038 values clipped
+2025-11-30 13:17:48,797 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:17:48,798 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 30 0.0 Hay model.csv
+2025-11-30 13:17:48,799 - INFO - Processing measured electrical data...
+2025-11-30 13:17:48,807 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:17:48,834 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:17:48,835 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:17:48,836 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:17:48,841 - INFO - Simulation daily energy range: 0.00 to 28.75 MWh/day
+2025-11-30 13:17:48,846 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:17:48,849 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:17:48,849 - INFO - Keeping zero values in dataset
+2025-11-30 13:17:48,875 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:17:48,879 - INFO - Results for Bomen solar farm 2021 30 0.0 Hay model.csv: Inverter=7-2, Model=Hay, Uc=30, Uv=0.0, RMSE=0.952, MBE=9.114312e-15, CRMSE=0.952, Scale=0.981437
+2025-11-30 13:17:48,883 - INFO - Model type detected from folder path: Hay
+2025-11-30 13:17:48,895 - INFO - Results saved to: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\pvsyst_batch_evaluation_results_7_2_Hay.csv
+2025-11-30 13:17:48,896 - INFO - Transpositional model type: Hay
+2025-11-30 13:17:48,897 - INFO - 
+==================================================
+2025-11-30 13:17:48,898 - INFO - BATCH EVALUATION SUMMARY
+2025-11-30 13:17:48,899 - INFO - ==================================================
+2025-11-30 13:17:48,899 - INFO - Files processed successfully: 21
+2025-11-30 13:17:48,900 - INFO - Optimized parameters: Uc=30, Uv=0.0 with minimum RMSE=0.952
+2025-11-30 13:17:48,901 - INFO - Average RMSE: 0.973 ± 0.040
+2025-11-30 13:17:48,901 - INFO - Average CRMSE: 0.973 ± 0.040
+2025-11-30 13:17:48,902 - INFO - Average scaling factor: 1.003710 ± 0.025039
+2025-11-30 13:17:48,903 - INFO - Average data points per file: 233.0
+2025-11-30 13:19:27,374 - INFO - Project root: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021
+2025-11-30 13:19:27,375 - INFO - Selected inverter: 7-2
+2025-11-30 13:19:27,376 - INFO - Optimization folder: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\7-2\Perez
+2025-11-30 13:19:27,376 - INFO - PVsyst directory: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\PVsyst\per_inv\7-2\Perez
+2025-11-30 13:19:27,377 - INFO - Power clipping enabled: True
+2025-11-30 13:19:27,377 - INFO - Clipping threshold: 2.413 MW
+2025-11-30 13:19:27,378 - INFO - Starting batch evaluation of PVsyst files
+2025-11-30 13:19:27,378 - INFO - Loading measured electrical data from: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Data\full_inv_pow_5min.pkl
+2025-11-30 13:19:27,489 - INFO - Raw data shape: (385920, 45)
+2025-11-30 13:19:27,490 - INFO - Available inverters: ['1-1', '1-2', '10-1', '10-2', '11-1', '11-2', '12-1', '12-2', '13-1', '13-2', '14-1', '14-2', '15-1', '15-2', '16-1', '16-2', '17-1', '17-2', '18-1', '18-2', '19-1', '19-2', '2-1', '2-2', '20-1', '20-2', '21-1', '21-2', '22-1', '22-2', '3-1', '3-2', '4-1', '4-2', '5-1', '5-2', '6-1', '6-2', '7-1', '7-2', '8-1', '8-2', '9-1', '9-2']
+2025-11-30 13:19:27,503 - INFO - Set Timestamp as index. Date range: 2020-06-01 00:00:00 to 2024-01-31 23:55:00
+2025-11-30 13:19:27,514 - INFO - Filtered to inverter 7-2. Power range: -0.013 to 2.763 MW
+2025-11-30 13:19:27,514 - INFO - Successfully loaded 385920 measured data points for inverter 7-2
+2025-11-30 13:19:27,542 - INFO - Loaded 233 maintenance-free days
+2025-11-30 13:19:27,544 - INFO - Found 21 PVsyst CSV files to process
+2025-11-30 13:19:27,544 - INFO - Processing file 1/21: Bomen solar farm 2021 10 0.0 Perez model.csv
+2025-11-30 13:19:27,545 - INFO - Loading PVsyst file: Bomen solar farm 2021 10 0.0 Perez model.csv
+2025-11-30 13:19:27,782 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 10 0.0 Perez model.csv: 838 values clipped
+2025-11-30 13:19:27,783 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:19:27,785 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 10 0.0 Perez model.csv
+2025-11-30 13:19:27,785 - INFO - Processing measured electrical data...
+2025-11-30 13:19:27,791 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:27,818 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:27,819 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:27,819 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:27,823 - INFO - Simulation daily energy range: 0.00 to 28.53 MWh/day
+2025-11-30 13:19:27,827 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:27,829 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:27,829 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:27,842 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:27,846 - INFO - Results for Bomen solar farm 2021 10 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=10, Uv=0.0, RMSE=0.955, MBE=-7.430966e-14, CRMSE=0.955, Scale=1.002465
+2025-11-30 13:19:27,849 - INFO - Processing file 2/21: Bomen solar farm 2021 11 0.0 Perez model.csv
+2025-11-30 13:19:27,849 - INFO - Loading PVsyst file: Bomen solar farm 2021 11 0.0 Perez model.csv
+2025-11-30 13:19:28,103 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 11 0.0 Perez model.csv: 73 values clipped
+2025-11-30 13:19:28,104 - INFO - Maximum power reduced from 2.57 MW to 2.41 MW
+2025-11-30 13:19:28,105 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 11 0.0 Perez model.csv
+2025-11-30 13:19:28,105 - INFO - Processing measured electrical data...
+2025-11-30 13:19:28,111 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:28,129 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:28,130 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:28,131 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:28,135 - INFO - Simulation daily energy range: 0.00 to 27.26 MWh/day
+2025-11-30 13:19:28,139 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:28,142 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:28,142 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:28,151 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-11-30 13:19:28,154 - INFO - Results for Bomen solar farm 2021 11 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=11, Uv=0.0, RMSE=1.183, MBE=2.883721e-15, CRMSE=1.183, Scale=1.074533
+2025-11-30 13:19:28,158 - INFO - Processing file 3/21: Bomen solar farm 2021 12 0.0 Perez model.csv
+2025-11-30 13:19:28,158 - INFO - Loading PVsyst file: Bomen solar farm 2021 12 0.0 Perez model.csv
+2025-11-30 13:19:28,423 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 12 0.0 Perez model.csv: 329 values clipped
+2025-11-30 13:19:28,423 - INFO - Maximum power reduced from 2.75 MW to 2.41 MW
+2025-11-30 13:19:28,425 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 12 0.0 Perez model.csv
+2025-11-30 13:19:28,425 - INFO - Processing measured electrical data...
+2025-11-30 13:19:28,430 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:28,449 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:28,450 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:28,450 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:28,455 - INFO - Simulation daily energy range: 0.00 to 28.10 MWh/day
+2025-11-30 13:19:28,461 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:28,464 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:28,464 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:28,479 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:28,484 - INFO - Results for Bomen solar farm 2021 12 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=12, Uv=0.0, RMSE=0.962, MBE=-5.633262e-14, CRMSE=0.962, Scale=1.036142
+2025-11-30 13:19:28,488 - INFO - Processing file 4/21: Bomen solar farm 2021 13 0.0 Perez model.csv
+2025-11-30 13:19:28,489 - INFO - Loading PVsyst file: Bomen solar farm 2021 13 0.0 Perez model.csv
+2025-11-30 13:19:28,826 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 13 0.0 Perez model.csv: 626 values clipped
+2025-11-30 13:19:28,827 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:19:28,829 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 13 0.0 Perez model.csv
+2025-11-30 13:19:28,829 - INFO - Processing measured electrical data...
+2025-11-30 13:19:28,835 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:28,856 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:28,858 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:28,858 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:28,863 - INFO - Simulation daily energy range: 0.00 to 28.36 MWh/day
+2025-11-30 13:19:28,868 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:28,871 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:28,872 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:28,887 - INFO - Converged! Found factor with MBE below tolerance after 44 iterations.
+2025-11-30 13:19:28,892 - INFO - Results for Bomen solar farm 2021 13 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=13, Uv=0.0, RMSE=0.951, MBE=7.353965e-14, CRMSE=0.951, Scale=1.017329
+2025-11-30 13:19:28,896 - INFO - Processing file 5/21: Bomen solar farm 2021 14 0.0 Perez model.csv
+2025-11-30 13:19:28,896 - INFO - Loading PVsyst file: Bomen solar farm 2021 14 0.0 Perez model.csv
+2025-11-30 13:19:29,279 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 14 0.0 Perez model.csv: 783 values clipped
+2025-11-30 13:19:29,280 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:19:29,283 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 14 0.0 Perez model.csv
+2025-11-30 13:19:29,283 - INFO - Processing measured electrical data...
+2025-11-30 13:19:29,292 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:29,329 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:29,330 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:29,331 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:29,339 - INFO - Simulation daily energy range: 0.00 to 28.46 MWh/day
+2025-11-30 13:19:29,344 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:29,348 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:29,350 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:29,374 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:29,381 - INFO - Results for Bomen solar farm 2021 14 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=14, Uv=0.0, RMSE=0.958, MBE=-2.134297e-14, CRMSE=0.958, Scale=1.008123
+2025-11-30 13:19:29,386 - INFO - Processing file 6/21: Bomen solar farm 2021 15 0.0 Perez model.csv
+2025-11-30 13:19:29,387 - INFO - Loading PVsyst file: Bomen solar farm 2021 15 0.0 Perez model.csv
+2025-11-30 13:19:29,868 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 15 0.0 Perez model.csv: 838 values clipped
+2025-11-30 13:19:29,869 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:19:29,871 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 15 0.0 Perez model.csv
+2025-11-30 13:19:29,871 - INFO - Processing measured electrical data...
+2025-11-30 13:19:29,878 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:29,916 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:29,918 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:29,919 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:29,924 - INFO - Simulation daily energy range: 0.00 to 28.53 MWh/day
+2025-11-30 13:19:29,929 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:29,932 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:29,933 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:29,951 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:29,956 - INFO - Results for Bomen solar farm 2021 15 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=15, Uv=0.0, RMSE=0.955, MBE=1.043324e-14, CRMSE=0.955, Scale=1.002451
+2025-11-30 13:19:29,960 - INFO - Processing file 7/21: Bomen solar farm 2021 16 0.0 Perez model.csv
+2025-11-30 13:19:29,961 - INFO - Loading PVsyst file: Bomen solar farm 2021 16 0.0 Perez model.csv
+2025-11-30 13:19:30,310 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 16 0.0 Perez model.csv: 874 values clipped
+2025-11-30 13:19:30,311 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:19:30,314 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 16 0.0 Perez model.csv
+2025-11-30 13:19:30,314 - INFO - Processing measured electrical data...
+2025-11-30 13:19:30,321 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:30,348 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:30,349 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:30,350 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:30,357 - INFO - Simulation daily energy range: 0.00 to 28.56 MWh/day
+2025-11-30 13:19:30,362 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:30,367 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:30,367 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:30,387 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:19:30,392 - INFO - Results for Bomen solar farm 2021 16 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=16, Uv=0.0, RMSE=0.950, MBE=-1.531631e-14, CRMSE=0.950, Scale=0.997873
+2025-11-30 13:19:30,396 - INFO - Processing file 8/21: Bomen solar farm 2021 17 0.0 Perez model.csv
+2025-11-30 13:19:30,396 - INFO - Loading PVsyst file: Bomen solar farm 2021 17 0.0 Perez model.csv
+2025-11-30 13:19:30,727 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 17 0.0 Perez model.csv: 901 values clipped
+2025-11-30 13:19:30,728 - INFO - Maximum power reduced from 2.80 MW to 2.41 MW
+2025-11-30 13:19:30,730 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 17 0.0 Perez model.csv
+2025-11-30 13:19:30,731 - INFO - Processing measured electrical data...
+2025-11-30 13:19:30,739 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:30,764 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:30,766 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:30,766 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:30,773 - INFO - Simulation daily energy range: 0.00 to 28.59 MWh/day
+2025-11-30 13:19:30,779 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:30,782 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:30,783 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:30,801 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:30,807 - INFO - Results for Bomen solar farm 2021 17 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=17, Uv=0.0, RMSE=0.947, MBE=6.708987e-16, CRMSE=0.947, Scale=0.994165
+2025-11-30 13:19:30,811 - INFO - Processing file 9/21: Bomen solar farm 2021 18 0.0 Perez model.csv
+2025-11-30 13:19:30,812 - INFO - Loading PVsyst file: Bomen solar farm 2021 18 0.0 Perez model.csv
+2025-11-30 13:19:31,137 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 18 0.0 Perez model.csv: 918 values clipped
+2025-11-30 13:19:31,138 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:31,139 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 18 0.0 Perez model.csv
+2025-11-30 13:19:31,140 - INFO - Processing measured electrical data...
+2025-11-30 13:19:31,146 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:31,173 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:31,174 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:31,174 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:31,180 - INFO - Simulation daily energy range: 0.00 to 28.61 MWh/day
+2025-11-30 13:19:31,186 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:31,191 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:31,192 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:31,210 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:31,214 - INFO - Results for Bomen solar farm 2021 18 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=18, Uv=0.0, RMSE=0.945, MBE=-7.978739e-14, CRMSE=0.945, Scale=0.991041
+2025-11-30 13:19:31,218 - INFO - Processing file 10/21: Bomen solar farm 2021 19 0.0 Perez model.csv
+2025-11-30 13:19:31,219 - INFO - Loading PVsyst file: Bomen solar farm 2021 19 0.0 Perez model.csv
+2025-11-30 13:19:31,571 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 19 0.0 Perez model.csv: 935 values clipped
+2025-11-30 13:19:31,573 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:31,574 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 19 0.0 Perez model.csv
+2025-11-30 13:19:31,575 - INFO - Processing measured electrical data...
+2025-11-30 13:19:31,581 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:31,612 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:31,613 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:31,614 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:31,620 - INFO - Simulation daily energy range: 0.00 to 28.63 MWh/day
+2025-11-30 13:19:31,626 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:31,630 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:31,630 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:31,648 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:31,655 - INFO - Results for Bomen solar farm 2021 19 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=19, Uv=0.0, RMSE=0.944, MBE=4.198073e-14, CRMSE=0.944, Scale=0.988254
+2025-11-30 13:19:31,661 - INFO - Processing file 11/21: Bomen solar farm 2021 20 0.0 Perez model.csv
+2025-11-30 13:19:31,662 - INFO - Loading PVsyst file: Bomen solar farm 2021 20 0.0 Perez model.csv
+2025-11-30 13:19:31,982 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 20 0.0 Perez model.csv: 957 values clipped
+2025-11-30 13:19:31,986 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:31,987 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 20 0.0 Perez model.csv
+2025-11-30 13:19:31,988 - INFO - Processing measured electrical data...
+2025-11-30 13:19:31,995 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:32,030 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:32,032 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:32,032 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:32,041 - INFO - Simulation daily energy range: 0.00 to 28.65 MWh/day
+2025-11-30 13:19:32,045 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:32,050 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:32,051 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:32,071 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:19:32,076 - INFO - Results for Bomen solar farm 2021 20 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=20, Uv=0.0, RMSE=0.943, MBE=-7.273152e-15, CRMSE=0.943, Scale=0.985851
+2025-11-30 13:19:32,080 - INFO - Processing file 12/21: Bomen solar farm 2021 21 0.0 Perez model.csv
+2025-11-30 13:19:32,081 - INFO - Loading PVsyst file: Bomen solar farm 2021 21 0.0 Perez model.csv
+2025-11-30 13:19:32,412 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 21 0.0 Perez model.csv: 971 values clipped
+2025-11-30 13:19:32,413 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:32,414 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 21 0.0 Perez model.csv
+2025-11-30 13:19:32,415 - INFO - Processing measured electrical data...
+2025-11-30 13:19:32,422 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:32,448 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:32,449 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:32,450 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:32,457 - INFO - Simulation daily energy range: 0.00 to 28.67 MWh/day
+2025-11-30 13:19:32,462 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:32,466 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:32,467 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:32,483 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:19:32,489 - INFO - Results for Bomen solar farm 2021 21 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=21, Uv=0.0, RMSE=0.943, MBE=1.034556e-14, CRMSE=0.943, Scale=0.983690
+2025-11-30 13:19:32,493 - INFO - Processing file 13/21: Bomen solar farm 2021 22 0.0 Perez model.csv
+2025-11-30 13:19:32,494 - INFO - Loading PVsyst file: Bomen solar farm 2021 22 0.0 Perez model.csv
+2025-11-30 13:19:32,787 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 22 0.0 Perez model.csv: 990 values clipped
+2025-11-30 13:19:32,788 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:32,789 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 22 0.0 Perez model.csv
+2025-11-30 13:19:32,790 - INFO - Processing measured electrical data...
+2025-11-30 13:19:32,796 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:32,819 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:32,820 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:32,820 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:32,825 - INFO - Simulation daily energy range: 0.00 to 28.68 MWh/day
+2025-11-30 13:19:32,869 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:32,887 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:32,888 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:32,958 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:19:32,962 - INFO - Results for Bomen solar farm 2021 22 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=22, Uv=0.0, RMSE=0.942, MBE=1.862125e-14, CRMSE=0.942, Scale=0.981740
+2025-11-30 13:19:32,965 - INFO - Processing file 14/21: Bomen solar farm 2021 23 0.0 Perez model.csv
+2025-11-30 13:19:32,966 - INFO - Loading PVsyst file: Bomen solar farm 2021 23 0.0 Perez model.csv
+2025-11-30 13:19:33,232 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 23 0.0 Perez model.csv: 1001 values clipped
+2025-11-30 13:19:33,232 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:33,234 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 23 0.0 Perez model.csv
+2025-11-30 13:19:33,234 - INFO - Processing measured electrical data...
+2025-11-30 13:19:33,240 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:33,264 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:33,265 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:33,265 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:33,271 - INFO - Simulation daily energy range: 0.00 to 28.70 MWh/day
+2025-11-30 13:19:33,276 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:33,280 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:33,280 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:33,297 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:33,302 - INFO - Results for Bomen solar farm 2021 23 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=23, Uv=0.0, RMSE=0.942, MBE=-8.207836e-14, CRMSE=0.942, Scale=0.980088
+2025-11-30 13:19:33,306 - INFO - Processing file 15/21: Bomen solar farm 2021 24 0.0 Perez model.csv
+2025-11-30 13:19:33,307 - INFO - Loading PVsyst file: Bomen solar farm 2021 24 0.0 Perez model.csv
+2025-11-30 13:19:33,618 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 24 0.0 Perez model.csv: 1016 values clipped
+2025-11-30 13:19:33,619 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:33,620 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 24 0.0 Perez model.csv
+2025-11-30 13:19:33,621 - INFO - Processing measured electrical data...
+2025-11-30 13:19:33,627 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:33,653 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:33,654 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:33,655 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:33,660 - INFO - Simulation daily energy range: 0.00 to 28.71 MWh/day
+2025-11-30 13:19:33,664 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:33,667 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:33,668 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:33,683 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:19:33,687 - INFO - Results for Bomen solar farm 2021 24 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=24, Uv=0.0, RMSE=0.942, MBE=-1.532012e-14, CRMSE=0.942, Scale=0.978672
+2025-11-30 13:19:33,690 - INFO - Processing file 16/21: Bomen solar farm 2021 25 0.0 Perez model.csv
+2025-11-30 13:19:33,691 - INFO - Loading PVsyst file: Bomen solar farm 2021 25 0.0 Perez model.csv
+2025-11-30 13:19:33,948 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 25 0.0 Perez model.csv: 1027 values clipped
+2025-11-30 13:19:33,949 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:33,951 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 25 0.0 Perez model.csv
+2025-11-30 13:19:33,951 - INFO - Processing measured electrical data...
+2025-11-30 13:19:33,958 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:33,979 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:33,980 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:33,980 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:33,985 - INFO - Simulation daily energy range: 0.00 to 28.72 MWh/day
+2025-11-30 13:19:33,989 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:33,992 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:33,992 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:34,006 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:34,010 - INFO - Results for Bomen solar farm 2021 25 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=25, Uv=0.0, RMSE=0.942, MBE=-1.194276e-14, CRMSE=0.942, Scale=0.977173
+2025-11-30 13:19:34,012 - INFO - Processing file 17/21: Bomen solar farm 2021 26 0.0 Perez model.csv
+2025-11-30 13:19:34,013 - INFO - Loading PVsyst file: Bomen solar farm 2021 26 0.0 Perez model.csv
+2025-11-30 13:19:34,284 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 26 0.0 Perez model.csv: 1038 values clipped
+2025-11-30 13:19:34,285 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:34,286 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 26 0.0 Perez model.csv
+2025-11-30 13:19:34,287 - INFO - Processing measured electrical data...
+2025-11-30 13:19:34,293 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:34,315 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:34,315 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:34,316 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:34,322 - INFO - Simulation daily energy range: 0.00 to 28.73 MWh/day
+2025-11-30 13:19:34,327 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:34,331 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:34,332 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:34,349 - INFO - Converged! Found factor with MBE below tolerance after 43 iterations.
+2025-11-30 13:19:34,353 - INFO - Results for Bomen solar farm 2021 26 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=26, Uv=0.0, RMSE=0.943, MBE=-6.007974e-14, CRMSE=0.943, Scale=0.975933
+2025-11-30 13:19:34,357 - INFO - Processing file 18/21: Bomen solar farm 2021 27 0.0 Perez model.csv
+2025-11-30 13:19:34,357 - INFO - Loading PVsyst file: Bomen solar farm 2021 27 0.0 Perez model.csv
+2025-11-30 13:19:34,665 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 27 0.0 Perez model.csv: 1045 values clipped
+2025-11-30 13:19:34,666 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:34,667 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 27 0.0 Perez model.csv
+2025-11-30 13:19:34,668 - INFO - Processing measured electrical data...
+2025-11-30 13:19:34,674 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:34,697 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:34,698 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:34,699 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:34,705 - INFO - Simulation daily energy range: 0.00 to 28.74 MWh/day
+2025-11-30 13:19:34,709 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:34,713 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:34,713 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:34,730 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:34,735 - INFO - Results for Bomen solar farm 2021 27 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=27, Uv=0.0, RMSE=0.943, MBE=-6.872900e-14, CRMSE=0.943, Scale=0.974802
+2025-11-30 13:19:34,739 - INFO - Processing file 19/21: Bomen solar farm 2021 28 0.0 Perez model.csv
+2025-11-30 13:19:34,740 - INFO - Loading PVsyst file: Bomen solar farm 2021 28 0.0 Perez model.csv
+2025-11-30 13:19:35,000 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 28 0.0 Perez model.csv: 1052 values clipped
+2025-11-30 13:19:35,001 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:35,002 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 28 0.0 Perez model.csv
+2025-11-30 13:19:35,003 - INFO - Processing measured electrical data...
+2025-11-30 13:19:35,009 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:35,033 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:35,035 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:35,035 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:35,040 - INFO - Simulation daily energy range: 0.00 to 28.75 MWh/day
+2025-11-30 13:19:35,043 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:35,046 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:35,046 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:35,056 - INFO - Converged! Found factor with MBE below tolerance after 45 iterations.
+2025-11-30 13:19:35,059 - INFO - Results for Bomen solar farm 2021 28 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=28, Uv=0.0, RMSE=0.944, MBE=-7.766034e-14, CRMSE=0.944, Scale=0.973639
+2025-11-30 13:19:35,062 - INFO - Processing file 20/21: Bomen solar farm 2021 29 0.0 Perez model.csv
+2025-11-30 13:19:35,062 - INFO - Loading PVsyst file: Bomen solar farm 2021 29 0.0 Perez model.csv
+2025-11-30 13:19:35,312 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 29 0.0 Perez model.csv: 1056 values clipped
+2025-11-30 13:19:35,313 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:35,314 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 29 0.0 Perez model.csv
+2025-11-30 13:19:35,315 - INFO - Processing measured electrical data...
+2025-11-30 13:19:35,320 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:35,339 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:35,340 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:35,341 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:35,345 - INFO - Simulation daily energy range: 0.00 to 28.76 MWh/day
+2025-11-30 13:19:35,350 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:35,352 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:35,353 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:35,366 - INFO - Converged! Found factor with MBE below tolerance after 46 iterations.
+2025-11-30 13:19:35,370 - INFO - Results for Bomen solar farm 2021 29 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=29, Uv=0.0, RMSE=0.944, MBE=3.060213e-14, CRMSE=0.944, Scale=0.972714
+2025-11-30 13:19:35,373 - INFO - Processing file 21/21: Bomen solar farm 2021 30 0.0 Perez model.csv
+2025-11-30 13:19:35,374 - INFO - Loading PVsyst file: Bomen solar farm 2021 30 0.0 Perez model.csv
+2025-11-30 13:19:35,638 - INFO - Applied 2.413 MW clipping to Bomen solar farm 2021 30 0.0 Perez model.csv: 1064 values clipped
+2025-11-30 13:19:35,639 - INFO - Maximum power reduced from 2.81 MW to 2.41 MW
+2025-11-30 13:19:35,641 - INFO - Successfully loaded 8736 data points from Bomen solar farm 2021 30 0.0 Perez model.csv
+2025-11-30 13:19:35,641 - INFO - Processing measured electrical data...
+2025-11-30 13:19:35,647 - INFO - Created energy column. Sample values: [0. 0. 0. 0. 0.]
+2025-11-30 13:19:35,670 - INFO - Resampled to daily totals: 1340 days
+2025-11-30 13:19:35,671 - INFO - Daily energy range: 0.00 to 30.17 MWh/day
+2025-11-30 13:19:35,671 - INFO - Processing PVsyst simulation data...
+2025-11-30 13:19:35,676 - INFO - Simulation daily energy range: 0.00 to 28.77 MWh/day
+2025-11-30 13:19:35,680 - INFO - After filtering for matching dates: 364 data points (removed 976 NaN values)
+2025-11-30 13:19:35,683 - INFO - After filtering for maintenance-free days: 233 data points (removed 131 points)
+2025-11-30 13:19:35,684 - INFO - Keeping zero values in dataset
+2025-11-30 13:19:35,697 - INFO - Converged! Found factor with MBE below tolerance after 47 iterations.
+2025-11-30 13:19:35,702 - INFO - Results for Bomen solar farm 2021 30 0.0 Perez model.csv: Inverter=7-2, Model=Perez, Uc=30, Uv=0.0, RMSE=0.945, MBE=3.290453e-14, CRMSE=0.945, Scale=0.971898
+2025-11-30 13:19:35,707 - INFO - Model type detected from folder path: Perez
+2025-11-30 13:19:35,718 - INFO - Results saved to: c:\Users\z5183876\OneDrive - UNSW\Documents\GitHub\25_09_02_Bomen_bifacial_gain_2021\Results\pvsyst_batch_evaluation_results_7_2_Perez.csv
+2025-11-30 13:19:35,719 - INFO - Transpositional model type: Perez
+2025-11-30 13:19:35,721 - INFO - 
+==================================================
+2025-11-30 13:19:35,722 - INFO - BATCH EVALUATION SUMMARY
+2025-11-30 13:19:35,723 - INFO - ==================================================
+2025-11-30 13:19:35,724 - INFO - Files processed successfully: 21
+2025-11-30 13:19:35,724 - INFO - Optimized parameters: Uc=23, Uv=0.0 with minimum RMSE=0.942
+2025-11-30 13:19:35,726 - INFO - Average RMSE: 0.958 ± 0.052
+2025-11-30 13:19:35,728 - INFO - Average CRMSE: 0.958 ± 0.052
+2025-11-30 13:19:35,729 - INFO - Average scaling factor: 0.993742 ± 0.024789
+2025-11-30 13:19:35,729 - INFO - Average data points per file: 233.0
